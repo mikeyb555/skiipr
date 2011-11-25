@@ -14,7 +14,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springf
         then be used within application context files in the form of
         ${propertyKey}.
     -->
-    <context:property-placeholder location="classpath*:META-INF/spring/*.properties"/>
+    <context:property-placeholder location="classpath*:properties/*.properties"/>
 
     <!--
         Turn on AspectJ @Configurable support. As a result, any time you
