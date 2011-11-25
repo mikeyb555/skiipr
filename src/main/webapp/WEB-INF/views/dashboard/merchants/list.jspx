@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:list id="pl_com_skiipr_server_model_Merchant" items="${merchants}" z="L46HI+SP1WGVlfYVx+H2pS5kNOg=">
+        <table:table data="${merchants}" id="l_com_skiipr_server_model_Merchant" path="/dashboard/merchants" z="IZdNBfgnR+b83LqZ+l1Oqj2T2oI=">
+            <table:column id="c_com_skiipr_server_model_Merchant_name" property="name" z="xpvGHcZ3SYNb6DvLb6a0CLVtpSQ="/>
+            <table:column id="c_com_skiipr_server_model_Merchant_address_number" property="address_number" z="rgors7z5NLRv/E1YChmU8qEFlzc="/>
+            <table:column id="c_com_skiipr_server_model_Merchant_address_street" property="address_street" z="Wa2E8hmW8eC7DATzE93/LnNsEVQ="/>
+            <table:column id="c_com_skiipr_server_model_Merchant_address_state" property="address_state" z="W1H8Vl601VMgPmQJebbZdS2hoqs="/>
+            <table:column id="c_com_skiipr_server_model_Merchant_address_country" property="address_country" z="FK92DAO1xccK54Pctp3JKfTYZfc="/>
+            <table:column id="c_com_skiipr_server_model_Merchant_username" property="username" z="zpFvfrdWMG2nrvK3Qg6gDJ/X3Eg="/>
+        </table:table>
+    </page:list>
+</div>

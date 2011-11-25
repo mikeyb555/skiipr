@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+    <tiles-definitions>
+        <definition extends="dashboard" name="/dashboard/merchants/list">
+            <put-attribute name="body" value="/WEB-INF/views/dashboard/merchants/list.jspx"/>
+        </definition>
+    <definition extends="dashboard" name="/dashboard/merchants/show">
+            <put-attribute name="body" value="/WEB-INF/views/dashboard/merchants/show.jspx"/>
+        </definition>
+    <definition extends="dashboard" name="/dashboard/merchants/create">
+            <put-attribute name="body" value="/WEB-INF/views/dashboard/merchants/create.jspx"/>
+        </definition>
+    <definition extends="dashboard" name="/dashboard/merchants/update">
+            <put-attribute name="body" value="/WEB-INF/views/dashboard/merchants/update.jspx"/>
+    </definition>
+</tiles-definitions>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:menu="urn:jsptagdir:/WEB-INF/tags/menu" id="menu" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <menu:menu id="_menu" z="nZaf43BjUg1iM0v70HJVEsXDopc=">
+        <menu:category id="c_plan" z="rFhVlXy74qcnIbTwQajzgsWD6BQ=">
+            <menu:item id="i_plan_new" messageCode="global_menu_new" url="/dashboard/plans?form" z="2TMEcbjiBPUDB0XdAuoAiIE8/5o="/>
+            <menu:item id="i_plan_list" messageCode="global_menu_list" url="/dashboard/plans?page=1&amp;size=${empty param.size ? 10 : param.size}" z="7O0iDgJ22cE9ne87HOU1zuVJpUw="/>
+        </menu:category>
+        <menu:category id="c_merchant" z="tqredmTJT1BisCWT/ZF5WwSFbS8=">
+            <menu:item id="i_merchant_new" messageCode="global_menu_new" url="/dashboard/merchants?form" z="WyWITpQlLjtBhZ+NvUV+fIsN5b0="/>
+            <menu:item id="i_merchant_list" messageCode="global_menu_list" url="/dashboard/merchants?page=1&amp;size=${empty param.size ? 10 : param.size}" z="NZdnYcGpWqfXK34QVh6rcc/j9tU="/>
+        </menu:category>
+        <menu:category id="c_product" z="vJ6efqiSxFssuvqFTsXpvZ3AvA8=">
+            <menu:item id="i_product_new" messageCode="global_menu_new" url="/dashboard/products?form" z="e67nH5hmdUFsr5Nw+uEW2kM3dZ4="/>
+            <menu:item id="i_product_list" messageCode="global_menu_list" url="/dashboard/products?page=1&amp;size=${empty param.size ? 10 : param.size}" z="azExeKr1qLAAG9j1sOHGspRtn/s="/>
+        </menu:category>
+    </menu:menu>
+</div>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:show id="ps_com_skiipr_server_model_Plan" object="${plan}" path="/dashboard/plans" z="ztLaeN7U0u1ZCh7pxaN5r87To5w=">
+        <field:display field="name" id="s_com_skiipr_server_model_Plan_name" object="${plan}" z="PxOJ2h4OVHV2+gc1Oj4yMX1MfvE="/>
+        <field:display field="max_orders" id="s_com_skiipr_server_model_Plan_max_orders" object="${plan}" z="v5BNOwYkCXkKB16qj/Axduy0gZU="/>
+        <field:display field="can_paypal" id="s_com_skiipr_server_model_Plan_can_paypal" object="${plan}" z="95OP9evLpTP04dD9tyFCmidI3a0="/>
+    </page:show>
+</div>

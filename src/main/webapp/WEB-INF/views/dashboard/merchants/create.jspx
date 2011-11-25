@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <form:create id="fc_com_skiipr_server_model_Merchant" modelAttribute="merchant" path="/dashboard/merchants" render="${empty dependencies}" z="3zPgzKPS4BmkRXfPxcLrvZWkABk=">
+        <field:input field="name" id="c_com_skiipr_server_model_Merchant_name" z="cxMkfafvsVjhRzx3xJCD2RDH17I="/>
+        <field:input field="address_number" id="c_com_skiipr_server_model_Merchant_address_number" z="iAmsi/FWI3lf1dZjBFESGJo4c/c="/>
+        <field:input field="address_street" id="c_com_skiipr_server_model_Merchant_address_street" z="FqYNOh/H1+SFjblNScv3Qn7ee9o="/>
+        <field:input field="address_state" id="c_com_skiipr_server_model_Merchant_address_state" z="cFnw80OTOuOmi8L5LXWxctUzI2Y="/>
+        <field:input field="address_country" id="c_com_skiipr_server_model_Merchant_address_country" z="5U679K3nSGdwegdB7evdGtwqteU="/>
+        <field:checkbox field="paypal" id="c_com_skiipr_server_model_Merchant_paypal" z="V7taQdR4c64u6gYVRvdIJ+Uv+So="/>
+        <field:input field="email" id="c_com_skiipr_server_model_Merchant_email" validationMessageCode="field_invalid_email" z="aRu1ml9pOFdQkKN54N63uomVzoQ="/>
+        <field:select field="plan" id="c_com_skiipr_server_model_Merchant_plan" itemValue="id" items="${plans}" path="//dashboard/plans" z="NkuGwFFG+lm04wCHWNgGE2H2Jyg="/>
+        <field:input field="username" id="c_com_skiipr_server_model_Merchant_username" z="rhGuOWxDl/sJiya/yJYLa/q/fVg="/>
+    </form:create>
+    <form:dependency dependencies="${dependencies}" id="d_com_skiipr_server_model_Merchant" render="${not empty dependencies}" z="ey/tq2Za/fyzsh0rad24Hj8eX+k="/>
+</div>

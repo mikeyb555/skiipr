@@ -1,0 +1,30 @@
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags" version="2.0">
+
+  <jsp:output omit-xml-declaration="yes" />
+
+  <spring:url value="/resources/dojo/dojo.js" var="dojo_url" />
+  <spring:url value="/resources/spring/Spring.js" var="spring_url" />
+  <spring:url value="/resources/spring/Spring-Dojo.js" var="spring_dojo_url" />
+  <spring:url value="/resources/dijit/themes/tundra/tundra.css" var="tundra_url" />
+  <spring:url value="/resources/dojo/resources/dojo.css" var="dojo_css_url" />
+  
+  <spring:url value="/resources/images/favicon.ico" var="favicon" />
+  <link rel="stylesheet" type="text/css" href="${tundra_url}"><!-- required for FF3 and Opera --></link>
+  <link rel="stylesheet" type="text/css" href="${dojo_css_url}"><!-- required for FF3 and Opera --></link>
+  <link rel="SHORTCUT ICON" href="${favicon}" />
+  
+   <spring:url value="/resources/styles/dashboard/style.css" var="dashboard_general_css" />
+   <spring:url value="/resources/styles/dashboard/fixed.css" var="dashboard_fixed_css" />
+   <spring:url value="/resources/styles/standard.css" var="standard_css" />
+       <link rel="stylesheet" type="text/css" href="${standard_css}" title="fixed" media="screen" />
+    <link rel="stylesheet" type="text/css" href="${dashboard_general_css}" title="fixed" media="screen" />
+    <link rel="stylesheet" type="text/css" href="${dashboard_fixed_css}" title="fixed" media="screen" />
+
+
+
+  <script src="${dojo_url}" type="text/javascript"><!-- required for FF3 and Opera --></script>
+  <script src="${spring_url}" type="text/javascript"><!-- /required for FF3 and Opera --></script>
+  <script src="${spring_dojo_url}" type="text/javascript"><!-- required for FF3 and Opera --></script>
+  <script language="JavaScript" type="text/javascript">dojo.require("dojo.parser");</script>
+
+</jsp:root>

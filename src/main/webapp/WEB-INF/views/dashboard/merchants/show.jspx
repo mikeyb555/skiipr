@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:show id="ps_com_skiipr_server_model_Merchant" object="${merchant}" path="/dashboard/merchants" z="ReRFgc+oyKPfC+q9WZhBTJ/ZhbU=">
+        <field:display field="name" id="s_com_skiipr_server_model_Merchant_name" object="${merchant}" z="W5uHBbBqlZyO58XHB3MBVwpghMc="/>
+        <field:display field="address_number" id="s_com_skiipr_server_model_Merchant_address_number" object="${merchant}" z="5/UdXPjDNt1X39dV2cp7yPI01cQ="/>
+        <field:display field="address_street" id="s_com_skiipr_server_model_Merchant_address_street" object="${merchant}" z="q+2Eety5+bgzJ08+mYcECGA3wGA="/>
+        <field:display field="address_state" id="s_com_skiipr_server_model_Merchant_address_state" object="${merchant}" z="ck4GC7ub5JAF27tH2dvpyfKVnSg="/>
+        <field:display field="address_country" id="s_com_skiipr_server_model_Merchant_address_country" object="${merchant}" z="mVZFKx/qzqnf03LSk01VLmlpfU8="/>
+        <field:display field="paypal" id="s_com_skiipr_server_model_Merchant_paypal" object="${merchant}" z="w9v1XdKHeRnKNMhgrei/7OyiVjk="/>
+        <field:display field="email" id="s_com_skiipr_server_model_Merchant_email" object="${merchant}" z="UECqM6Z2AELyJGz/YpIuUOy+nLk="/>
+        <field:display field="plan" id="s_com_skiipr_server_model_Merchant_plan" object="${merchant}" z="FCuV8+qAga+Ck2NGsfbpVq/zgz8="/>
+        <field:display field="username" id="s_com_skiipr_server_model_Merchant_username" object="${merchant}" z="3HxdCSVPPjv7jBTc6iMFRqevCKg="/>
+    </page:show>
+</div>

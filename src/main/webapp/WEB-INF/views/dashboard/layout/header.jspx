@@ -1,0 +1,84 @@
+<header xmlns:jsp="http://java.sun.com/JSP/Page" 
+        xmlns:c="http://java.sun.com/jsp/jstl/core" 
+        xmlns:tiles="http://tiles.apache.org/tags-tiles" 
+        xmlns:spring="http://www.springframework.org/tags" 
+        xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+        xmlns:general="urn:jsptagdir:/WEB-INF/tags/general">
+    <div class="container_16 clearfix">
+        <div class="clearfix">
+            <a id="logo" href="#"><jsp:text/></a>
+        </div>
+        
+            <nav>
+                <div id="navcontainer" class="clearfix">
+                <div id="user" class="clearfix">
+                    <strong class="username">Welcome, username</strong>
+                    <ul class="piped">
+                        <li><general:link id="account_link" url="/dashboard/account" label="Manage account"/></li>
+                        <li><general:link id="logout_link" url="/dashboard/logout" label="Logout"/></li>
+                    </ul>
+                </div>
+
+                <div id="navclose"></div>
+
+                <ul class="sf-menu">
+                    <li>
+                        <spring:url value="/images/dashboard/menu/dashboard.png" var="dashboard_icon" />
+                        <spring:url value="/dashboard" var="dashboard_link" />
+                        <a href="${dashboard_link}">
+                            <span class="icon"><img src="${dashboard_icon}" /></span>
+                            <span class="title">Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span class="icon"><img src="#" /></span>
+                            <span class="title">Orders</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span class="icon"><img src="#" /></span>
+                            <span class="title">Products</span>
+                        </a>
+                        <ul>
+                            <li><a href="#">Products</a></li>
+                            <li><a href="#">Categories</a></li>  
+
+                        </ul>
+
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="icon"><img src="#" /></span>
+                            <span class="title">Pickup locations</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span class="icon"><img src="#" /></span>
+                            <span class="title">Reports</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="icon"><img src="#" /></span>
+                            <span class="title">Settings</span>
+                        </a>
+                    </li>
+                    <li class="sep">
+                        <a href="#">
+                            <span class="icon"><img src="#" /></span>
+                            <span class="title">Switch merchant</span>
+                        </a>
+                    </li>
+                </ul>
+                </div>
+            </nav>
+        
+        <div id="pagetitle" class="clearfix">
+            <h1 class="left">Dashboard</h1>
+            <a class="btn grey right medium"><span>Plans &amp; Billing</span></a>
+        </div>
+    </div>
+</header>
