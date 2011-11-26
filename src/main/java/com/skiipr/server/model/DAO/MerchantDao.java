@@ -9,5 +9,4 @@ public interface MerchantDao {
     public void delete(Merchant merchant);
     public Merchant findByUsername(String username);
     public Merchant findById(Long id);
-    public void merge(Merchant merchant);
 }

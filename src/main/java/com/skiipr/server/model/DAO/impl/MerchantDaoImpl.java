@@ -49,9 +49,4 @@ public class MerchantDaoImpl extends HibernateDaoSupport implements MerchantDao{
 	return (Merchant)list.get(0);
     }
     
-    @Override
-    public void merge(Merchant merchant){
-        getHibernateTemplate().merge(merchant);
-    }
-    
 }

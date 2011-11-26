@@ -33,7 +33,7 @@ public class PlanDaoImpl extends HibernateDaoSupport implements PlanDao{
 
     @Override
     public Plan findByID(Long id) {
-        List list = getHibernateTemplate().find("from Plan where PlanId=?", id);
+        List list = getHibernateTemplate().find("from Plan where planId=?", id);
         if(list.isEmpty()){
             return null;
         }
