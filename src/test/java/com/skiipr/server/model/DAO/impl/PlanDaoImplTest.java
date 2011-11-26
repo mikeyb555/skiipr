@@ -3,9 +3,6 @@
  * and open the template in the editor.
  */
 package com.skiipr.server.model.DAO.impl;
-import org.springframework.beans.factory.annotation.Qualifier;
-import javax.annotation.Resource;
-import org.springframework.beans.factory.annotation.Configurable;
 import com.skiipr.server.model.DAO.PlanDao;
 import com.skiipr.server.model.Plan;
 import java.util.List;
@@ -23,15 +20,15 @@ public class PlanDaoImplTest {
     
     @Autowired
     private PlanDao planDao;
+    
+    private static int count = 2;
 
     @Test
     public void testFindAll() {
         List<Plan> plans = planDao.findAll();
-        assertEquals(plans.size(), 2);
         Plan plan1 = plans.get(0);
         Assert.assertEquals(plan1.getPlanName(), "plan1");
-        Plan plan2 = plans.get(1);
-        Assert.assertEquals(plan2.getPlanName(), "plan3");
+        Assert.assertEquals(plans.size(), count);
     }
     
     @Test
@@ -50,6 +47,7 @@ public class PlanDaoImplTest {
         assertEquals(plans.size(), 3);
         plan = plans.get(2);
         Assert.assertEquals(plan.getPlanName(), "foobar");
+        count = count + 1;
     }
     
     @Test
@@ -64,9 +62,15 @@ public class PlanDaoImplTest {
     
     @Test
     public void testDelete(){
+        Long savedId;
         Plan plan = planDao.findByID(3l);
+        plan.setPlanName("nobugs");
+        planDao.save(plan);
+        savedId = plan.getPlanId();
+        plan = planDao.findByID(savedId);
+        Assert.assertEquals(plan.getPlanName(), "nobugs");
         planDao.delete(plan);
-        List<Plan> plans = planDao.findAll();
-        assertEquals(plans.size(), 2);
+        plan = planDao.findByID(savedId);
+        Assert.assertNull(plan);
     }
 }
