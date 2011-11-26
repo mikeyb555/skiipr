@@ -562,6 +562,38 @@
                     </webAppConfig>
                 </configuration>
             </plugin>
+             <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>dbunit-maven-plugin</artifactId>
+                <version>1.0-beta-3</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>5.1.13</version>
+                        <classifier/>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                  <driver>com.mysql.jdbc.Driver</driver>
+                  <url>jdbc:mysql://127.0.0.1:3306/skiipr_server_test</url>
+                  <username>root</username>
+                  <password />
+                </configuration>
+                <executions>
+                  <execution>
+                    <phase>test-compile</phase>
+                    <goals>
+                      <goal>operation</goal>
+                    </goals>
+                    <configuration>
+                      <type>CLEAN_INSERT</type>
+                      <src>src/test/resources/testdata.xml</src>
+                      <format>flat</format>
+                    </configuration>
+                  </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 </project>

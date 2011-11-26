@@ -56,8 +56,8 @@ xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springf
         <context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
     </context:component-scan>
     
-    <import resource="DataSource.xml"/>
-    <import resource="Hibernate.xml"/>
+    <import resource="classpath*:DataSource.xml"/>
+    <import resource="classpath*:Hibernate.xml"/>
    
 
 </beans>
