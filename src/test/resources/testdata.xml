@@ -6,4 +6,5 @@
         <tbl_merchant merchant_id="2" username="george" salt="1234" password="fc74acb4ad8fb836068a543aafa45d5275e934af" last_login="1322206746" login_count="0" failed_login_time="1322179536" name="loud bar" address_number="10" address_street="Short street" address_postcode="3000" address_state="NSW" address_country="Australia" paypal="hai@test.com" latitude="298 29' S" longitude="163 8' E" email="info@website.com" plan_id="2" />
         <tbl_category category_id="1" name="Basics" merchant_id="1" />
         <tbl_category category_id="2" name="Cocktails" merchant_id="2" />
+        <tbl_category category_id="3" name="Food" merchant_id="1" />
 </dataset>
