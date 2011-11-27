@@ -7,4 +7,6 @@
         <tbl_category category_id="1" name="Basics" merchant_id="1" />
         <tbl_category category_id="2" name="Cocktails" merchant_id="2" />
         <tbl_category category_id="3" name="Food" merchant_id="1" />
+        <tbl_product product_id="1" description="product1" price="3" active="1" category_id="1"  />
+        <tbl_product product_id="2" description="product2" price="5" active="0" category_id="1"  />
 </dataset>

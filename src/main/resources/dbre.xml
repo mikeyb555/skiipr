@@ -84,4 +84,28 @@
             <column name="merchant_id" not-null="true"/>
         </property>
     </class>
+    <class name="com.skiipr.server.model.Product" table="tbl_product">
+        <id name="productID" type="java.lang.Long">
+            <column name="product_id" />
+            <generator class="identity" />
+        </id>
+        <property name="description" type="string">
+            <column name="description" length="128" not-null="true"/>
+        </property>
+        <property name="price">
+            <column name="price" sql-type="NUMERIC(12,2)" not-null="true"/>
+        </property>
+        <property name="active" type="boolean">
+            <column name="active" length="1" not-null="true" />
+        </property>
+        <property name="categoryID" type="java.lang.Long">
+            <column name="category_id" length="20" not-null="true" />
+        </property>
+            
+        
+        
+        
+    </class>
+    
+    
 </hibernate-mapping>
