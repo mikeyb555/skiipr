@@ -81,7 +81,7 @@
                 </c:when>
                 <c:otherwise>
                   <c:set var="colTxt">
-                    <spring:eval expression="item[column]" htmlEscape="false" />
+                    <spring:eval expression="column" htmlEscape="false" />
                   </c:set>
                 </c:otherwise>
               </c:choose>
@@ -91,7 +91,7 @@
               <c:out value="${colTxt}" />
             </td>
           </c:forTokens>
-          <c:set var="itemId"><spring:eval expression="item[typeIdFieldName]"/></c:set>
+          <c:set var="itemId"><spring:eval expression="item.getCategoryID()"/></c:set>
           <td class="utilbox">
             <spring:url value="${path}/${itemId}" var="show_form_url" />
             <spring:url value="/resources/images/show.png" var="show_image_url" />

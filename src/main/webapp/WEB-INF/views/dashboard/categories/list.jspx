@@ -4,8 +4,7 @@
     <jsp:output omit-xml-declaration="yes"/>
     <page:list id="pl_com_skiipr_server_model_Category" items="${categories}">
         <table:table data="${categories}" id="l_com_skiipr_server_model_Category" path="/dashboard/categories">
-            <table:column id="c_com_skiipr_server_model_Category_id" property="categoryID" />
-            <table:column id="c_com_skiipr_server_model_Category_name" property="name" />
+            <table:column id="c_com_skiipr_server_model_Category_name" property="item.getName()" />
         </table:table>
     </page:list>
 </div>
