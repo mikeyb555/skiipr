@@ -84,4 +84,55 @@
             <column name="merchant_id" not-null="true"/>
         </property>
     </class>
+    <class name="com.skiipr.server.model.Product" table="tbl_product">
+        <id name="productID" type="java.lang.Long">
+            <column name="product_id" />
+            <generator class="identity" />
+        </id>
+        <property name="description" type="string">
+            <column name="description" length="128" not-null="true"/>
+        </property>
+        <property name="price">
+            <column name="price" sql-type="NUMERIC(12,2)" not-null="true"/>
+        </property>
+        <property name="active" type="boolean">
+            <column name="active" length="1" not-null="true" />
+        </property>
+        <property name="categoryID" type="java.lang.Long">
+            <column name="category_id" length="20" not-null="true" />
+        </property>
+       </class>
+       <class name="com.skiipr.server.model.Order" table="tbl_order">
+        <id name="orderID" type="java.lang.Long">
+            <column name="order_id" />
+            <generator class="identity" />
+        </id>
+        <property name="orderTime" type="java.lang.Long">
+            <column name="order_time"  not-null="true" />
+        </property>
+        <property name="merchantID" type="java.lang.Long">
+            <column name="merchant_id"  not-null="true" />
+        </property>
+        <property name="paypalAddress" type="string">
+            <column name="paypal_address" length = "128"  not-null="true" />
+        </property>
+        <property name="paypalRef" type="java.lang.Long">
+            <column name="paypal_ref"  not-null="true" />
+        </property>
+        <property name="orderType" type="java.lang.Long">
+            <column name="order_type"  not-null="true" />
+        </property>
+        <property name="status" type="java.lang.Long">
+            <column name="status"  not-null="true" />
+        </property>
+        <property name="lastUpdated" type="java.lang.Long">
+            <column name="last_updated"  not-null="true" />
+        </property>
+        <property name="total">
+            <column name="total"  sql-type="NUMERIC(12,2)" not-null="true" />
+        </property>
+        
+    </class>
+    
+    
 </hibernate-mapping>
