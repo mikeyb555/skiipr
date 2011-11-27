@@ -1,0 +1,111 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.skiipr.server.model;
+
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+/**
+ *
+ * @author Michael
+ */
+@Entity
+@Table(name = "tbl_order")
+public class Order implements Serializable {
+    @Id
+    private Long orderID;
+    private Long orderTime;
+    private Long merchantID;
+    private String paypalAddress;
+    private Long paypalRef;
+    private Long orderType;
+    private Long status;
+    private Long lastUpdated;
+    private float total;
+    
+    
+    public void setOrderID(Long id){
+        this.orderID = id;
+    }
+    
+    public void setOrderTime(Long time){
+        this.orderTime = time;
+    }
+    
+    public void setMerchantID(Long id){
+        this.merchantID = id;
+    }
+    
+    public void setPaypalAddress(String description){
+        this.paypalAddress = description ;
+    }
+    
+    public void setPaypalRef(Long ref){
+        this.paypalRef = ref;
+    }
+    
+    public void setOrderType(Long type){
+        this.orderType = type;
+        
+    }
+    
+    public void setStatus(Long status){
+        this.status = status;
+    }
+    
+    public void setLastUpdated(Long update){
+        this.lastUpdated = update;
+    }
+    
+    public void setTotal(float total){
+        this.total = total;
+    }
+    
+    public Long getOrderID(){
+        return orderID;
+    }
+    
+    public Long getOrderTime(){
+        return orderTime;
+    }
+    
+    public Long getMerchantID(){
+        return merchantID;
+    }
+    
+    public String getPaypalAddress(){
+        return paypalAddress;
+    }
+    
+    public Long getPaypalRef(){
+        return paypalRef;
+    }
+    
+    public Long getOrderType(){
+        return orderType;
+        
+    }
+    
+    public Long getStatus(){
+        return status;
+    }
+    
+    public Long getLastUpdated(){
+        return lastUpdated;
+    }
+    
+    public float getTotal(){
+        return total;
+    }
+    
+    
+    
+    
+    
+    
+    
+}
