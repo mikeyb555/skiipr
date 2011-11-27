@@ -18,31 +18,31 @@ import javax.persistence.Table;
 public class Category implements Serializable {
     
     @Id
-    private Long categoryId;
+    private Long categoryID;
     private String name;
     private Long merchantId;
     
     public void setCategoryID(Long id){
-        categoryId = id;
+        categoryID = id;
     }
     
     public void setName(String categoryName){
         name = categoryName;
     }
     
-    public void setMerchantId(Long id){
+    public void setMerchantID(Long id){
         merchantId = id;
     }
     
     public Long getCategoryID(){
-        return categoryId;
+        return categoryID;
     }
     
     public String getName(){
         return name;
     }
     
-    public Long getMerchantId(){
+    public Long getMerchantID(){
         return merchantId;
     }
     
