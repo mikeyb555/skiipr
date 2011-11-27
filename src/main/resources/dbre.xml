@@ -72,4 +72,16 @@
             <column name="can_paypal" length="1" not-null="true" />
         </property>
     </class>
+    <class name="com.skiipr.server.model.Category" table="tbl_category">
+        <id name="categoryID" type="java.lang.Long">
+            <column name="category_id" />
+            <generator class="identity" />
+        </id>
+        <property name="name" type="string">
+            <column name="name" length="10" not-null="true" unique="true" />
+        </property>
+        <property name="merchantID" type="java.lang.Long">
+            <column name="merchant_id" not-null="true"/>
+        </property>
+    </class>
 </hibernate-mapping>
