@@ -1,5 +1,6 @@
 package com.skiipr.server.controller.dashboard;
 
+import com.skiipr.server.components.SessionUser;
 import com.skiipr.server.model.DAO.MerchantDao;
 import com.skiipr.server.model.DAO.PlanDao;
 import com.skiipr.server.model.LoginUser;
@@ -27,6 +28,9 @@ public class AccountController {
     @Autowired
     private PlanDao planDao;
     
+    @Autowired
+    private SessionUser sessionUser;
+    
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
         binder.setDisallowedFields("username", "password", "salt", "MerchantId");
@@ -34,7 +38,7 @@ public class AccountController {
     
     @RequestMapping(value = "/dashboard/account", method = RequestMethod.POST)
     public String index(Merchant merchant, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest){
-        LoginUser user = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        LoginUser user = sessionUser.getUser();
         merchant.setMerchantID(user.getMerchantId());
         merchantDao.update(merchant);
         return "redirect:/dashboard/account";
@@ -42,7 +46,7 @@ public class AccountController {
     
     @RequestMapping(value = "/dashboard/account", method = RequestMethod.GET)
     public String index(ModelMap model){
-        LoginUser user = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        LoginUser user = sessionUser.getUser();
         Merchant merchant = merchantDao.findById(user.getMerchantId());
         model.addAttribute("merchant", merchant);
         List<Plan> plans = planDao.findAll();
