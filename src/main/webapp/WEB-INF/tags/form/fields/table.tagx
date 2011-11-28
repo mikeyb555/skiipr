@@ -81,7 +81,7 @@
                 </c:when>
                 <c:otherwise>
                   <c:set var="colTxt">
-                    <spring:eval expression="column" htmlEscape="false" />
+                    <spring:eval expression="item[column]" htmlEscape="false" />
                   </c:set>
                 </c:otherwise>
               </c:choose>
@@ -91,9 +91,9 @@
               <c:out value="${colTxt}" />
             </td>
           </c:forTokens>
-          <c:set var="itemId"><spring:eval expression="item.getCategoryID()"/></c:set>
+          <c:set var="itemId"><spring:eval expression="item[typeIdFieldName]"/></c:set>
           <td class="utilbox">
-            <spring:url value="${path}/${itemId}" var="show_form_url" />
+            <spring:url value="${path}/view/${itemId}" var="show_form_url" />
             <spring:url value="/resources/images/show.png" var="show_image_url" />
             <spring:message arguments="${typeName}" code="entity_show" var="show_label" htmlEscape="false" />
             <a href="${fn:escapeXml(show_form_url)}" alt="${fn:escapeXml(show_label)}" title="${fn:escapeXml(show_label)}">
@@ -102,9 +102,7 @@
           </td>
           <c:if test="${update}">
             <td class="utilbox">
-              <spring:url value="${path}/${itemId}" var="update_form_url">
-                <spring:param name="form" />
-              </spring:url>
+              <spring:url value="${path}/edit/${itemId}" var="update_form_url" />
               <spring:url value="/resources/images/update.png" var="update_image_url" />
               <spring:message arguments="${typeName}" code="entity_update" var="update_label" htmlEscape="false" />
               <a href="${fn:escapeXml(update_form_url)}" alt="${fn:escapeXml(update_label)}" title="${fn:escapeXml(update_label)}">
@@ -114,7 +112,7 @@
           </c:if>
           <c:if test="${delete}">
             <td class="utilbox">
-              <spring:url value="${path}/${itemId}" var="delete_form_url" />
+              <spring:url value="${path}/delete/${itemId}" var="delete_form_url" />
               <spring:url value="/resources/images/delete.png" var="delete_image_url" />
               <form:form action="${fn:escapeXml(delete_form_url)}" method="DELETE">
                 <spring:message arguments="${typeName}" code="entity_delete" var="delete_label" htmlEscape="false" />
@@ -139,9 +137,7 @@
         <td colspan="${colCounter}">
           <c:if test="${empty create or create}">
             <span class="new">
-              <spring:url value="${path}" var="create_url">
-                <spring:param name="form" />
-              </spring:url>
+              <spring:url value="${path}/new" var="create_url" />
               <a href="${fn:escapeXml(create_url)}">
                 <spring:url value="/resources/images/add.png" var="create_img_url" />
                 <spring:message arguments="${typeName}" code="global_menu_new" var="add_message" htmlEscape="false" />

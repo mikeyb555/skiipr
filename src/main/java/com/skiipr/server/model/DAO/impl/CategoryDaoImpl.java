@@ -58,9 +58,6 @@ public class CategoryDaoImpl extends HibernateDaoSupport implements CategoryDao 
     @Override
     public List<Category> findAll() {
         List list = getHibernateTemplate().find("from Category");
-        if(list.isEmpty()){
-            return null;
-        }
 	return (List<Category>) list;
     }
     

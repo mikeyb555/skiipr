@@ -4,4 +4,13 @@
         <definition extends="dashboard" name="/dashboard/categories/list">
             <put-attribute name="body" value="/WEB-INF/views/dashboard/categories/list.jspx"/>
         </definition>
+        <definition extends="dashboard" name="/dashboard/categories/view">
+            <put-attribute name="body" value="/WEB-INF/views/dashboard/categories/view.jspx"/>
+        </definition>
+        <definition extends="dashboard" name="/dashboard/categories/update">
+            <put-attribute name="body" value="/WEB-INF/views/dashboard/categories/update.jspx"/>
+        </definition>
+        <definition extends="dashboard" name="/dashboard/categories/create">
+            <put-attribute name="body" value="/WEB-INF/views/dashboard/categories/create.jspx"/>
+        </definition>
 </tiles-definitions>

@@ -2,9 +2,23 @@
 <div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
-    <page:list id="pl_com_skiipr_server_model_Category" items="${categories}">
-        <table:table data="${categories}" id="l_com_skiipr_server_model_Category" path="/dashboard/categories">
-            <table:column id="c_com_skiipr_server_model_Category_name" property="item.getName()" />
-        </table:table>
-    </page:list>
+   <ul class="breadcrumbs first">
+        <li><a href="#">Dashboard</a></li>
+    </ul>
+        <div class="grid_16 widget tabs first">
+            <div class="widget_title clearfix">
+                <h2>Categories</h2>
+            </div>
+            <div class="widget_body">  
+                <div class="widget_content">
+                    <page:list id="pl_com_skiipr_server_model_Category" items="${categories}">
+                        <table:table data="${categories}" id="l_com_skiipr_server_model_Category" path="/dashboard/categories" typeIdFieldName="categoryID">
+                            <table:column id="c_com_skiipr_server_model_Category_name" property="name" />
+                        </table:table>
+                    </page:list>
+                </div>
+            </div>
+    </div>
 </div>
+
+  

@@ -23,7 +23,7 @@
 
                 <ul class="sf-menu">
                     <li>
-                        <spring:url value="/images/dashboard/menu/dashboard.png" var="dashboard_icon" />
+                        <spring:url value="/images/dashboard/menu/settings.png" var="dashboard_icon" />
                         <spring:url value="/dashboard" var="dashboard_link" />
                         <a href="${dashboard_link}">
                             <span class="icon"><img src="${dashboard_icon}" /></span>
@@ -31,45 +31,43 @@
                         </a>
                     </li>
                     <li>
-                        <a href="">
-                            <span class="icon"><img src="#" /></span>
+                        <spring:url value="/images/dashboard/menu/styles.png" var="categories_icon" />
+                        <spring:url value="/dashboard/categories" var="categories_link" />
+                        <a href="${categories_link}">
+                            <span class="icon"><img src="${categories_icon}" /></span>
+                            <span class="title">Categories</span>
+                        </a>
+                    </li>
+                    <li>
+                        <spring:url value="/images/dashboard/menu/form.png" var="products_icon" />
+                        <spring:url value="/dashboard/products" var="categories_link" />
+                        <a href="${products_link}">
+                            <span class="icon"><img src="${products_icon}" /></span>
+                            <span class="title">Products</span>
+                        </a>
+                    </li>
+                    <li>
+                        <spring:url value="/images/dashboard/menu/dashboard.png" var="orders_icon" />
+                        <spring:url value="/dashboard/orders" var="orders_link" />
+                        <a href="${orders_link}">
+                            <span class="icon"><img src="${orders_icon}" /></span>
                             <span class="title">Orders</span>
                         </a>
                     </li>
                     <li>
-                        <a href="">
-                            <span class="icon"><img src="#" /></span>
-                            <span class="title">Products</span>
-                        </a>
-                        <ul>
-                            <li><a href="#">Products</a></li>
-                            <li><a href="#">Categories</a></li>  
-
-                        </ul>
-
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span class="icon"><img src="#" /></span>
-                            <span class="title">Pickup locations</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <span class="icon"><img src="#" /></span>
-                            <span class="title">Reports</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span class="icon"><img src="#" /></span>
-                            <span class="title">Settings</span>
+                        <spring:url value="/images/dashboard/menu/charts.png" var="stats_icon" />
+                        <spring:url value="/dashboard/stats" var="stats_link" />
+                        <a href="${stats_link}">
+                            <span class="icon"><img src="${stats_icon}" /></span>
+                            <span class="title">Statistics</span>
                         </a>
                     </li>
                     <li class="sep">
-                        <a href="#">
-                            <span class="icon"><img src="#" /></span>
-                            <span class="title">Switch merchant</span>
+                        <spring:url value="/images/dashboard/menu/tables.png" var="console_icon" />
+                        <spring:url value="/console" var="console_link" />
+                        <a href="${console_link}">
+                            <span class="icon"><img src="${console_icon}" /></span>
+                            <span class="title">Orders Console</span>
                         </a>
                     </li>
                 </ul>
