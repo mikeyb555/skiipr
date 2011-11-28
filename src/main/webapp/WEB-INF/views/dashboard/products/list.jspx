@@ -2,12 +2,25 @@
 <div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
-    <page:list id="pl_com_skiipr_server_model_Product" items="${products}" z="YcNhqtj0lfW7PlvoSUO4PkgQFkA=">
-        <table:table data="${products}" id="l_com_skiipr_server_model_Product" path="/dashboard/products" z="9OLzKgpSd4D/buYAlxZ1vnqGaR4=">
-            <table:column id="c_com_skiipr_server_model_Product_title" property="title" z="L4ZJsSR/JnDN2oBd++puJzEWPWI="/>
-            <table:column id="c_com_skiipr_server_model_Product_description" property="description" z="dCcPuEoZ+K5nn5eE5SaGrAGyM7A="/>
-            <table:column id="c_com_skiipr_server_model_Product_price" property="price" z="01BcflFf8EM9M6njvZ3Fdwv7yxs="/>
-            <table:column id="c_com_skiipr_server_model_Product_active" property="active" z="BTrBPPN+h5jwCcyoPyhcG/wqZfc="/>
-        </table:table>
-    </page:list>
+   <ul class="breadcrumbs first">
+        <li><a href="#">Dashboard</a></li>
+    </ul>
+        <div class="grid_16 widget tabs first">
+            <div class="widget_title clearfix">
+                <h2>Products</h2>
+            </div>
+            <div class="widget_body">  
+                <div class="widget_content">
+                    <page:list id="pl_com_skiipr_server_model_Product" items="${products}">
+                        <table:table data="${products}" id="l_com_skiipr_server_model_Product" path="/dashboard/products" typeIdFieldName="productID">
+                            <table:column id="c_com_skiipr_server_model_Product_description" property="description" />
+                            <table:column id="c_com_skiipr_server_model_Product_price" property="price" />
+                            <table:column id="c_com_skiipr_server_model_Product_active" property="active" />
+                            <table:column id="c_com_skiipr_server_model_Product_active" property="active" />
+                            
+                        </table:table>
+                    </page:list>
+                </div>
+            </div>
+    </div>
 </div>

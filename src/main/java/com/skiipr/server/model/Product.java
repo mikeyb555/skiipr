@@ -7,7 +7,9 @@ package com.skiipr.server.model;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
@@ -23,6 +25,14 @@ public class Product implements Serializable {
     private float price;
     private boolean active;
     private Long categoryID;
+    
+    
+    @ManyToOne
+    private Category category;
+    
+    
+    
+    
     
     public void setProductID(Long id){
         this.productID = id;
@@ -64,6 +74,14 @@ public class Product implements Serializable {
     
     public Long getCategoryID(){
         return categoryID;
+    }
+    
+    public void setCategory(Category category){
+        this.category=category;
+    }
+    
+    public Category getCategory(){
+        return category;
     }
     
     

@@ -5,6 +5,7 @@
 package com.skiipr.server.model;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -21,6 +22,8 @@ public class Category implements Serializable {
     private Long categoryID;
     private String name;
     private Long merchantId;
+    private List<Product> products;
+    
     
     public void setCategoryID(Long id){
         categoryID = id;
@@ -45,6 +48,15 @@ public class Category implements Serializable {
     
     public Long getMerchantID(){
         return merchantId;
-    }      
+    }
+    
+    public void setProducts(List<Product> products){
+        this.products = products;
+        
+    }
+    
+    public List<Product> getProducts(){
+        return products;
+    }
     
 }

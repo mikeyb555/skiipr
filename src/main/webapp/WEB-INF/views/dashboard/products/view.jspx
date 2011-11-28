@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+        <ul class="breadcrumbs first">
+        <li><a href="#">Dashboard</a></li>
+    </ul>
+
+    <div class="grid_16 widget tabs first">
+        <div class="widget_title clearfix">
+            <h2>Quick info</h2>
+        </div>
+        <div class="widget_body">  
+            <div class="widget_content">
+                <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+                <jsp:output omit-xml-declaration="yes"/>
+                <page:show id="ps_com_skiipr_server_model_Product" object="${product}" path="/dashboard/products/view">
+                    <field:display field="description" id="s_com_skiipr_server_model_Product_description" object="${product}"/>
+                    <field:display field="price" id="s_com_skiipr_server_model_Product_price" object="${product}"/>
+                    <field:display field="active" id="s_com_skiipr_server_model_Product_active" object="${product}"/>
+                    <field:display field="name" id="s_com_skiipr_server_model_Product_categoryID" object ="${category}" />
+                    
+                    
+                    
+                    
+                    
+                </page:show>
+            </div>
+        </div>
+    </div>
+</div>

@@ -4,6 +4,7 @@
  */
 package com.skiipr.server.model.DAO.impl;
 
+import com.skiipr.server.model.Category;
 import com.skiipr.server.model.DAO.ProductDao;
 import com.skiipr.server.model.Product;
 import java.util.List;
@@ -47,6 +48,8 @@ public class ProductDaoImplTest {
     public void testFindByID(){
         Product product = productDao.findByID(2l);
         Assert.assertEquals(product.getDescription(), "product2");
+        Category category = product.getCategory();
+        Assert.assertEquals(category.getName(), "Basics");
     }
     
     
