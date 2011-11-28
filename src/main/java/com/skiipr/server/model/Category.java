@@ -37,8 +37,7 @@ public class Category implements Serializable {
         merchantId = id;
     }
     
-    @Id
-    public Long getCategoryID(){
+        public Long getCategoryID(){
         return categoryID;
     }
     

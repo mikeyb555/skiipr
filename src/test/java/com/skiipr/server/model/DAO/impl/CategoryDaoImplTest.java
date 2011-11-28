@@ -36,8 +36,6 @@ public class CategoryDaoImplTest {
     public void testFindById(){
         Category category = categoryDao.findByID(1l);
         Assert.assertEquals(category.getName(), "Basics");
-        
-        
     }
     
     @Test

@@ -46,8 +46,8 @@ public class ProductController {
     public String show(@PathVariable("id") Long id, Model uiModel) {
         uiModel.addAttribute("product", productDao.findByID(id));
         uiModel.addAttribute("itemId", id);
-        Category category = categoryDao.findByID(productDao.findByID(id).getCategoryID());
-        uiModel.addAttribute("category", category);
+        //Category category = categoryDao.findByID(productDao.findByID(id).getCategoryID());
+        //uiModel.addAttribute("category", category);
         return "/dashboard/products/view";
     }
     
@@ -70,7 +70,7 @@ public class ProductController {
         }
         uiModel.asMap().clear();
         productDao.update(product);
-        return "redirect:/dashboard/products/edit/" + product.getCategoryID().toString();
+        return "redirect:/dashboard/products/edit/" + product.getProductID().toString();
     }
     
     @RequestMapping(value = "/dashboard/products/edit/{id}", method = RequestMethod.GET)

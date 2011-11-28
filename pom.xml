@@ -578,7 +578,7 @@
                   <driver>com.mysql.jdbc.Driver</driver>
                   <url>jdbc:mysql://127.0.0.1:3306/skiipr_server_test</url>
                   <username>root</username>
-                  <password>root</password>
+                  <password></password>
                 </configuration>
                 <executions>
                   <execution>
