@@ -24,13 +24,8 @@ public class Product implements Serializable {
     private String description;
     private float price;
     private boolean active;
-      
-    @ManyToOne
+    private Long categoryID;
     private Category category;
-    
-    
-    
-    
     
     public void setProductID(Long id){
         this.productID = id;
@@ -73,8 +68,9 @@ public class Product implements Serializable {
     public Category getCategory(){
         return category;
     }
-    
-    
-    
+
+    public Long getCategoryID(){
+        return category.getCategoryID();
+    }
     
 }

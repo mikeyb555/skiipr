@@ -4,6 +4,7 @@
  */
 package com.skiipr.server.model.DAO.impl;
 
+import com.skiipr.server.model.Category;
 import com.skiipr.server.model.DAO.ProductDao;
 import com.skiipr.server.model.Product;
 import java.util.List;
@@ -41,11 +42,8 @@ public class ProductDaoImpl extends HibernateDaoSupport implements ProductDao {
 
     @Override
     public Product findByID(Long id) {
-        List list = getHibernateTemplate().find("from Product where productID=?", id);
-        if(list.isEmpty()){
-            return null;
-        }
-	return (Product)list.get(0);
+        Product product = (Product) getSession().get(Product.class, id);
+	return product;
     }
 
     @Override
@@ -59,15 +57,11 @@ public class ProductDaoImpl extends HibernateDaoSupport implements ProductDao {
     
     @Override
     public List<Product> findByCategoryID(Long id){
-        List list = getHibernateTemplate().find("from Product where categoryID=?", id);
+        List list = getHibernateTemplate().find("from Product where category.categoryID=?", id);
         if(list.isEmpty()){
             return null;
         }
-	return (List<Product>) list;
-        
+	return (List<Product>) list;   
     }
-    
-
-    
     
 }

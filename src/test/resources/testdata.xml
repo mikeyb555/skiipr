@@ -10,6 +10,5 @@
         <tbl_product product_id="1" description="product1" price="3" active="1" category_id="1"  />
         <tbl_product product_id="2" description="product2" price="5" active="0" category_id="1"  />
         <tbl_order order_id="1" order_time="1" merchant_id = "1" paypal_address = "order1" paypal_ref= "3232" order_type = "1" status = "1" last_updated = "1" total = "3"  />
-        <tbl_order order_id="2" order_time="1" merchant_id = "1" paypal_address = "order2" paypal_ref= "3232" order_type = "1" status = "1" last_updated = "1" total = "3.2"  />
-        
+        <tbl_order order_id="2" order_time="1" merchant_id = "1" paypal_address = "order2" paypal_ref= "3232" order_type = "1" status = "1" last_updated = "1" total = "3.2"  />     
 </dataset>

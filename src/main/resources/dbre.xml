@@ -83,10 +83,6 @@
         <property name="merchantID" type="java.lang.Long" update="false">
             <column name="merchant_id" not-null="true"/>
         </property>
-        <set name = "products" inverse = "true" lazy = "true" table = "tbl_product" fetch = "select">
-            <key column = "category_id" property-ref = "categoryID" />
-            <one-to-many class = "com.skiipr.server.model.Product" />
-        </set>
     </class>
     <class name="com.skiipr.server.model.Product" table="tbl_product">
         <id name="productID" type="java.lang.Long">
@@ -102,9 +98,7 @@
         <property name="active" type="boolean">
             <column name="active" length="1" not-null="true" />
         </property>
-        <many-to-one name = "category" class = "com.skiipr.server.model.Category" fetch="select" column = "category_id" property-ref="categoryID" />
-        
-        
+        <many-to-one name = "category" class = "com.skiipr.server.model.Category" column = "category_id" /> 
        </class>
        <class name="com.skiipr.server.model.Order" table="tbl_order">
         <id name="orderID" type="java.lang.Long">

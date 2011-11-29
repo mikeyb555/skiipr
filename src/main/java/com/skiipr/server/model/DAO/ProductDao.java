@@ -18,7 +18,4 @@ public interface ProductDao {
     public Product findByID(Long id);
     public List<Product> findAll();
     public List<Product> findByCategoryID(Long id);
-    
-    
-    
 }

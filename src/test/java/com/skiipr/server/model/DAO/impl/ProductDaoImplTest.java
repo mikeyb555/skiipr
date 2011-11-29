@@ -52,5 +52,4 @@ public class ProductDaoImplTest {
         Assert.assertEquals(category.getName(), "Basics");
     }
     
-    
 }
