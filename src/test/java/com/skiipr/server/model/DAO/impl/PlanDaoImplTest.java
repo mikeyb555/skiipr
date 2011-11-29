@@ -26,8 +26,8 @@ public class PlanDaoImplTest {
     @Test
     public void testFindAll() {
         List<Plan> plans = planDao.findAll();
-        Plan plan1 = plans.get(0);
-        Assert.assertEquals(plan1.getPlanName(), "plan1");
+        Plan plan1 = plans.get(1);
+        Assert.assertEquals(plan1.getPlanName(), "plan3");
         Assert.assertEquals(plans.size(), count);
     }
     
@@ -52,11 +52,11 @@ public class PlanDaoImplTest {
     
     @Test
     public void testUpdate(){
-        Plan plan = planDao.findByID(3l);
-        Assert.assertEquals(plan.getPlanName(), "plan3");
+        Plan plan = planDao.findByID(2l);
+        Assert.assertEquals(plan.getPlanName(), "plan1");
         plan.setPlanName("hello_world");
         planDao.update(plan);
-        plan = planDao.findByID(3l);
+        plan = planDao.findByID(2l);
         Assert.assertEquals(plan.getPlanName(), "hello_world");
     }
     
