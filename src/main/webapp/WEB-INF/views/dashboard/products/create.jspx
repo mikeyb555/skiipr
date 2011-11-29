@@ -15,7 +15,7 @@
                 <form:create id="fc_com_skiipr_server_models_Product" modelAttribute="product" path="/dashboard/products/new" render="${empty dependencies}">
                     <field:input field="description" id="c_com_skiipr_server_models_Product_description" required="true"/>
                     <field:input field="price" id="c_com_skiipr_server_models_Product_price" required="true"/>
-                    <field:input field="active" id="c_com_skiipr_server_models_Product_active" required="true"/>
+                    <field:checkbox field="active" id="c_com_skiipr_server_models_Product_active"/>
                     <field:select field="category.categoryID" id="c_com_skiipr_server_model_Product_category" itemValue="categoryID" itemLabel="name" items="${categories}" multiple="false" path="" label="Select Category" />
                 </form:create>
                 <form:dependency dependencies="${dependencies}" id="d_com_skiipr_server_models_Product" render="${not empty dependencies}"/>
