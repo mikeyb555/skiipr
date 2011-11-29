@@ -40,7 +40,7 @@
                     </li>
                     <li>
                         <spring:url value="/images/dashboard/menu/form.png" var="products_icon" />
-                        <spring:url value="/dashboard/products" var="categories_link" />
+                        <spring:url value="/dashboard/products" var="products_link" />
                         <a href="${products_link}">
                             <span class="icon"><img src="${products_icon}" /></span>
                             <span class="title">Products</span>

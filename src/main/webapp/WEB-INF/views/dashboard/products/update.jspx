@@ -16,6 +16,7 @@
                     <field:input field="description" id="c_com_skiipr_server_model_Product_description"/>
                     <field:input field="price" id="c_com_skiipr_server_model_Product_price"/>
                     <field:input field="active" id="c_com_skiipr_server_model_Product_active"/>
+                    <field:select field="category.categoryID" id="c_com_skiipr_server_model_Product_category" itemValue="categoryID" itemLabel="name" items="${categories}" multiple="false" path="" label="Select Category" />
                 </form:update>
             </div>
         </div>

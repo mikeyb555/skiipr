@@ -16,6 +16,7 @@ public interface ProductDao {
     public void update(Product product);
     public void delete(Product product);
     public Product findByID(Long id);
+    public Product findByIDNoRelation(Long id);
     public List<Product> findAll();
     public List<Product> findByCategoryID(Long id);
 }

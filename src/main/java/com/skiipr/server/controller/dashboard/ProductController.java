@@ -36,22 +36,13 @@ public class ProductController {
     @Autowired
     private CategoryDao categoryDao;
     
-    @RequestMapping(value = "/dashboard/products/edit/{id}", method = RequestMethod.POST)
-    public String index(Merchant merchant, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest){
-
-        return "redirect:/dashboard/account";
-    }
-    
     @RequestMapping(value = "/dashboard/products/view/{id}", method = RequestMethod.GET)
     public String show(@PathVariable("id") Long id, Model uiModel) {
         uiModel.addAttribute("product", productDao.findByID(id));
-        uiModel.addAttribute("itemId", id);
-        //Category category = categoryDao.findByID(productDao.findByID(id).getCategoryID());
-        //uiModel.addAttribute("category", category);
         return "/dashboard/products/view";
     }
     
-    @RequestMapping(value = "/dashboard/products", method = RequestMethod.GET)
+   @RequestMapping(value = "/dashboard/products", method = RequestMethod.GET)
    public String list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model model) {
         if (page != null || size != null) {
             model.addAttribute("products", productDao.findAll());
@@ -66,7 +57,8 @@ public class ProductController {
     public String update(@Valid Product product, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             uiModel.addAttribute("product", product);
-            return "/dashboard/products/edit";
+            uiModel.addAttribute("categories", categoryDao.findAll());
+            return "/dashboard/products/update";
         }
         uiModel.asMap().clear();
         productDao.update(product);
@@ -76,12 +68,13 @@ public class ProductController {
     @RequestMapping(value = "/dashboard/products/edit/{id}", method = RequestMethod.GET)
     public String updateForm(@PathVariable("id") Long id, Model uiModel) {
         uiModel.addAttribute("product", productDao.findByID(id));
+        uiModel.addAttribute("categories", categoryDao.findAll());
         return "/dashboard/products/update";
     }
     
     @RequestMapping(value = "/dashboard/products/delete/{id}", method = RequestMethod.DELETE)
     public String delete(@PathVariable("id") Long id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
-        Product product = productDao.findByID(id);
+        Product product = productDao.findByIDNoRelation(id);
         productDao.delete(product);
         uiModel.asMap().clear();
         uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
@@ -93,13 +86,11 @@ public class ProductController {
     public String create(@Valid Product product, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             uiModel.addAttribute("product", product);
+            uiModel.addAttribute("categories", categoryDao.findAll());
             return "/dashboard/products/create";
         }
         uiModel.asMap().clear();
         
-        
-        
-    
         productDao.save(product);
         return "redirect:/dashboard/products/view/" + product.getProductID().toString();
     }

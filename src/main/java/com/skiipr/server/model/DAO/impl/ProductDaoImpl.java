@@ -63,5 +63,14 @@ public class ProductDaoImpl extends HibernateDaoSupport implements ProductDao {
         }
 	return (List<Product>) list;   
     }
+
+    @Override
+    public Product findByIDNoRelation(Long id) {
+        List products = getHibernateTemplate().find("from Product where productID=?", id);
+        if(products.isEmpty()){
+            return null;
+        }
+	return (Product) products.get(0);
+    }
     
 }

@@ -22,12 +22,6 @@ public class CategoryController {
     @Autowired
     private CategoryDao categoryDao;
     
-    @RequestMapping(value = "/dashboard/categories/edit/{id}", method = RequestMethod.POST)
-    public String index(Merchant merchant, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest){
-
-        return "redirect:/dashboard/account";
-    }
-    
     @RequestMapping(value = "/dashboard/categories/view/{id}", method = RequestMethod.GET)
     public String show(@PathVariable("id") Long id, Model uiModel) {
         uiModel.addAttribute("category", categoryDao.findByID(id));
