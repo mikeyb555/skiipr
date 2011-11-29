@@ -1,5 +1,6 @@
 package com.skiipr.server.controller.dashboard;
 
+import com.skiipr.server.components.SessionUser;
 import com.skiipr.server.model.Category;
 import com.skiipr.server.model.DAO.CategoryDao;
 import com.skiipr.server.model.LoginUser;
@@ -21,6 +22,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class CategoryController {
     @Autowired
     private CategoryDao categoryDao;
+    
+    @Autowired
+    private SessionUser sessionUser;
     
     @RequestMapping(value = "/dashboard/categories/view/{id}", method = RequestMethod.GET)
     public String show(@PathVariable("id") Long id, Model uiModel) {
@@ -74,7 +78,7 @@ public class CategoryController {
             return "/dashboard/categories/create";
         }
         uiModel.asMap().clear();
-        LoginUser user = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        LoginUser user = sessionUser.getUser();
         category.setMerchantID(user.getMerchantId());
         categoryDao.save(category);
         return "redirect:/dashboard/categories/view/" + category.getCategoryID().toString();
