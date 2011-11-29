@@ -17,7 +17,7 @@ public interface OrderDao {
     public void update(Order order);
     public void delete(Order order);
     public Order findByID(Long id);
-    public List<Order> findByAll();
+    public List<Order> findAll();
     
     
 }

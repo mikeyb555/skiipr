@@ -51,7 +51,8 @@ public class OrderDaoImpl extends HibernateDaoSupport implements OrderDao {
     }
 
     @Override
-    public List<Order> findByAll() {
+    public List<Order> findAll() {
+        
         List list = getHibernateTemplate().find("from Order");
         if(list.isEmpty()){
             return null;

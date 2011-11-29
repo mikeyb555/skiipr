@@ -19,7 +19,7 @@ public class Order implements Serializable {
     @Id
     private Long orderID;
     private Long orderTime;
-    private Long merchantID;
+    private Long merchantId;
     private String paypalAddress;
     private Long paypalRef;
     private Long orderType;
@@ -37,7 +37,7 @@ public class Order implements Serializable {
     }
     
     public void setMerchantID(Long id){
-        this.merchantID = id;
+        merchantId = id;
     }
     
     public void setPaypalAddress(String description){
@@ -74,7 +74,7 @@ public class Order implements Serializable {
     }
     
     public Long getMerchantID(){
-        return merchantID;
+        return merchantId;
     }
     
     public String getPaypalAddress(){

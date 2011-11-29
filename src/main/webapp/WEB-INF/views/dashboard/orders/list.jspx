@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+   <ul class="breadcrumbs first">
+        <li><a href="#">Dashboard</a></li>
+    </ul>
+        <div class="grid_16 widget tabs first">
+            <div class="widget_title clearfix">
+                <h2>Orders</h2>
+            </div>
+            <div class="widget_body">  
+                <div class="widget_content">
+                    <page:list id="pl_com_skiipr_server_model_Order" items="${orders}">
+                        <table:table data="${orders}" id="l_com_skiipr_server_model_Order" path="/dashboard/orders" typeIdFieldName="orderID">
+                            <table:column id="c_com_skiipr_server_model_Order_orderID" property="orderID" />
+                            <table:column id="c_com_skiipr_server_model_Order_orderTime" property="orderTime" />
+                            <table:column id="c_com_skiipr_server_model_Order_paypalAddress" property="paypalAddress" />
+                            <table:column id="c_com_skiipr_server_model_Order_paypalRef" property="paypalRef" />
+                            <table:column id="c_com_skiipr_server_model_Order_orderType" property="orderType" />
+                            <table:column id="c_com_skiipr_server_model_Order_status" property="status" />
+                            <table:column id="c_com_skiipr_server_model_Order_lastUpdated" property="lastUpdated" />
+                            <table:column id="c_com_skiipr_server_model_Order_total" property="total" />
+                            
+                            
+                        </table:table>
+                    </page:list>
+                </div>
+            </div>
+    </div>
+</div>

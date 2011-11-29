@@ -8,6 +8,7 @@ import com.skiipr.server.model.DAO.OrderDao;
 import com.skiipr.server.model.Order;
 import java.util.List;
 import junit.framework.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class OrderDaoImplTest {
     
     @Test
     public void testFindAll(){
-        List<Order> orders = orderDao.findByAll();
+        List<Order> orders = orderDao.findAll();
         Order order1 = orders.get(0);
         Assert.assertEquals(order1.getPaypalAddress(), "order1");
         Assert.assertEquals(orders.size(), 2);
@@ -43,6 +44,31 @@ public class OrderDaoImplTest {
         
         
     }
+    @Ignore
+    @Test
+    public void testSave(){
+        Order order = new Order();
+        order.setLastUpdated(123l);
+        order.setMerchantID(1l);
+        order.setOrderID(1l);
+        order.setOrderTime(1234l);
+        order.setOrderType(123l);
+        order.setPaypalAddress("winning");
+        order.setPaypalRef(1234l);
+        order.setStatus(1l);
+        order.setTotal(1234);
+        
+        orderDao.save(order);
+        List<Order> orders = orderDao.findAll();
+        Assert.assertEquals(orders.size(), 3);
+        order = orders.get(2);
+        Assert.assertEquals(order.getPaypalAddress(), "winning");
+        
+    
+        
+    }
+    
+    
     
     
     

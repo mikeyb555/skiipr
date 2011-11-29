@@ -105,12 +105,11 @@
             <column name="order_id" />
             <generator class="identity" />
         </id>
+        
         <property name="orderTime" type="java.lang.Long">
             <column name="order_time"  not-null="true" />
         </property>
-        <property name="merchantID" type="java.lang.Long">
-            <column name="merchant_id"  not-null="true" />
-        </property>
+       
         <property name="paypalAddress" type="string">
             <column name="paypal_address" length = "128"  not-null="true" />
         </property>
