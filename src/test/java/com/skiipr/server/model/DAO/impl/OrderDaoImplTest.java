@@ -5,6 +5,7 @@
 package com.skiipr.server.model.DAO.impl;
 
 import com.skiipr.server.model.DAO.OrderDao;
+import com.skiipr.server.model.Merchant;
 import com.skiipr.server.model.Order;
 import java.util.List;
 import junit.framework.Assert;
@@ -44,28 +45,25 @@ public class OrderDaoImplTest {
         
         
     }
-    @Ignore
+    
     @Test
     public void testSave(){
         Order order = new Order();
         order.setLastUpdated(123l);
-        order.setMerchantID(1l);
-        order.setOrderID(1l);
         order.setOrderTime(1234l);
         order.setOrderType(123l);
         order.setPaypalAddress("winning");
         order.setPaypalRef(1234l);
         order.setStatus(1l);
         order.setTotal(1234);
-        
+        Merchant merchant = new Merchant();
+        merchant.setMerchantID(3l);
+        order.setMerchant(merchant);
         orderDao.save(order);
         List<Order> orders = orderDao.findAll();
         Assert.assertEquals(orders.size(), 3);
         order = orders.get(2);
         Assert.assertEquals(order.getPaypalAddress(), "winning");
-        
-    
-        
     }
     
     

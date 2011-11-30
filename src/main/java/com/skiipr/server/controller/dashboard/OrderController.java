@@ -83,7 +83,7 @@ public class OrderController {
         }
         uiModel.asMap().clear();
         LoginUser user = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        order.setMerchantID(user.getMerchantId());
+        order.getMerchant().setMerchantID(user.getMerchantId());
         orderDao.save(order);
         return "redirect:/dashboard/orders/view/" + order.getOrderID().toString();
     }

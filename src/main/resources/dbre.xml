@@ -125,6 +125,7 @@
         <property name="lastUpdated" type="java.lang.Long">
             <column name="last_updated"  not-null="true" />
         </property>
+        <many-to-one name = "merchant" class = "com.skiipr.server.model.Merchant" cascade="none" column = "merchant_id" /> 
         <property name="total">
             <column name="total"  sql-type="NUMERIC(12,2)" not-null="true" />
         </property>
