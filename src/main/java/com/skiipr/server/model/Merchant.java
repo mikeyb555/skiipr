@@ -9,11 +9,11 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 @Entity
 @Table(name = "tbl_merchant")
 public class Merchant implements Serializable {
-    
     private String username;
     private String password;
     private Long merchantID;
@@ -34,10 +34,12 @@ public class Merchant implements Serializable {
     private int planId;
     private Plan plan;
     
+    @JsonIgnore
     public String getUsername(){
         return username;
     }
     
+    @JsonIgnore
     public String getPassword(){
         return password;
     }
@@ -75,18 +77,22 @@ public class Merchant implements Serializable {
         lastLoginTime = time;
     }
     
+    @JsonIgnore
     public int getLoginCount(){
         return loginCount;
     }
     
+    @JsonIgnore
     public int getFailedLoginTime(){
         return failedLoginTime;
     }
     
+    @JsonIgnore
     public int getLastLoginTime(){
         return lastLoginTime;
     }
     
+    @JsonIgnore
     public String getSalt(){
         return salt;
     }
@@ -241,9 +247,7 @@ public class Merchant implements Serializable {
         this.email = email;
     }
 
-    /**
-     * @return the planId
-     */
+    @JsonIgnore
     public int getPlanId() {
         return planId;
     }
@@ -258,6 +262,7 @@ public class Merchant implements Serializable {
      /**
      * @return the plan
      */
+    @JsonIgnore
     @OneToOne
     public Plan getPlan(){
         return plan;

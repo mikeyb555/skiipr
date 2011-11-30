@@ -48,5 +48,10 @@ public class MerchantDaoImpl extends HibernateDaoSupport implements MerchantDao{
         }
 	return (Merchant)list.get(0);
     }
+
+    @Override
+    public List<Merchant> findAll() {
+        return getHibernateTemplate().find("from Merchant");
+    }
     
 }
