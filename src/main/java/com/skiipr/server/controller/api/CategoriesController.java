@@ -5,8 +5,8 @@
 package com.skiipr.server.controller.api;
 
 import com.skiipr.server.httpresponses.NotFound;
-import com.skiipr.server.model.DAO.ProductDao;
-import com.skiipr.server.model.Product;
+import com.skiipr.server.model.Category;
+import com.skiipr.server.model.DAO.CategoryDao;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,26 +21,24 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 
 @Controller
-public class ProductsController {
-    
+public class CategoriesController {
     @Autowired
-    ProductDao productDao;
+    CategoryDao categoryDao;
     
-    @RequestMapping(value="/api/products/find/{id}", method = RequestMethod.GET)
-    public @ResponseBody Product findProduct(@PathVariable Long id){
-        Product product = productDao.findByID(id);
-        if(product == null){
+    @RequestMapping(value="/api/categories/find/{id}", method = RequestMethod.GET)
+    public @ResponseBody Category findMerchant(@PathVariable Long id){
+        Category category = categoryDao.findByID(id);
+        if(category == null){
             throw new NotFound();
         }
-        return product;
+        return category;
     }
     
-    @RequestMapping(value="/api/products/all", method = RequestMethod.GET)
-    public @ResponseBody List<Product> findAll(){
-        List<Product> products = productDao.findAll();
-        return products;
+    @RequestMapping(value="/api/categories/all", method = RequestMethod.GET)
+    public @ResponseBody List<Category> findAll(){
+        List<Category> categories = categoryDao.findAll();
+        return categories;
     }  
-    
-    
+
     
 }
