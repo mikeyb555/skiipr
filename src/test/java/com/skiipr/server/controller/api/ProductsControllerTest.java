@@ -45,6 +45,7 @@ public class ProductsControllerTest {
         MockitoAnnotations.initMocks(this);
         Mockito.when(productDao.findByID(5l)).thenReturn(product);
         Mockito.when(productDao.findAll()).thenReturn(productList);
+        Mockito.when(productDao.findByCategoryID(5l)).thenReturn(productList);
         
         
         
@@ -63,6 +64,13 @@ public class ProductsControllerTest {
         Assert.assertEquals(returnList, productList);
         Mockito.verify(productDao).findAll();
         
+    }
+    
+    @Test
+    public void testFindByCategory(){
+        List<Product> returnList = controller.findByCategory(5l);
+        Assert.assertEquals(productList, returnList);
+        Mockito.verify(productDao).findByCategoryID(5l);
     }
     
     

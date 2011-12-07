@@ -26,7 +26,7 @@ public class CategoriesController {
     CategoryDao categoryDao;
     
     @RequestMapping(value="/api/categories/find/{id}", method = RequestMethod.GET)
-    public @ResponseBody Category findMerchant(@PathVariable Long id){
+    public @ResponseBody Category findCategory(@PathVariable Long id){
         Category category = categoryDao.findByID(id);
         if(category == null){
             throw new NotFound();
@@ -39,6 +39,18 @@ public class CategoriesController {
         List<Category> categories = categoryDao.findAll();
         return categories;
     }  
+    
+    
+    @RequestMapping(value="/api/categories/merchant/{id}", method = RequestMethod.GET)
+    public @ResponseBody List<Category> findByMerchant(@PathVariable Long id){
+        List<Category> category = categoryDao.findByMerchantId(id);
+        if(category == null){
+            throw new NotFound();
+        }
+        return category;
+    }
+    
+    
 
     
 }

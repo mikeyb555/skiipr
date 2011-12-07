@@ -45,15 +45,23 @@ public class CategoriesControllerTest {
         MockitoAnnotations.initMocks(this);
         Mockito.when(categoryDao.findByID(5l)).thenReturn(category);
         Mockito.when(categoryDao.findAll()).thenReturn(categoryList);
+        Mockito.when(categoryDao.findByMerchantId(5l)).thenReturn(categoryList);
         
         
     }
     
     @Test
     public void testFindCategory(){
-        Category returnCategory = controller.findMerchant(5l);
+        Category returnCategory = controller.findCategory(5l);
         Assert.assertEquals(category, returnCategory);
         Mockito.verify(categoryDao).findByID(5l);
+    }
+    
+    @Test
+    public void testFindByMerchant(){
+        List<Category> categories = controller.findByMerchant(5l);
+        Assert.assertEquals(categoryList, categories);
+        Mockito.verify(categoryDao).findByMerchantId(5l);
     }
     
     @Test

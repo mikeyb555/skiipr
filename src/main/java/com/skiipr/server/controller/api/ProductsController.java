@@ -35,6 +35,17 @@ public class ProductsController {
         return product;
     }
     
+    @RequestMapping(value="/api/products/category/{id}", method = RequestMethod.GET)
+    public @ResponseBody List<Product> findByCategory(@PathVariable Long id){
+        List<Product> product = productDao.findByCategoryID(id);
+        if(product == null){
+            throw new NotFound();
+        }
+        return product;
+    }
+    
+    
+    
     @RequestMapping(value="/api/products/all", method = RequestMethod.GET)
     public @ResponseBody List<Product> findAll(){
         List<Product> products = productDao.findAll();
