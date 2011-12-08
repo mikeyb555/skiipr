@@ -40,6 +40,7 @@ public class MerchantControllerTest {
         MockitoAnnotations.initMocks(this);
         Mockito.when(merchantDao.findById(5l)).thenReturn(merchant);
         Mockito.when(merchantDao.findAll()).thenReturn(merchantList);
+        Mockito.when(merchantDao.findByName("foobar")).thenReturn(merchantList);
     }
     
     @Test
@@ -54,5 +55,12 @@ public class MerchantControllerTest {
         List<Merchant> returnList = controller.findAll();
         Assert.assertEquals(merchantList, returnList);
         Mockito.verify(merchantDao).findAll();
+    }
+    
+    @Test
+    public void testFindByName(){
+        List<Merchant> returnList = controller.findByName("foobar");
+        Assert.assertEquals(merchantList, returnList);
+        Mockito.verify(merchantDao).findByName("foobar");
     }
 }

@@ -103,7 +103,10 @@ public class MerchantDaoImpl extends HibernateDaoSupport implements MerchantDao{
         
         return (rad * 180.0 / Math.PI);
     }
-    
-    
+
+    @Override
+    public List<Merchant> findByName(String name) {
+        return getHibernateTemplate().find("from Merchant WHERE name LIKE concat('%',?,'%')", name);
+    }
     
 }

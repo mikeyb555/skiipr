@@ -34,10 +34,10 @@ public class MerchantDaoImplTest {
     public void testSave(){
         Merchant merchant = merchantDao.findByUsername("fred");
         merchant.setUsername("alex");
-        merchant.setName("round bar");
+        merchant.setName("round club");
         merchantDao.save(merchant);
         merchant = merchantDao.findByUsername("alex");
-        Assert.assertEquals(merchant.getName(), "round bar");
+        Assert.assertEquals(merchant.getName(), "round club");
     }
     
     @Test
@@ -77,5 +77,17 @@ public class MerchantDaoImplTest {
         List<Merchant> merchants = merchantDao.findWithinRadius(lat, lon, radius);
         
         Assert.assertEquals(merchants.size(), 1);
+    }
+    
+    @Test
+    public void testFindByName(){
+        List<Merchant> merchants = merchantDao.findByName("big");
+        Long id = 1l;
+        Assert.assertEquals(merchants.get(0).getMerchantID(), id);
+        Assert.assertEquals(merchants.size(), 1);
+        merchants = merchantDao.findByName("bar");
+        Assert.assertEquals(merchants.size(), 2);
+        id = 2l;
+        Assert.assertEquals(merchants.get(1).getMerchantID(), id);
     }
 }
