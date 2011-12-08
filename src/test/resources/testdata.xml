@@ -2,8 +2,8 @@
 <dataset>
 	<tbl_plan plan_id="2" plan_name="plan1" can_paypal="1"/>
 	<tbl_plan plan_id="3" plan_name="plan3" can_paypal="0"/>
-        <tbl_merchant merchant_id="1" username="fred" salt="1234" password="fc74acb4ad8fb836068a543aafa45d5275e934af" last_login="1322206746" login_count="0" failed_login_time="1322179536" name="big bar" address_number="5" address_street="Long street" address_postcode="2000" address_state="Queensland" address_country="Australia" paypal="test@test.com" latitude="278 29' S" longitude="153 8' E" email="contact@website.com" plan_id="3" />
-        <tbl_merchant merchant_id="2" username="george" salt="1234" password="fc74acb4ad8fb836068a543aafa45d5275e934af" last_login="1322206746" login_count="0" failed_login_time="1322179536" name="loud bar" address_number="10" address_street="Short street" address_postcode="3000" address_state="NSW" address_country="Australia" paypal="hai@test.com" latitude="298 29' S" longitude="163 8' E" email="info@website.com" plan_id="2" />
+        <tbl_merchant merchant_id="1" username="fred" salt="1234" password="fc74acb4ad8fb836068a543aafa45d5275e934af" last_login="1322206746" login_count="0" failed_login_time="1322179536" name="big bar" address_number="5" address_street="Long street" address_postcode="2000" address_state="Queensland" address_country="Australia" paypal="test@test.com" latitude="100" longitude="200" email="contact@website.com" plan_id="3" />
+        <tbl_merchant merchant_id="2" username="george" salt="1234" password="fc74acb4ad8fb836068a543aafa45d5275e934af" last_login="1322206746" login_count="0" failed_login_time="1322179536" name="loud bar" address_number="10" address_street="Short street" address_postcode="3000" address_state="NSW" address_country="Australia" paypal="hai@test.com" latitude="-27.70344" longitude="150.37717" email="info@website.com" plan_id="2" />
         <tbl_category category_id="1" name="Basics" merchant_id="1" />
         <tbl_category category_id="2" name="Cocktails" merchant_id="2" />
         <tbl_category category_id="3" name="Food" merchant_id="1" />
