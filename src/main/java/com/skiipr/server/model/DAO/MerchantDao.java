@@ -1,6 +1,7 @@
 package com.skiipr.server.model.DAO;
 
 import com.skiipr.server.model.Merchant;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -11,4 +12,5 @@ public interface MerchantDao {
     public Merchant findByUsername(String username);
     public Merchant findById(Long id);
     public List<Merchant> findAll();
+    public ArrayList<Merchant> findWithinRadius(double lat, double lon, double radius);
 }

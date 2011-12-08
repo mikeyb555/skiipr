@@ -2,6 +2,7 @@ package com.skiipr.server.model.DAO.impl;
 
 import com.skiipr.server.model.DAO.MerchantDao;
 import com.skiipr.server.model.Merchant;
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,5 +54,56 @@ public class MerchantDaoImpl extends HibernateDaoSupport implements MerchantDao{
     public List<Merchant> findAll() {
         return getHibernateTemplate().find("from Merchant");
     }
+    
+    @Override
+    public ArrayList<Merchant> findWithinRadius(double lat, double lon, double radius){
+        List<Merchant> merchants = findAll();
+        ArrayList<Merchant> returnList = new ArrayList();
+        for(Merchant merchant: merchants){
+            String stringLatitude = merchant.getLatitude();
+            String stringLongitude = merchant.getLongitude();
+            double merchantLatitude = Double.parseDouble(stringLatitude);
+            double merchantLongitude = Double.parseDouble(stringLongitude);
+            
+            
+            if (withinRadius(merchantLatitude, merchantLongitude, lat, lon, radius)){
+                
+                returnList.add(merchant);
+            }
+            
+         
+             
+        }
+        
+        
+        return returnList;
+        
+        
+    }
+    
+    private boolean withinRadius(double merchantLatitude, double merchantLongitude, double userLatitude, double userLongitude, double radius){
+        double theta = userLongitude - merchantLongitude;
+        double dist = Math.sin(deg2rad(userLatitude)) * Math.sin(deg2rad(merchantLatitude)) 
+                + Math.cos(deg2rad(userLatitude)) * Math.cos(deg2rad(merchantLatitude)) * Math.cos(deg2rad(theta));
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist * 60 * 1.1515 * 1.609344;
+        //System.out.println("The distance is " + dist);
+       
+        
+        return (radius >= dist);
+    
+    }
+    
+    private double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+    }
+    
+    private double rad2deg(double rad) {
+        
+        return (rad * 180.0 / Math.PI);
+    }
+    
+    
     
 }

@@ -9,6 +9,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -54,6 +55,7 @@ public class Category implements Serializable {
         
     }
     
+    @JsonIgnore
     public List<Product> getProducts(){
         return products;
     }

@@ -2,6 +2,7 @@ package com.skiipr.server.model.DAO.impl;
 
 import com.skiipr.server.model.DAO.MerchantDao;
 import com.skiipr.server.model.Merchant;
+import java.util.List;
 import junit.framework.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -59,5 +60,22 @@ public class MerchantDaoImplTest {
         merchantDao.delete(merchant);
         merchant = merchantDao.findByUsername("bobby");
         Assert.assertNull(merchant);
+    }
+    
+    @Test
+    public void testFindAll(){
+        List<Merchant> merchants = merchantDao.findAll();
+        Assert.assertEquals(merchants.size(), 2);
+    }
+    
+    @Test
+    public void testRadius(){
+        double lat = -27.70828;
+        double lon = 150.37253;
+        double radius = 10;
+        
+        List<Merchant> merchants = merchantDao.findWithinRadius(lat, lon, radius);
+        
+        Assert.assertEquals(merchants.size(), 1);
     }
 }
