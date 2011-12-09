@@ -12,7 +12,7 @@
         </div>
         <div class="widget_body">  
             <div class="widget_content">
-                <form:create id="fc_com_skiipr_server_models_Category" modelAttribute="category" path="/dashboard/categories" render="${empty dependencies}">
+                <form:create id="fc_com_skiipr_server_models_Category" modelAttribute="category" path="/dashboard/categories/new" render="${empty dependencies}">
                     <field:input field="name" id="c_com_skiipr_server_models_Category_name" required="true"/>
                 </form:create>
                 <form:dependency dependencies="${dependencies}" id="d_com_skiipr_server_models_Category" render="${not empty dependencies}"/>
