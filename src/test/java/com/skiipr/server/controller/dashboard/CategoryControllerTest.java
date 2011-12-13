@@ -64,12 +64,14 @@ public class CategoryControllerTest {
         MockitoAnnotations.initMocks(this);
         Mockito.when(categoryDao.findByID(3l)).thenReturn(category);
         Mockito.when(categoryDao.findAll()).thenReturn(categoryList);
+        Mockito.when(categoryDao.findByMerchantId(5l)).thenReturn(categoryList);
         Mockito.doNothing().when(categoryDao).update(category);
         Mockito.doNothing().when(categoryDao).save(category);
         Mockito.when(model.addAttribute("category", category)).thenReturn(model);
         Mockito.doNothing().when(map).clear();
         Mockito.when(model.asMap()).thenReturn(map);
         Mockito.when(category.getCategoryID()).thenReturn(3l);
+        Mockito.when(category.getMerchantID()).thenReturn(5l);
         Mockito.doNothing().when(categoryDao).delete(category);
         Mockito.when(sessionUser.getUser()).thenReturn(loginUser);
         Mockito.when(loginUser.getMerchantId()).thenReturn(5l);
@@ -80,14 +82,15 @@ public class CategoryControllerTest {
     @Test
     public void testShow() {
         Assert.assertEquals("/dashboard/categories/view", controller.show(3l, model));
-        Mockito.verify(categoryDao).findByID(3l);
+        
+        Mockito.verify(category).getMerchantID();
         Mockito.verify(model).addAttribute("category", category);
     }
 
     @Test
     public void testList() {
         Assert.assertEquals("/dashboard/categories/list", controller.list(5, 5, model));
-        Mockito.verify(categoryDao, Mockito.times(2)).findAll();
+        Mockito.verify(categoryDao, Mockito.times(2)).findByMerchantId(5l);
     }
 
     @Test
@@ -104,7 +107,8 @@ public class CategoryControllerTest {
     @Test
     public void testUpdateForm() {
         Assert.assertEquals("/dashboard/categories/update", controller.updateForm(3l, model));
-        Mockito.verify(categoryDao).findByID(3l);
+        
+        Mockito.verify(category).getMerchantID();
         Mockito.verify(model).addAttribute("category", category);
     }
 

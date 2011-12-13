@@ -4,6 +4,7 @@
  */
 package com.skiipr.server.model.DAO.impl;
 
+import com.skiipr.server.components.SessionUser;
 import com.skiipr.server.model.Category;
 import com.skiipr.server.model.DAO.CategoryDao;
 import com.skiipr.server.model.DAO.MerchantDao;
@@ -25,6 +26,8 @@ public class CategoryDaoImpl extends HibernateDaoSupport implements CategoryDao 
     
     @Autowired
     private MerchantDao merchantDao;
+    
+    
     
     @Autowired
     public void init(SessionFactory factory){
@@ -63,6 +66,7 @@ public class CategoryDaoImpl extends HibernateDaoSupport implements CategoryDao 
     
     @Override
     public List<Category> findByMerchantId(Long id){
+        
         List list = getHibernateTemplate().find("from Category where merchantID =?", id);
         if(list.isEmpty()){
             return null;
