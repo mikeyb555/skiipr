@@ -20,5 +20,7 @@ public interface OrderDao {
     public List<Order> findAll();
     public List<Order> findAllByMerchant();
     public List<Order> findAllByMerchant(Long merchantID);
+    public Order findOrderByMerchant(Long orderID);
+    public Order findOrderByMerchant(Long orderID, Long merchantID);
      
 }

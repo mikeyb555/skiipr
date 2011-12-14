@@ -83,6 +83,25 @@ public class OrderDaoImpl extends HibernateDaoSupport implements OrderDao {
         }
         
     }
+    
+    @Override
+    public Order findOrderByMerchant(Long orderID){
+        LoginUser user = sessionUser.getUser();
+        return findOrderByMerchant(orderID, user.getMerchantId());
+    }
+    
+    @Override
+    public Order findOrderByMerchant(Long orderID, Long merchantID){
+        String[] params = {"ordID", "merchID"};
+        Object[] values = {orderID, merchantID};
+        List<Order> orders = getHibernateTemplate().findByNamedParam("from Order where (orderID = :ordID) AND merchant.merchantID = :merchID)", params, values);
+        if(orders.isEmpty()){
+            return null;
+        }
+	return (Order) orders.get(0);
+    }
+    
+    
 
 }
     

@@ -4,8 +4,8 @@
         <definition extends="dashboard" name="/dashboard/orders/list">
             <put-attribute name="body" value="/WEB-INF/views/dashboard/orders/list.jspx"/>
         </definition>
-    <definition extends="dashboard" name="/dashboard/orders/show">
-            <put-attribute name="body" value="/WEB-INF/views/dashboard/orders/show.jspx"/>
+    <definition extends="dashboard" name="/dashboard/orders/view">
+            <put-attribute name="body" value="/WEB-INF/views/dashboard/orders/view.jspx"/>
         </definition>
     <definition extends="dashboard" name="/dashboard/orders/create">
             <put-attribute name="body" value="/WEB-INF/views/dashboard/orders/create.jspx"/>
