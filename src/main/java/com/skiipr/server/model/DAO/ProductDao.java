@@ -19,4 +19,6 @@ public interface ProductDao {
     public Product findByIDNoRelation(Long id);
     public List<Product> findAll();
     public List<Product> findByCategoryID(Long id);
+    public Product findByMerchant(Long productID);
+    public Product findByMerchant(Long productID, Long merchantID);
 }

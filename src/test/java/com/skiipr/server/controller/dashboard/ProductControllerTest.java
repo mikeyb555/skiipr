@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.skiipr.server.controller.dashboard;
 
 import com.skiipr.server.components.SessionUser;
@@ -15,7 +11,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import junit.framework.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -27,10 +22,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
-/**
- *
- * @author Michael
- */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath*:testApplicationContext.xml"})
 public class ProductControllerTest {
@@ -95,6 +86,7 @@ public class ProductControllerTest {
         Mockito.when(product.getCategory()).thenReturn(category);
         Mockito.when(categoryDao.findAll()).thenReturn(categoryList);
         Mockito.when(categoryDao.findByMerchantId(5l)).thenReturn(categoryList);
+        Mockito.when(productDao.findByMerchant(3l)).thenReturn(product);
         Mockito.when(sessionUser.getUser()).thenReturn(loginUser);
         
         Mockito.when(loginUser.getMerchantId()).thenReturn(5l);
@@ -110,7 +102,7 @@ public class ProductControllerTest {
     @Test
     public void testShow() {
         Assert.assertEquals("/dashboard/products/view", controller.show(3l, model));
-        Mockito.verify(productDao).findByID(3l);
+        Mockito.verify(productDao).findByMerchant(3l);
         Mockito.verify(model).addAttribute("product", product);
     }
     

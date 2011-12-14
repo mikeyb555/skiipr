@@ -98,7 +98,7 @@
         <property name="active" type="boolean">
             <column name="active" length="1" not-null="true" />
         </property>
-        <many-to-one name = "category" class = "com.skiipr.server.model.Category" cascade="none" column = "category_id" /> 
+        <many-to-one name = "category" class = "com.skiipr.server.model.Category" cascade="none" lazy="false" column = "category_id" /> 
        </class>
        <class name="com.skiipr.server.model.Order" table="tbl_order">
         <id name="orderID" type="java.lang.Long">

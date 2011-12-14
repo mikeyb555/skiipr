@@ -56,5 +56,4 @@ xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springf
         <context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
     </context:component-scan>
    
-
 </beans>

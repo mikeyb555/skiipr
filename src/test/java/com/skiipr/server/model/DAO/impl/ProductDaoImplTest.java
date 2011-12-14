@@ -1,26 +1,24 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.skiipr.server.model.DAO.impl;
 
+import com.skiipr.server.components.SessionUser;
 import com.skiipr.server.model.Category;
 import com.skiipr.server.model.DAO.CategoryDao;
 import com.skiipr.server.model.DAO.ProductDao;
+import com.skiipr.server.model.LoginUser;
 import com.skiipr.server.model.Product;
 import java.util.List;
 import junit.framework.Assert;
-import org.junit.Ignore;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-/**
- *
- * @author Michael
- */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath*:testApplicationContext.xml"})
 public class ProductDaoImplTest {
@@ -28,9 +26,8 @@ public class ProductDaoImplTest {
     @Autowired
     private ProductDao productDao;
     
-   @Autowired
-   private CategoryDao categoryDao;
-    
+    @Autowired
+    private CategoryDao categoryDao;
     
     @Test
     public void testFindAll(){
@@ -99,6 +96,12 @@ public class ProductDaoImplTest {
         Assert.assertNull(product);
     }
     
-    
+    @Test
+    public void testFindByMerchant(){
+        Product product = productDao.findByMerchant(2l, 1l);
+        Assert.assertEquals(product.getDescription(), "product2");
+        product = productDao.findByMerchant(2l, 2l);
+        Assert.assertNull(product);
+    }
     
 }

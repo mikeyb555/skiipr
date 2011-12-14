@@ -10,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
@@ -26,6 +25,7 @@ public class Product implements Serializable {
     private float price;
     private boolean active;
     private Long categoryID;
+    @ManyToOne
     private Category category;
     
     public void setProductID(Long id){

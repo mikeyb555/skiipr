@@ -1,11 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.skiipr.server.model.DAO.impl;
 
-import com.skiipr.server.model.Category;
+import com.skiipr.server.components.SessionUser;
 import com.skiipr.server.model.DAO.ProductDao;
+import com.skiipr.server.model.LoginUser;
 import com.skiipr.server.model.Product;
 import java.util.List;
 import org.hibernate.SessionFactory;
@@ -13,13 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 
-/**
- *
- * @author Michael
- */
 @Repository("ProductDao")
 public class ProductDaoImpl extends HibernateDaoSupport implements ProductDao {
 
+    @Autowired
+    private SessionUser sessionUser;
+    
     @Autowired
     public void init(SessionFactory factory) {
         setSessionFactory(factory);
@@ -67,6 +63,24 @@ public class ProductDaoImpl extends HibernateDaoSupport implements ProductDao {
     @Override
     public Product findByIDNoRelation(Long id) {
         List products = getHibernateTemplate().find("from Product where productID=?", id);
+        if(products.isEmpty()){
+            return null;
+        }
+	return (Product) products.get(0);
+    }
+
+    @Override
+    public Product findByMerchant(Long productID) {
+        LoginUser user = sessionUser.getUser();
+        Long merchantID = user.getMerchantId();
+        return findByMerchant(productID, merchantID);
+    }
+
+    @Override
+    public Product findByMerchant(Long productID, Long merchantID) {
+        String[] params = {"prodID", "merchID"};
+        Object[] values = {productID, merchantID};
+        List<Product> products = getHibernateTemplate().findByNamedParam("from Product where (productID = :prodID) AND (category.merchantID = :merchID)", params, values);
         if(products.isEmpty()){
             return null;
         }

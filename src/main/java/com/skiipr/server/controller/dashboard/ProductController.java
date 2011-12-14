@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.skiipr.server.controller.dashboard;
 
 import com.skiipr.server.components.SessionUser;
@@ -9,13 +5,11 @@ import com.skiipr.server.model.Category;
 import com.skiipr.server.model.DAO.CategoryDao;
 import com.skiipr.server.model.DAO.ProductDao;
 import com.skiipr.server.model.LoginUser;
-import com.skiipr.server.model.Merchant;
 import com.skiipr.server.model.Product;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,10 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-/**
- *
- * @author timbell
- */
 @Controller
 public class ProductController {
     
@@ -42,7 +32,7 @@ public class ProductController {
     
     @RequestMapping(value = "/dashboard/products/view/{id}", method = RequestMethod.GET)
     public String show(@PathVariable("id") Long id, Model uiModel) {
-        uiModel.addAttribute("product", productDao.findByID(id));
+        uiModel.addAttribute("product", productDao.findByMerchant(id));
         return "/dashboard/products/view";
     }
     
