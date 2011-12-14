@@ -40,11 +40,11 @@ public class OrderController {
    @RequestMapping(value = "/dashboard/orders", method = RequestMethod.GET)
    public String list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model model) {
         if (page != null || size != null) {
-            model.addAttribute("orders", orderDao.findAll());
+            model.addAttribute("orders", orderDao.findAllByMerchant());
         } else {
-            model.addAttribute("orders", orderDao.findAll());
+            model.addAttribute("orders", orderDao.findAllByMerchant());
         }
-        model.addAttribute("orders", orderDao.findAll());
+        model.addAttribute("orders", orderDao.findAllByMerchant());
         return "/dashboard/orders/list";
     }
    

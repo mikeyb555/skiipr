@@ -4,8 +4,10 @@
  */
 package com.skiipr.server.model.DAO.impl;
 
+import com.skiipr.server.components.SessionUser;
 import com.skiipr.server.model.DAO.OrderDao;
 
+import com.skiipr.server.model.LoginUser;
 import com.skiipr.server.model.Order;
 import com.skiipr.server.model.Plan;
 import java.util.List;
@@ -20,6 +22,9 @@ import org.springframework.stereotype.Repository;
  */
 @Repository("OrderDao")
 public class OrderDaoImpl extends HibernateDaoSupport implements OrderDao {
+    
+    @Autowired
+    SessionUser sessionUser;
 
     @Autowired
     public void init(SessionFactory factory) {
@@ -58,6 +63,25 @@ public class OrderDaoImpl extends HibernateDaoSupport implements OrderDao {
             return null;
         }
 	return (List<Order>) list;
+    }
+    
+    @Override
+    public List<Order> findAllByMerchant(){
+        LoginUser user = sessionUser.getUser();
+        return findAllByMerchant(user.getMerchantId());
+        
+        
+    }
+    
+    @Override
+    public List<Order> findAllByMerchant(Long merchantID){
+        List<Order> orders = getHibernateTemplate().find("from Order where merchant.merchantID = ?", merchantID);
+        if (orders.isEmpty()){
+            return null;
+        }else{
+            return (List<Order>) orders;
+        }
+        
     }
 
 }

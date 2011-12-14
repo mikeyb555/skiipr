@@ -17,7 +17,11 @@ public interface CategoryDao {
     public void delete(Category category);
     public Category findByID(Long id);
     public List<Category> findAll();
+    public List<Category> findByMerchantId();
     public List<Category> findByMerchantId(Long id);
+    public Category findCategoryByMerchantId(Long categoryID);
+    public Category findCategoryByMerchantId(Long categoryID, Long merchantID);
+    
     
     
 }

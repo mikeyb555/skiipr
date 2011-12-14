@@ -27,6 +27,9 @@ public class CategoryDaoImpl extends HibernateDaoSupport implements CategoryDao 
     @Autowired
     private MerchantDao merchantDao;
     
+    @Autowired
+    private SessionUser sessionUser;
+    
     
     
     @Autowired
@@ -65,6 +68,14 @@ public class CategoryDaoImpl extends HibernateDaoSupport implements CategoryDao 
     }
     
     @Override
+    public List<Category> findByMerchantId(){
+        LoginUser user = sessionUser.getUser();
+        return findByMerchantId(user.getMerchantId());
+    }
+        
+    
+    
+    @Override
     public List<Category> findByMerchantId(Long id){
         
         List list = getHibernateTemplate().find("from Category where merchantID =?", id);
@@ -73,6 +84,27 @@ public class CategoryDaoImpl extends HibernateDaoSupport implements CategoryDao 
         }
 	return (List<Category>) list;
         
+    }
+    
+    @Override
+    public Category findCategoryByMerchantId(Long categoryID){
+       LoginUser user = sessionUser.getUser();
+       return findCategoryByMerchantId(categoryID, user.getMerchantId());
+    }
+    
+    @Override
+    public Category findCategoryByMerchantId(Long categoryID, Long merchantID){
+        String[] params = {"catID", "merchID"};
+        Object[] values = {categoryID, merchantID};
+        List<Category> categories = getHibernateTemplate().findByNamedParam("from Category where (categoryID= :catID) AND (merchantID = :merchID)", params, values);
+        if(categories.isEmpty()){
+            return null;
+        }
+	return (Category) categories.get(0);
+         
+         
+        
+       
     }
     
 }

@@ -13,7 +13,7 @@
                 <div class="widget_content">
                     <page:list id="pl_com_skiipr_server_model_Product" items="${products}">
                         <table:table data="${products}" id="l_com_skiipr_server_model_Product" path="/dashboard/products" typeIdFieldName="productID">
-                            <table:column id="c_com_skiipr_server_model_Product_description" property="description" />
+                            <table:column id="c_com_skiipr_server_model_Product_description" property="description" maxLength="45" />
                             <table:column id="c_com_skiipr_server_model_Product_price" property="price" />
                             <table:column id="c_com_skiipr_server_model_Product_active" property="active" />
                             <table:column id="c_com_skiipr_server_model_Product_active" property="active" />

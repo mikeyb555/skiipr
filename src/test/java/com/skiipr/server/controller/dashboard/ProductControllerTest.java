@@ -85,8 +85,9 @@ public class ProductControllerTest {
         Mockito.when(category.getCategoryID()).thenReturn(1l);
         Mockito.when(product.getCategory()).thenReturn(category);
         Mockito.when(categoryDao.findAll()).thenReturn(categoryList);
-        Mockito.when(categoryDao.findByMerchantId(5l)).thenReturn(categoryList);
+        Mockito.when(categoryDao.findByMerchantId()).thenReturn(categoryList);
         Mockito.when(productDao.findByMerchant(3l)).thenReturn(product);
+        Mockito.when(productDao.findAllByMerchant()).thenReturn(productList);
         Mockito.when(sessionUser.getUser()).thenReturn(loginUser);
         
         Mockito.when(loginUser.getMerchantId()).thenReturn(5l);
@@ -109,7 +110,7 @@ public class ProductControllerTest {
      @Test
     public void testList() {
         Assert.assertEquals("/dashboard/products/list", controller.list(5, 5, model));
-        Mockito.verify(productDao, Mockito.times(2)).findAll();
+        Mockito.verify(productDao, Mockito.times(2)).findAllByMerchant();
     }
      
     
@@ -128,14 +129,14 @@ public class ProductControllerTest {
     @Test
     public void testUpdateForm() {
         Assert.assertEquals("/dashboard/products/update", controller.updateForm(3l, model));
-        Mockito.verify(productDao).findByID(3l);
+        Mockito.verify(productDao).findByMerchant(3l);
         Mockito.verify(model).addAttribute("product", product);
     }
     
     @Test
     public void testDelete() {
         Assert.assertEquals("redirect://dashboard/products", controller.delete(3l, 2, 2, model));
-        Mockito.verify(productDao).findByIDNoRelation(3l);
+        Mockito.verify(productDao).findByMerchant(3l);
         Mockito.verify(productDao).delete(product);
         Mockito.verify(map).clear();
     }

@@ -87,4 +87,26 @@ public class ProductDaoImpl extends HibernateDaoSupport implements ProductDao {
 	return (Product) products.get(0);
     }
     
+    @Override
+    public List<Product> findAllByMerchant(){
+        LoginUser user= sessionUser.getUser();
+        Long merchantID = user.getMerchantId();
+        return findAllByMerchant(merchantID);
+        
+    }
+    
+    
+    @Override
+    public List<Product> findAllByMerchant(Long merchantID){
+        List<Product> products = getHibernateTemplate().find("from Product where (category.merchantID = ?)", merchantID);
+        if(products.isEmpty()){
+            return null;
+        }
+	return (List<Product>) products;
+        
+        
+        
+              
+    }
+    
 }

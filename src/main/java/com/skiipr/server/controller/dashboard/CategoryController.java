@@ -25,26 +25,21 @@ public class CategoryController {
     
     @RequestMapping(value = "/dashboard/categories/view/{id}", method = RequestMethod.GET)
     public String show(@PathVariable("id") Long id, Model uiModel) {
-        uiModel.addAttribute("category", categoryDao.findByID(id));
+        uiModel.addAttribute("category", categoryDao.findCategoryByMerchantId(id));
         uiModel.addAttribute("itemId", id);
-        LoginUser user = sessionUser.getUser();
-        
-        if (categoryDao.findByID(id).getMerchantID() != user.getMerchantId()){
-            return "redirect:/dashboard/categories";
-        }else{
         return "/dashboard/categories/view";
-        }
+        
     }
     
    @RequestMapping(value = "/dashboard/categories", method = RequestMethod.GET)
    public String list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model model) {
-       LoginUser user = sessionUser.getUser();
+       
         if (page != null || size != null) {
-            model.addAttribute("categories", categoryDao.findByMerchantId(user.getMerchantId()));
+            model.addAttribute("categories", categoryDao.findByMerchantId());
         } else {
-            model.addAttribute("categories", categoryDao.findByMerchantId(user.getMerchantId()));
+            model.addAttribute("categories", categoryDao.findByMerchantId());
         }
-        model.addAttribute("categories", categoryDao.findByMerchantId(user.getMerchantId()));
+        model.addAttribute("categories", categoryDao.findByMerchantId());
         return "/dashboard/categories/list";
     }
    
@@ -64,19 +59,14 @@ public class CategoryController {
     
     @RequestMapping(value = "/dashboard/categories/edit/{id}", method = RequestMethod.GET)
     public String updateForm(@PathVariable("id") Long id, Model uiModel) {
-        LoginUser user = sessionUser.getUser();
-        
-        if (categoryDao.findByID(id).getMerchantID() != user.getMerchantId()){
-            return "redirect:/dashboard/categories";
-        }else{
-        uiModel.addAttribute("category", categoryDao.findByID(id));
+        uiModel.addAttribute("category", categoryDao.findCategoryByMerchantId(id));
         return "/dashboard/categories/update";
         }
-    }
+    
     
     @RequestMapping(value = "/dashboard/categories/delete/{id}", method = RequestMethod.DELETE)
     public String delete(@PathVariable("id") Long id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
-        Category category = categoryDao.findByID(id);
+        Category category = categoryDao.findCategoryByMerchantId(id);
         categoryDao.delete(category);
         uiModel.asMap().clear();
         uiModel.addAttribute("page", (page == null) ? "1" : page.toString());

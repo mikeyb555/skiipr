@@ -21,4 +21,6 @@ public interface ProductDao {
     public List<Product> findByCategoryID(Long id);
     public Product findByMerchant(Long productID);
     public Product findByMerchant(Long productID, Long merchantID);
+    public List<Product> findAllByMerchant();
+    public List<Product> findAllByMerchant(Long merchantID);
 }

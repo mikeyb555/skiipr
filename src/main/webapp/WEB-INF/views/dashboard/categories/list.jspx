@@ -13,7 +13,7 @@
                 <div class="widget_content">
                     <page:list id="pl_com_skiipr_server_model_Category" items="${categories}">
                         <table:table data="${categories}" id="l_com_skiipr_server_model_Category" path="/dashboard/categories" typeIdFieldName="categoryID">
-                            <table:column id="c_com_skiipr_server_model_Category_name" property="name" />
+                            <table:column id="c_com_skiipr_server_model_Category_name" property="name" maxLength="45" />
                         </table:table>
                     </page:list>
                 </div>

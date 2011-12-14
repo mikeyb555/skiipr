@@ -18,4 +18,7 @@ public interface OrderDao {
     public void delete(Order order);
     public Order findByID(Long id);
     public List<Order> findAll();
+    public List<Order> findAllByMerchant();
+    public List<Order> findAllByMerchant(Long merchantID);
+     
 }
