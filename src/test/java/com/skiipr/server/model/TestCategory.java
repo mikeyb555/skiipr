@@ -24,6 +24,9 @@ public class TestCategory {
         category.setCategoryID(1l);
         category.setMerchantID(5l);
         Assert.assertEquals(category.getName(), "test category");
+        Assert.assertEquals(category.getCategoryID().toString(), "1");
+        Assert.assertEquals(category.getMerchantID().toString(), "5");
+        
         
         
         

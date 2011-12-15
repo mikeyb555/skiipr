@@ -1,6 +1,8 @@
 package com.skiipr.server.controller.dashboard;
 
+import com.skiipr.server.components.FlashNotification;
 import com.skiipr.server.components.SessionUser;
+import com.skiipr.server.enums.Status;
 import com.skiipr.server.model.Category;
 import com.skiipr.server.model.DAO.CategoryDao;
 import com.skiipr.server.model.LoginUser;
@@ -25,6 +27,7 @@ public class CategoryController {
     
     @RequestMapping(value = "/dashboard/categories/view/{id}", method = RequestMethod.GET)
     public String show(@PathVariable("id") Long id, Model uiModel) {
+        uiModel.addAttribute("flash", FlashNotification.create(Status.SUCCESS, "Category Added"));
         uiModel.addAttribute("category", categoryDao.findCategoryByMerchantId(id));
         uiModel.addAttribute("itemId", id);
         return "/dashboard/categories/view";
@@ -81,9 +84,11 @@ public class CategoryController {
             return "/dashboard/categories/create";
         }
         uiModel.asMap().clear();
+        
         LoginUser user = sessionUser.getUser();
         category.setMerchantID(user.getMerchantId());
         categoryDao.save(category);
+        uiModel.addAttribute("flash", FlashNotification.create(Status.SUCCESS, "Category Added"));
         return "redirect:/dashboard/categories/view/" + category.getCategoryID().toString();
     }
     
