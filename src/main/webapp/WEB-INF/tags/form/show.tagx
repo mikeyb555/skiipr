@@ -6,6 +6,7 @@
   <jsp:directive.attribute name="path" type="java.lang.String" required="true" rtexprvalue="true" description="Specify the URL path" />
   <jsp:directive.attribute name="list" type="java.lang.Boolean" required="false" rtexprvalue="true" description="Include 'list' link into table (default true)" />
   <jsp:directive.attribute name="create" type="java.lang.Boolean" required="false" rtexprvalue="true" description="Include 'create' link into table (default true)" />
+  <jsp:directive.attribute name="cancel" type="java.lang.Boolean" required="false" rtexprvalue="true" description="Include 'cancel' link into table (default false)" />
   <jsp:directive.attribute name="update" type="java.lang.Boolean" required="false" rtexprvalue="true" description="Include 'update' link into table (default true)" />
   <jsp:directive.attribute name="delete" type="java.lang.Boolean" required="false" rtexprvalue="true" description="Include 'delete' link into table (default true)" />
   <jsp:directive.attribute name="label" type="java.lang.String" required="false" rtexprvalue="true" description="The label used for this object, will default to a message bundle if not supplied" />
@@ -32,6 +33,9 @@
 
     <c:if test="${empty delete}">
       <c:set var="delete" value="true" />
+    </c:if>
+    <c:if test="${empty cancel}">
+      <c:set var="delete" value="false" />
     </c:if>
 
     <spring:message var="typeName" code="menu_item_${fn:toLowerCase(fn:split(id,'_')[fn:length(fn:split(id,'_')) - 1])}_new_label" htmlEscape="false" />
@@ -67,6 +71,18 @@
                 <spring:message arguments="${typeName}" code="entity_update" var="update_label" htmlEscape="false" />
                 <a class = "btn grey right medium" href="${fn:escapeXml(update_form_url)}" alt="${fn:escapeXml(update_label)}" title="${fn:escapeXml(update_label)}">
                    <span>Update</span>
+                </a>
+              </c:if>
+            </span>
+            <span>
+              <c:if test="${cancel}">
+                <spring:url value="${path}/cancel/${itemId}}" var="cancel_form_url">
+                  
+                </spring:url>
+                
+                <spring:message arguments="${typeName}" code="entity_update" var="update_label" htmlEscape="false" />
+                <a class = "btn grey right medium" href="${fn:escapeXml(cancel_form_url)}" alt="${fn:escapeXml(update_label)}" title="${fn:escapeXml(update_label)}">
+                   <span>Cancel</span>
                 </a>
               </c:if>
             </span>

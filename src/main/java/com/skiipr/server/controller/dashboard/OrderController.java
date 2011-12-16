@@ -93,6 +93,17 @@ public class OrderController {
         uiModel.addAttribute("order", new Order());
         return "/dashboard/orders/create";
     }
+    
+    @RequestMapping(value = "/dashboard/orders/cancel/{id}", method = RequestMethod.GET)
+    public String cancelOrder(@PathVariable("id") Long id, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
+        Order order = orderDao.findOrderByMerchant(id);
+        order.setOrderType(0l);
+        orderDao.update(order);
+        uiModel.addAttribute("order", new Order());
+        return "redirect:/dashboard/orders";
+    }
+    
+    
 }
     
     

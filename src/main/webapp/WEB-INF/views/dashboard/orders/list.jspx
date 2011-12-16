@@ -12,7 +12,7 @@
             <div class="widget_body">  
                 <div class="widget_content">
                     <page:list id="pl_com_skiipr_server_model_Order" items="${orders}">
-                        <table:table data="${orders}" id="l_com_skiipr_server_model_Order" path="/dashboard/orders" typeIdFieldName="orderID">
+                        <table:table data="${orders}" id="l_com_skiipr_server_model_Order" path="/dashboard/orders" typeIdFieldName="orderID" create="false" update = "false" delete= "false">
                             <table:column id="c_com_skiipr_server_model_Order_orderID" property="orderID" />
                             <table:column id="c_com_skiipr_server_model_Order_orderTime" property="orderTime" />
                             <table:column id="c_com_skiipr_server_model_Order_paypalAddress" property="paypalAddress" />
