@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:page="urn:jsptagdir:/WEB-INF/tags/form"
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:general="urn:jsptagdir:/WEB-INF/tags/general"
+     xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
    <ul class="breadcrumbs first">
@@ -11,6 +15,10 @@
             </div>
             <div class="widget_body">  
                 <div class="widget_content">
+                    <c:if test="${not empty flash}">
+                    <general:notification message="${flash.message}" status = "${flash.status}"/>
+                      
+                </c:if>
                     <page:list id="pl_com_skiipr_server_model_Category" items="${categories}">
                         <table:table data="${categories}" id="l_com_skiipr_server_model_Category" path="/dashboard/categories" typeIdFieldName="categoryID">
                             <table:column id="c_com_skiipr_server_model_Category_name" property="name" maxLength="45" />

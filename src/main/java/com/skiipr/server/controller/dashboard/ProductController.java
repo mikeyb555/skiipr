@@ -1,6 +1,8 @@
 package com.skiipr.server.controller.dashboard;
 
+import com.skiipr.server.components.FlashNotification;
 import com.skiipr.server.components.SessionUser;
+import com.skiipr.server.enums.Status;
 import com.skiipr.server.model.Category;
 import com.skiipr.server.model.DAO.CategoryDao;
 import com.skiipr.server.model.DAO.ProductDao;
@@ -52,11 +54,12 @@ public class ProductController {
         if (bindingResult.hasErrors()) {
             uiModel.addAttribute("product", product);
             uiModel.addAttribute("categories", categoryDao.findByMerchantId());
-            return "/dashboard/products/update";
+            return updateForm(product.getProductID(), uiModel);
         }
         uiModel.asMap().clear();
+        uiModel.addAttribute("flash", FlashNotification.create(Status.SUCCESS, "Product Updated"));
         productDao.update(product);
-        return "redirect:/dashboard/products/edit/" + product.getProductID().toString();
+        return updateForm(product.getProductID(), uiModel);
     }
     
     @RequestMapping(value = "/dashboard/products/edit/{id}", method = RequestMethod.GET)
@@ -78,7 +81,8 @@ public class ProductController {
         uiModel.asMap().clear();
         uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
         uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
-        return "redirect://dashboard/products";
+        uiModel.addAttribute("flash", FlashNotification.create(Status.SUCCESS, "Product Deleted"));
+        return list(page, size, uiModel);
     }
     
     @RequestMapping(value = "/dashboard/products/new", method = RequestMethod.POST)
@@ -89,9 +93,11 @@ public class ProductController {
             return "/dashboard/products/create";
         }
         uiModel.asMap().clear();
-        
         productDao.save(product);
-        return "redirect:/dashboard/products/view/" + product.getProductID().toString();
+        uiModel.addAttribute("flash", FlashNotification.create(Status.SUCCESS, "Product Added"));
+        return show(product.getProductID(), uiModel);
+        
+        
     }
     
     @RequestMapping(value = "/dashboard/products/new", method = RequestMethod.GET)

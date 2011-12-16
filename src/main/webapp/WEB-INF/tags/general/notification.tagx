@@ -18,13 +18,20 @@
                 <c:out value="${message}" />
                 <a href="#" class="close">x</a>
             </p>
-            <p>
-                <spring:url value="/images/dashboard/fugue/tick-circle.png" var="tickcircle_icon" />
-
-              <img src="${tickcircle_icon}" alt="success" class="mid_align"/>
-                <c:out value="${success}" />
-                <a href="#" class="close">x</a>
-            </p>
+            
         </div>
    </c:if>
+  <c:if test= "${not result}">
+  <div class="msg failure">
+            <p>
+                <spring:url value="/images/dashboard/fugue/cross-circle.png" var="crosscircle_icon" />
+
+              <img src="${crosscircle_icon}" alt="success" class="mid_align"/>
+                <c:out value="${message}" />
+                <a href="#" class="close">x</a>
+            </p>
+            
+        </div>
+    </c:if>
+  
 </jsp:root>

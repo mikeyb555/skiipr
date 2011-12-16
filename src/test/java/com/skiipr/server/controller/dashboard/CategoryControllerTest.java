@@ -96,12 +96,12 @@ public class CategoryControllerTest {
     @Test
     public void testUpdate() {
         Mockito.when(bindingResult.hasErrors()).thenReturn(false);
-        Assert.assertEquals("redirect:/dashboard/categories/edit/3", controller.update(category, bindingResult, model, httpServletRequest));
+        Assert.assertEquals("/dashboard/categories/update", controller.update(category, bindingResult, model, httpServletRequest));
         Mockito.verify(map).clear();
         Mockito.verify(categoryDao).update(category);
         Mockito.when(bindingResult.hasErrors()).thenReturn(true);
         Assert.assertEquals("/dashboard/categories/edit", controller.update(category, bindingResult, model, httpServletRequest));
-        Mockito.verify(model).addAttribute("category", category);
+        Mockito.verify(model, Mockito.times(2)).addAttribute("category", category);
     }
 
     @Test
@@ -114,7 +114,7 @@ public class CategoryControllerTest {
 
     @Test
     public void testDelete() {
-        Assert.assertEquals("redirect://dashboard/categories", controller.delete(3l, 2, 2, model));
+        Assert.assertEquals("/dashboard/categories/list", controller.delete(3l, 2, 2, model));
         Mockito.verify(categoryDao).findCategoryByMerchantId(3l);
         Mockito.verify(categoryDao).delete(category);
         Mockito.verify(map).clear();
@@ -123,12 +123,12 @@ public class CategoryControllerTest {
     @Test
     public void testCreate() {
         Mockito.when(bindingResult.hasErrors()).thenReturn(false);
-        Assert.assertEquals("redirect:/dashboard/categories/view/3", controller.create(category, bindingResult, model, httpServletRequest));
+        Assert.assertEquals("/dashboard/categories/view", controller.create(category, bindingResult, model, httpServletRequest));
         Mockito.verify(map).clear();
         Mockito.verify(categoryDao).save(category);
         Mockito.when(bindingResult.hasErrors()).thenReturn(true);
         Assert.assertEquals("/dashboard/categories/create", controller.create(category, bindingResult, model, httpServletRequest));
-        Mockito.verify(model).addAttribute("category", category);
+        Mockito.verify(model, Mockito.times(2)).addAttribute("category", category);
         Mockito.verify(category).setMerchantID(5l);
         Mockito.verify(loginUser).getMerchantId();
     }

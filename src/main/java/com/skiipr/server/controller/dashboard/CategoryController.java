@@ -27,7 +27,6 @@ public class CategoryController {
     
     @RequestMapping(value = "/dashboard/categories/view/{id}", method = RequestMethod.GET)
     public String show(@PathVariable("id") Long id, Model uiModel) {
-        uiModel.addAttribute("flash", FlashNotification.create(Status.SUCCESS, "Category Added"));
         uiModel.addAttribute("category", categoryDao.findCategoryByMerchantId(id));
         uiModel.addAttribute("itemId", id);
         return "/dashboard/categories/view";
@@ -53,9 +52,10 @@ public class CategoryController {
             return "/dashboard/categories/edit";
         }
         uiModel.asMap().clear();
+        uiModel.addAttribute("flash", FlashNotification.create(Status.SUCCESS, "Category Updated"));
         categoryDao.update(category);
         
-        return "redirect:/dashboard/categories/edit/" + category.getCategoryID().toString();
+        return updateForm(category.getCategoryID(), uiModel);
         
        
     }
@@ -74,10 +74,11 @@ public class CategoryController {
         uiModel.asMap().clear();
         uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
         uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
-        return "redirect://dashboard/categories";
+        uiModel.addAttribute("flash", FlashNotification.create(Status.SUCCESS, "Category Deleted"));
+        return list(page, size, uiModel);
     }
     
-    @RequestMapping(value = "/dashboard/categories/new", method = RequestMethod.POST)
+    @RequestMapping(value = "/dashboard/categories/view", method = RequestMethod.POST)
     public String create(@Valid Category category, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             uiModel.addAttribute("category", category);
@@ -89,7 +90,8 @@ public class CategoryController {
         category.setMerchantID(user.getMerchantId());
         categoryDao.save(category);
         uiModel.addAttribute("flash", FlashNotification.create(Status.SUCCESS, "Category Added"));
-        return "redirect:/dashboard/categories/view/" + category.getCategoryID().toString();
+        return show(category.getCategoryID(), uiModel);
+        //return "redirect:/dashboard/categories/view/" + category.getCategoryID().toString();
     }
     
     @RequestMapping(value = "/dashboard/categories/new", method = RequestMethod.GET)
