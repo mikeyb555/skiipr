@@ -21,7 +21,7 @@
                     <general:notification message="${flash.message}" status = "${flash.status}"/>
                       
                 </c:if>
-                <page:show id="ps_com_skiipr_server_model_Category" object="${category}" path="/dashboard/categories/view">
+                <page:show id="ps_com_skiipr_server_model_Category" object="${category}" path="/dashboard/categories">
                     <field:display field="name" id="s_com_skiipr_server_model_Category_name" object="${category}"/>
                 </page:show>
             </div>

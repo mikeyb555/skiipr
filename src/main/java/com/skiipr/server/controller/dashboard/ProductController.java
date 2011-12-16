@@ -35,6 +35,7 @@ public class ProductController {
     @RequestMapping(value = "/dashboard/products/view/{id}", method = RequestMethod.GET)
     public String show(@PathVariable("id") Long id, Model uiModel) {
         uiModel.addAttribute("product", productDao.findByMerchant(id));
+        uiModel.addAttribute("itemId", id);
         return "/dashboard/products/view";
     }
     
@@ -64,8 +65,8 @@ public class ProductController {
     
     @RequestMapping(value = "/dashboard/products/edit/{id}", method = RequestMethod.GET)
     public String updateForm(@PathVariable("id") Long id, Model uiModel) {
-        if (productDao.findAllByMerchant(id) == null){
-            return "redirect://dashboard/products";
+        if (productDao.findByMerchant(id) == null){
+            return "redirect:/dashboard/products";
         }else{
             uiModel.addAttribute("product", productDao.findByMerchant(id));
             uiModel.addAttribute("categories", categoryDao.findByMerchantId());

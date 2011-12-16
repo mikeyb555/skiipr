@@ -20,7 +20,7 @@
                 </c:if>
                 <jsp:directive.page contentType="text/html;charset=UTF-8"/>
                 <jsp:output omit-xml-declaration="yes"/>
-                <page:show id="ps_com_skiipr_server_model_Product" object="${product}" path="/dashboard/products/view">
+                <page:show id="ps_com_skiipr_server_model_Product" object="${product}" path="/dashboard/products">
                     <field:display field="description" id="s_com_skiipr_server_model_Product_description" object="${product}"/>
                     <field:display field="price" id="s_com_skiipr_server_model_Product_price" object="${product}"/>
                     <field:display field="active" id="s_com_skiipr_server_model_Product_active" object="${product}"/>

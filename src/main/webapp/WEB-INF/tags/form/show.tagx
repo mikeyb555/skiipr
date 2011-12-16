@@ -60,8 +60,8 @@
             </span>
             <span>
               <c:if test="${update}">
-                <spring:url value="${path}/${itemId}" var="update_form_url">
-                  <spring:param name="form" />
+                <spring:url value="${path}/edit/${itemId}" var="update_form_url">
+                  
                 </spring:url>
                 <spring:url value="/resources/images/update.png" var="update_image_url" />
                 <spring:message arguments="${typeName}" code="entity_update" var="update_label" htmlEscape="false" />
@@ -72,8 +72,8 @@
             </span>
             <span>
               <c:if test="${create}">
-                <spring:url value="${path}" var="create_form_url">
-                  <spring:param name="form" />
+                <spring:url value="${path}/new" var="create_form_url">
+                  
                 </spring:url>
                 <spring:url value="/resources/images/create.png" var="create_image_url" />
                 <spring:message arguments="${typeName}" code="entity_create" var="create_label" htmlEscape="false" />
