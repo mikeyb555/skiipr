@@ -1,8 +1,10 @@
 package com.skiipr.server.model.DAO.impl;
 
+import com.skiipr.server.model.Category;
 import com.skiipr.server.model.DAO.MerchantDao;
 import com.skiipr.server.model.Merchant;
 import java.util.List;
+import java.util.Set;
 import junit.framework.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -73,9 +75,7 @@ public class MerchantDaoImplTest {
         double lat = -27.70828;
         double lon = 150.37253;
         double radius = 10;
-        
         List<Merchant> merchants = merchantDao.findWithinRadius(lat, lon, radius);
-        
         Assert.assertEquals(merchants.size(), 1);
     }
     
@@ -89,5 +89,12 @@ public class MerchantDaoImplTest {
         Assert.assertEquals(merchants.size(), 2);
         id = 2l;
         Assert.assertEquals(merchants.get(1).getMerchantID(), id);
+    }
+    
+    @Test
+    public void testCategoryRelationship(){
+        Merchant merchant = merchantDao.findById(1l);
+        Set categories = merchant.getCategories();
+        Assert.assertEquals(2, categories.size());
     }
 }

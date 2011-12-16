@@ -50,7 +50,7 @@ public class CategoryDaoImplTest {
     public void testSave(){
         Category category = new Category();
         category.setName("Beer");
-        category.setMerchantID(1l);
+        category.setMerchantID(2l);
         categoryDao.save(category);
         List<Category> categories = categoryDao.findAll();
         assertEquals(categories.size(), 4);

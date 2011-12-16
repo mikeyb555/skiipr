@@ -46,6 +46,7 @@ public class Category implements Serializable {
         return name;
     }
     
+    @JsonIgnore
     public Long getMerchantID(){
         return merchantId;
     }

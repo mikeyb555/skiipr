@@ -5,6 +5,7 @@
 package com.skiipr.server.model;
 
 import java.io.Serializable;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -33,6 +34,7 @@ public class Merchant implements Serializable {
     private String email;
     private int planId;
     private Plan plan;
+    private Set categories;
     
     @JsonIgnore
     public String getUsername(){
@@ -273,5 +275,13 @@ public class Merchant implements Serializable {
      */
     public void setPlan(Plan plan) {
         this.plan = plan;
+    }
+    
+    public void setCategories(Set categories){
+        this.categories = categories;
+    }
+    
+    public Set getCategories(){
+        return categories;
     }
 }

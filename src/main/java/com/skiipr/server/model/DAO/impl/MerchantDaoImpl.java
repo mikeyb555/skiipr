@@ -4,6 +4,7 @@ import com.skiipr.server.model.DAO.MerchantDao;
 import com.skiipr.server.model.Merchant;
 import java.util.ArrayList;
 import java.util.List;
+import org.hibernate.Hibernate;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;

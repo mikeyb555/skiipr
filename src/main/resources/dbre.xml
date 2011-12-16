@@ -59,6 +59,12 @@
         <property name="planId" type="int">
             <column name="plan_id" length="20" not-null="true" />
         </property>
+        <set name="categories" inverse="true" lazy="false" fetch="join">
+             <key>
+                <column name="merchant_id" not-null="true" />
+            </key>
+             <one-to-many class="com.skiipr.server.model.Category" />
+        </set>
     </class>
     <class name="com.skiipr.server.model.Plan" table="tbl_plan">
         <id name="planId" type="java.lang.Long">
