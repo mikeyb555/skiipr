@@ -173,7 +173,7 @@ table .piped, table .piped a {color:#777; font-size: 0.917em;}
 /* Login Page
 -------------------------------------------------------------------*/
 #loginpage {background-image: url(../../images/dashboard/login_bg.png); background-repeat: no-repeat; background-position: top center;}
-#loginpage img {position: relative; top: 130px}
+
 #login {margin-top: 170px}
 #login .widget_content {width: 85%; margin: 5px auto 10px;}
 #login label {margin-top: 10px; }
