@@ -98,6 +98,9 @@
         <property name="description" type="string">
             <column name="description" length="128" not-null="true"/>
         </property>
+        <property name="name" type="string">
+            <column name="name" length="128" not-null="true" />
+        </property>
         <property name="price">
             <column name="price" sql-type="NUMERIC(12,2)" not-null="true"/>
         </property>

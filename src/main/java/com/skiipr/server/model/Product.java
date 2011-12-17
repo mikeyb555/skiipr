@@ -23,6 +23,7 @@ public class Product implements Serializable {
     private Long productID;
     private String description;
     private float price;
+    private String name;
     private boolean active;
     private Long categoryID;
     @ManyToOne
@@ -37,6 +38,10 @@ public class Product implements Serializable {
         this.description = description;
     }
     
+    public void setName(String name){
+        this.name = name;
+    }
+    
     public void setPrice(float price){
         this.price = price;
     }
@@ -49,6 +54,7 @@ public class Product implements Serializable {
         return productID;
         
     }
+    
     
     public String getDescription(){
         return description;
@@ -73,6 +79,10 @@ public class Product implements Serializable {
     
     public Long getCategoryID(){
         return category.getCategoryID();
+    }
+
+    public String getName() {
+        return name;
     }
     
 }

@@ -21,6 +21,7 @@
                       
                 </c:if>
                 <form:update id="fu_com_skiipr_server_model_Product" modelAttribute="product" path="/dashboard/products/edit" versionField="none" idField="ProductID">
+                    <field:input field="name" id="c_com_skiipr_server_model_Product_name"/>
                     <field:input field="description" id="c_com_skiipr_server_model_Product_description"/>
                     <field:input field="price" id="c_com_skiipr_server_model_Product_price"/>
                     <field:checkbox field="active" id="c_com_skiipr_server_model_Product_active"/>
