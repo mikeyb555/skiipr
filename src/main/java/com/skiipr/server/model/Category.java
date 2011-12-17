@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  *
@@ -21,6 +23,8 @@ public class Category implements Serializable {
     
     @Id
     private Long categoryID;
+    @NotBlank
+    @Length(max= 128)
     private String name;
     private Long merchantId;
     private List<Product> products;

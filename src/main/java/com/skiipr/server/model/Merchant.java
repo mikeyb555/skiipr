@@ -11,10 +11,15 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "tbl_merchant")
 public class Merchant implements Serializable {
+    @NotBlank
+    @Length(max = 80)
     private String username;
     private String password;
     private Long merchantID;
@@ -31,6 +36,7 @@ public class Merchant implements Serializable {
     private String paypal;
     private String latitude;
     private String longitude;
+    @Email
     private String email;
     private int planId;
     private Plan plan;
