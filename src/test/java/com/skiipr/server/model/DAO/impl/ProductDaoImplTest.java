@@ -62,6 +62,7 @@ public class ProductDaoImplTest {
         product.setActive(true);
         product.setCategory(categoryDao.findByID(1l));
         product.setPrice(1);
+        product.setName("banana");
         productDao.save(product);
         List<Product> products = productDao.findAll();
         Assert.assertEquals(products.size(), 3);
