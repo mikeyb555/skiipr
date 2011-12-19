@@ -1,11 +1,14 @@
 package com.skiipr.server.model.DAO.impl;
 
 import com.skiipr.server.components.SessionUser;
+import com.skiipr.server.model.DAO.CategoryDao;
 import com.skiipr.server.model.DAO.ProductDao;
 import com.skiipr.server.model.LoginUser;
 import com.skiipr.server.model.Product;
 import java.util.List;
+import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
@@ -15,6 +18,9 @@ public class ProductDaoImpl extends HibernateDaoSupport implements ProductDao {
 
     @Autowired
     private SessionUser sessionUser;
+    
+    @Autowired
+    private CategoryDao categoryDao;
     
     @Autowired
     public void init(SessionFactory factory) {
@@ -107,6 +113,28 @@ public class ProductDaoImpl extends HibernateDaoSupport implements ProductDao {
         
         
               
+    }
+    
+    @Override
+    public List<Product> findRange(Integer first, Integer max) {
+        Criteria criteria = getSession().createCriteria(Product.class)
+                .setMaxResults(max)
+                .setFirstResult(first)
+                .add(Restrictions.in("category", categoryDao.findByMerchantId()));
+        List<Product> products = criteria.list();
+        System.out.println("Size:" + products.size());
+        System.out.println("Start: " + first);
+        System.out.println("Max: " + max);
+        if(products.isEmpty()){
+            return null;
+        }
+	return products;
+    }
+    
+     @Override
+    public Integer countByMerchant() {
+        
+        return findAllByMerchant().size();
     }
     
 }
