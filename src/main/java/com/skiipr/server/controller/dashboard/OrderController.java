@@ -65,7 +65,7 @@ public class OrderController {
         return "/dashboard/orders/update";
     }
     
-    @RequestMapping(value = "/dashboard/orders/delete/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/dashboard/orders/delete/{id}", method = RequestMethod.GET)
     public String delete(@PathVariable("id") Long id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
         Order order = orderDao.findByID(id);
         orderDao.delete(order);

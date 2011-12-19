@@ -67,7 +67,7 @@ public class CategoryController {
         }
     
     
-    @RequestMapping(value = "/dashboard/categories/delete/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/dashboard/categories/delete/{id}", method = RequestMethod.GET)
     public String delete(@PathVariable("id") Long id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
         Category category = categoryDao.findCategoryByMerchantId(id);
         categoryDao.delete(category);

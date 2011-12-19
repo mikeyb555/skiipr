@@ -76,7 +76,7 @@ public class ProductController {
         
     }
     
-    @RequestMapping(value = "/dashboard/products/delete/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/dashboard/products/delete/{id}", method = RequestMethod.GET)
     public String delete(@PathVariable("id") Long id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
         Product product = productDao.findByMerchant(id);
         productDao.delete(product);
