@@ -38,9 +38,6 @@ public class ProductsController {
     @RequestMapping(value="/api/products/category/{id}", method = RequestMethod.GET)
     public @ResponseBody List<Product> findByCategory(@PathVariable Long id){
         List<Product> product = productDao.findByCategoryID(id);
-        if(product == null){
-            throw new NotFound();
-        }
         return product;
     }
     

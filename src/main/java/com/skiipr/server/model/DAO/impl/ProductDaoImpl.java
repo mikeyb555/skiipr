@@ -45,25 +45,19 @@ public class ProductDaoImpl extends HibernateDaoSupport implements ProductDao {
     @Override
     public List<Product> findAll() {
         List list = getHibernateTemplate().find("from Product");
-        if(list.isEmpty()){
-            return null;
-        }
 	return (List<Product>) list;
     }
     
     @Override
     public List<Product> findByCategoryID(Long id){
         List list = getHibernateTemplate().find("from Product where category.categoryID=?", id);
-        if(list.isEmpty()){
-            return null;
-        }
 	return (List<Product>) list;   
     }
 
     @Override
     public Product findByIDNoRelation(Long id) {
         List products = getHibernateTemplate().find("from Product where productID=?", id);
-        if(products.isEmpty()){
+        if(products.size() == 0){
             return null;
         }
 	return (Product) products.get(0);
@@ -81,7 +75,7 @@ public class ProductDaoImpl extends HibernateDaoSupport implements ProductDao {
         String[] params = {"prodID", "merchID"};
         Object[] values = {productID, merchantID};
         List<Product> products = getHibernateTemplate().findByNamedParam("from Product where (productID = :prodID) AND (category.merchantID = :merchID)", params, values);
-        if(products.isEmpty()){
+        if(products.size() == 0){
             return null;
         }
 	return (Product) products.get(0);
@@ -91,22 +85,14 @@ public class ProductDaoImpl extends HibernateDaoSupport implements ProductDao {
     public List<Product> findAllByMerchant(){
         LoginUser user= sessionUser.getUser();
         Long merchantID = user.getMerchantId();
-        return findAllByMerchant(merchantID);
-        
+        return findAllByMerchant(merchantID);  
     }
     
     
     @Override
     public List<Product> findAllByMerchant(Long merchantID){
         List<Product> products = getHibernateTemplate().find("from Product where (category.merchantID = ?)", merchantID);
-        if(products.isEmpty()){
-            return null;
-        }
-	return (List<Product>) products;
-        
-        
-        
-              
+	return (List<Product>) products;       
     }
     
 }
