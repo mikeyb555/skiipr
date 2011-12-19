@@ -9,18 +9,15 @@ import com.skiipr.server.model.Category;
 import com.skiipr.server.model.DAO.CategoryDao;
 import com.skiipr.server.model.DAO.MerchantDao;
 import com.skiipr.server.model.LoginUser;
-import com.skiipr.server.model.Merchant;
 import java.util.List;
+import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
-/**
- *
- * @author Michael
- */
 @Repository("CategoryDao")
 public class CategoryDaoImpl extends HibernateDaoSupport implements CategoryDao {
     
@@ -29,8 +26,6 @@ public class CategoryDaoImpl extends HibernateDaoSupport implements CategoryDao 
     
     @Autowired
     private SessionUser sessionUser;
-    
-    
     
     @Autowired
     public void init(SessionFactory factory){
@@ -86,6 +81,8 @@ public class CategoryDaoImpl extends HibernateDaoSupport implements CategoryDao 
         
     }
     
+    
+    
     @Override
     public Category findCategoryByMerchantId(Long categoryID){
        LoginUser user = sessionUser.getUser();
@@ -101,10 +98,34 @@ public class CategoryDaoImpl extends HibernateDaoSupport implements CategoryDao 
             return null;
         }
 	return (Category) categories.get(0);
-         
-         
-        
-       
+    }
+
+    @Override
+    public List<Category> findRange(Integer first, Integer max) {
+        Long merchantID = sessionUser.getUser().getMerchantId();
+        Criteria criteria = getSession().createCriteria(Category.class)
+                .setMaxResults(max)
+                .setFirstResult(first)
+                .add(Restrictions.eq("merchantID", merchantID));
+//        Query query = getSession().createQuery("from Category where (merchantID = :merchantID)")
+//                .setParameter("merchantID", merchantID)
+//                .setMaxResults(max)
+//                .setFirstResult(first);
+        List<Category> categories = criteria.list();
+        System.out.println("Size:" + categories.size());
+        System.out.println("Start: " + first);
+        System.out.println("Max: " + max);
+        if(categories.isEmpty()){
+            return null;
+        }
+	return categories;
+    }
+
+    @Override
+    public Integer countByMerchant() {
+        Long merchantID = sessionUser.getUser().getMerchantId();
+        Long count = (Long) getHibernateTemplate().find("SELECT count(*) FROM Category WHERE merchantID = ?", merchantID).get(0);
+        return count.intValue();
     }
     
 }

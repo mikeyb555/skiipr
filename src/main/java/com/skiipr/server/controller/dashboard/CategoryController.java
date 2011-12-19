@@ -35,13 +35,16 @@ public class CategoryController {
     
    @RequestMapping(value = "/dashboard/categories", method = RequestMethod.GET)
    public String list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model model) {
-       
-        if (page != null || size != null) {
-            model.addAttribute("categories", categoryDao.findByMerchantId());
-        } else {
-            model.addAttribute("categories", categoryDao.findByMerchantId());
+        if(size == null){
+            size = 10;
         }
-        model.addAttribute("categories", categoryDao.findByMerchantId());
+        if(page == null){
+            page = 1;
+        }
+        Integer sizeNo = this.getPageSize(size);
+        Integer startPage = this.getStartPage(page, sizeNo);
+        model.addAttribute("categories", categoryDao.findRange(startPage, sizeNo));
+        model.addAttribute("maxPages", this.getMaxPages(sizeNo));
         return "/dashboard/categories/list";
     }
    
@@ -98,5 +101,30 @@ public class CategoryController {
     public String createForm(Model uiModel) {
         uiModel.addAttribute("category", new Category());
         return "/dashboard/categories/create";
+    }
+    
+    private Integer getPageSize(Integer size){
+        if(size == null){
+            return 10;
+        }else{
+            return size;
+        }
+    }
+    
+    private Integer getStartPage(Integer page, Integer pageSize){
+        if(page == null){
+            return 0;
+        }else{
+            return (page - 1) * pageSize;
+        }
+    }
+    
+    private Integer getMaxPages(Integer sizeNo){
+        float nrOfPages = (float) categoryDao.countByMerchant() / sizeNo;
+        if(nrOfPages > (int) nrOfPages || nrOfPages == 0.0){
+            return (int) nrOfPages + 1;
+        }else{
+            return (int) nrOfPages;
+        }
     }
 }

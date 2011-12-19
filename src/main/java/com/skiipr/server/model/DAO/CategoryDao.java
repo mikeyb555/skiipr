@@ -21,7 +21,6 @@ public interface CategoryDao {
     public List<Category> findByMerchantId(Long id);
     public Category findCategoryByMerchantId(Long categoryID);
     public Category findCategoryByMerchantId(Long categoryID, Long merchantID);
-    
-    
-    
+    public List<Category> findRange(Integer first, Integer max);
+    public Integer countByMerchant();
 }
