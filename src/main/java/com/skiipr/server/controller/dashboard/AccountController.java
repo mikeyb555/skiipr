@@ -1,11 +1,14 @@
 package com.skiipr.server.controller.dashboard;
 
 import com.skiipr.server.components.SessionUser;
+import com.skiipr.server.enums.MerchantType;
 import com.skiipr.server.model.DAO.MerchantDao;
 import com.skiipr.server.model.DAO.PlanDao;
 import com.skiipr.server.model.LoginUser;
 import com.skiipr.server.model.Merchant;
 import com.skiipr.server.model.Plan;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +54,8 @@ public class AccountController {
         model.addAttribute("merchant", merchant);
         List<Plan> plans = planDao.findAll();
         model.addAttribute("plans", plans);
+        List<MerchantType> merchantTypes = new ArrayList<MerchantType>(Arrays.asList(MerchantType.values()));
+        model.addAttribute("merchantTypes", merchantTypes);
         return "/dashboard/default/account";
     }
 }

@@ -18,7 +18,6 @@ import org.hibernate.validator.constraints.NotBlank;
 @Entity
 @Table(name = "tbl_merchant")
 public class Merchant implements Serializable {
-    @NotBlank
     @Length(max = 80)
     private String username;
     private String password;
@@ -39,6 +38,7 @@ public class Merchant implements Serializable {
     @Email
     private String email;
     private int planId;
+    private int type;
     private Plan plan;
     private Set categories;
     
@@ -289,5 +289,19 @@ public class Merchant implements Serializable {
     
     public Set getCategories(){
         return categories;
+    }
+
+    /**
+     * @return the type
+     */
+    public int getType() {
+        return type;
+    }
+
+    /**
+     * @param type the type to set
+     */
+    public void setType(int type) {
+        this.type = type;
     }
 }
