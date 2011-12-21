@@ -11,7 +11,9 @@ import com.skiipr.server.model.LoginUser;
 import com.skiipr.server.model.Order;
 import com.skiipr.server.model.Plan;
 import java.util.List;
+import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
@@ -100,6 +102,29 @@ public class OrderDaoImpl extends HibernateDaoSupport implements OrderDao {
         }
 	return (Order) orders.get(0);
     }
+    
+    @Override
+    public List<Order> findRange(Integer first, Integer max) {
+        Long merchantID = sessionUser.getUser().getMerchantId();
+        Criteria criteria = getSession().createCriteria(Order.class)
+                .setMaxResults(max)
+                .setFirstResult(first)
+                .add(Restrictions.eq("merchant.merchantID", merchantID));
+        List<Order> categories = criteria.list();
+        System.out.println("Size:" + categories.size());
+        System.out.println("Start: " + first);
+        System.out.println("Max: " + max);
+        if(categories.isEmpty()){
+            return null;
+        }
+	return categories;
+    }
+    
+    @Override
+    public Integer countByMerchant(){
+        return findAllByMerchant().size();
+    }
+    
     
     
 

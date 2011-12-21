@@ -39,12 +39,16 @@ public class OrderController {
     
    @RequestMapping(value = "/dashboard/orders", method = RequestMethod.GET)
    public String list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model model) {
-        if (page != null || size != null) {
-            model.addAttribute("orders", orderDao.findAllByMerchant());
-        } else {
-            model.addAttribute("orders", orderDao.findAllByMerchant());
+        if(size == null){
+            size = 10;
         }
-        model.addAttribute("orders", orderDao.findAllByMerchant());
+        if(page == null){
+            page = 1;
+        }
+        Integer sizeNo = this.getPageSize(size);
+        Integer startPage = this.getStartPage(page, sizeNo);
+        model.addAttribute("orders", orderDao.findRange(startPage, sizeNo));
+        model.addAttribute("maxPages", this.getMaxPages(sizeNo));
         return "/dashboard/orders/list";
     }
    
@@ -101,6 +105,31 @@ public class OrderController {
         orderDao.update(order);
         uiModel.addAttribute("order", new Order());
         return "redirect:/dashboard/orders";
+    }
+    
+    private Integer getPageSize(Integer size){
+        if(size == null){
+            return 10;
+        }else{
+            return size;
+        }
+    }
+    
+    private Integer getStartPage(Integer page, Integer pageSize){
+        if(page == null){
+            return 0;
+        }else{
+            return (page - 1) * pageSize;
+        }
+    }
+    
+    private Integer getMaxPages(Integer sizeNo){
+        float nrOfPages = (float) orderDao.countByMerchant() / sizeNo;
+        if(nrOfPages > (int) nrOfPages || nrOfPages == 0.0){
+            return (int) nrOfPages + 1;
+        }else{
+            return (int) nrOfPages;
+        }
     }
     
     

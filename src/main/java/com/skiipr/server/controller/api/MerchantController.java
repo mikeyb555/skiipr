@@ -46,6 +46,7 @@ public class MerchantController {
     @RequestMapping(value="/api/merchant/findbyname/{name}", method = RequestMethod.GET)
     public @ResponseBody List<Merchant> findByName(@PathVariable String name){
         List<Merchant> merchants = merchantDao.findByName(name);
+        
         return merchants;
     } 
 }

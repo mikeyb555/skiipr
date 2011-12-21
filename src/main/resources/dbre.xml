@@ -56,6 +56,12 @@
         <property name="email" type="string">
             <column name="email" length="20" not-null="true" />
         </property>
+        <property name="type" type="int">
+            <column name="type" length="11" not-null="true" />
+        </property>
+        <property name="currencyType" type="string">
+            <column name="currency_type" length="3" not-null="true" />
+        </property>
         <property name="planId" type="int">
             <column name="plan_id" length="20" not-null="true" />
         </property>

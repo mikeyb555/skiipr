@@ -73,6 +73,7 @@ public class ProductControllerTest {
         Mockito.when(productDao.findByID(3l)).thenReturn(product);
         Mockito.when(productDao.findByIDNoRelation(3l)).thenReturn(product);
         Mockito.when(productDao.findAll()).thenReturn(productList);
+        Mockito.when(productDao.findRange(20, 5)).thenReturn(productList);
         Mockito.doNothing().when(productDao).update(product);
         Mockito.doNothing().when(productDao).save(product);
         Mockito.when(model.addAttribute("product", product)).thenReturn(model);
@@ -110,7 +111,7 @@ public class ProductControllerTest {
      @Test
     public void testList() {
         Assert.assertEquals("/dashboard/products/list", controller.list(5, 5, model));
-        Mockito.verify(productDao, Mockito.times(2)).findAllByMerchant();
+        Mockito.verify(productDao).findRange(20, 5);
     }
      
     

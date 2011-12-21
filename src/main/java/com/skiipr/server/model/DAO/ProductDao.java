@@ -23,4 +23,6 @@ public interface ProductDao {
     public Product findByMerchant(Long productID, Long merchantID);
     public List<Product> findAllByMerchant();
     public List<Product> findAllByMerchant(Long merchantID);
+    public List<Product> findRange(Integer first, Integer max);
+    public Integer countByMerchant();
 }
