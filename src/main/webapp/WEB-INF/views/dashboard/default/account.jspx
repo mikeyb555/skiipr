@@ -27,7 +27,8 @@
                     <field:input field="latitude" id="Merchant_latitude" required="true" label="Latitude" />
                     <field:input field="longitude" id="Merchant_longitude" required="true" label="Longitude" />
                     <field:input field="email" id="Merchant_email" required="true" validationMessageCode="field_invalid_email" label="Email address" />
-                    <field:select field = "type" id="merchantTypes" itemValue="index" itemLabel="name" items="${merchantTypes}" multiple = "false" path="" label = "Select Type" /> 
+                    <field:select field = "type" id="merchantTypes" itemValue="index" itemLabel="name" items="${merchantTypes}" multiple = "false" path="" label = "Select Type" />
+                    <field:select field = "currencyType" id="currencyTypes" itemValue="currencyCode" itemLabel="currencyName" items="${currencyTypes}" multiple = "false" path="" label = "Select Currency" />
                     <field:select field="planId" id="plans" itemValue="planId" itemLabel="planName" items="${plans}" multiple="false" path="" label="Select Plan" />
                 </form:create>
                 <form:dependency dependencies="${dependencies}" id="Merchant" render="${not empty dependencies}" />

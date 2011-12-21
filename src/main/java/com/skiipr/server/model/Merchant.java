@@ -41,6 +41,7 @@ public class Merchant implements Serializable {
     private int type;
     private Plan plan;
     private Set categories;
+    private String currencyType;
     
     @JsonIgnore
     public String getUsername(){
@@ -303,5 +304,19 @@ public class Merchant implements Serializable {
      */
     public void setType(int type) {
         this.type = type;
+    }
+
+    /**
+     * @return the currencyType
+     */
+    public String getCurrencyType() {
+        return currencyType;
+    }
+
+    /**
+     * @param currencyType the currencyType to set
+     */
+    public void setCurrencyType(String currencyType) {
+        this.currencyType = currencyType;
     }
 }
