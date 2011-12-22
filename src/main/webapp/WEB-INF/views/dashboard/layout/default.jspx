@@ -17,7 +17,7 @@
                 
 	</head>
 	
-  	<body class="tundra spring" onLoad="initialize();">
+  	<body class="tundra spring">
         <div id="wrap">
             <div id="main">
 

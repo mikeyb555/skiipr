@@ -47,11 +47,11 @@ public class AccountController {
     public String index(Merchant merchant, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest){
         LoginUser user = sessionUser.getUser();
         merchant.setMerchantID(user.getMerchantId());
-        String address = merchant.getAddressNumber()+ " " + merchant.getAddressStreet()+ " " 
-                + merchant.getAddressPostcode() + " " + merchant.getAddressState() + " " + merchant.getAddressCountry();
-        LatLongGenerator llg = new LatLongGenerator(address);
-        merchant.setLatitude(llg.getLatitude());
-        merchant.setLongitude(llg.getLongitude());
+//        String address = merchant.getAddressNumber()+ " " + merchant.getAddressStreet()+ " " 
+//                + merchant.getAddressPostcode() + " " + merchant.getAddressState() + " " + merchant.getAddressCountry();
+//        LatLongGenerator llg = new LatLongGenerator(address);
+//        merchant.setLatitude(llg.getLatitude());
+//        merchant.setLongitude(llg.getLongitude());
         merchantDao.update(merchant);
         return "redirect:/dashboard/account";
     }
