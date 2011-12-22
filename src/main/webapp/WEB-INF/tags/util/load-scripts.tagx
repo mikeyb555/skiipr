@@ -8,6 +8,12 @@
   <spring:url value="/resources/dijit/themes/tundra/tundra.css" var="tundra_url" />
   <spring:url value="/resources/dojo/resources/dojo.css" var="dojo_css_url" />
   
+ 
+  <spring:url value="http://maps.googleapis.com/maps/api/js?key=AIzaSyBqRWOTGf0xyvhYVpc_MZ_cxpqCj-E8auI&amp;sensor=false" var="api_address" />
+  
+  <spring:url value="/resources/scripts/mapScripts.js" var="map_script" />
+  
+  
   <spring:url value="/resources/images/favicon.ico" var="favicon" />
   <link rel="stylesheet" type="text/css" href="${tundra_url}"><!-- required for FF3 and Opera --></link>
   <link rel="stylesheet" type="text/css" href="${dojo_css_url}"><!-- required for FF3 and Opera --></link>
@@ -25,6 +31,14 @@
   <script src="${dojo_url}" type="text/javascript"><!-- required for FF3 and Opera --></script>
   <script src="${spring_url}" type="text/javascript"><!-- /required for FF3 and Opera --></script>
   <script src="${spring_dojo_url}" type="text/javascript"><!-- required for FF3 and Opera --></script>
+  
+  <script type="text/javascript" src="${api_address}"><!-- required for FF3 and Opera --></script> 
+  ]
+  
+  
+  <script type="text/javascript" src="${map_script}"><!-- required for FF3 and Opera --></script>
+  
   <script language="JavaScript" type="text/javascript">dojo.require("dojo.parser");</script>
+  
 
 </jsp:root>

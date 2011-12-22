@@ -33,6 +33,11 @@
                 </form:create>
                 <form:dependency dependencies="${dependencies}" id="Merchant" render="${not empty dependencies}" />
             </div>
+            <div>
+                <div onload="initialize()" id ="map_canvas" style="width: 500px;height: 500px"></div>
+                
+            </div>
+            
         </div>
     </div>
 </div>

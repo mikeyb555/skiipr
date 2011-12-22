@@ -15,7 +15,7 @@ public class LatLongGeneratorTest {
     
     @Test
     public void testAddress(){
-        LatLongGenerator llg = new LatLongGenerator("8+Mountview+St+Aspley");
+        LatLongGenerator llg = new LatLongGenerator("8 Mountview St Aspley");
         System.out.println("Latitude is" + llg.getLatitude());
         System.out.println("Longitude is" + llg.getLongitude());
         Assert.assertEquals(llg.getLatitude(), "-27.3669920");
