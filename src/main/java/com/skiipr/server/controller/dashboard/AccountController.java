@@ -1,8 +1,11 @@
 package com.skiipr.server.controller.dashboard;
 
+import com.skiipr.server.components.FlashNotification;
+import com.skiipr.server.components.LatLongGenerator;
 import com.skiipr.server.components.SessionUser;
 import com.skiipr.server.enums.CurrencyType;
 import com.skiipr.server.enums.MerchantType;
+import com.skiipr.server.enums.Status;
 import com.skiipr.server.model.DAO.MerchantDao;
 import com.skiipr.server.model.DAO.PlanDao;
 import com.skiipr.server.model.LoginUser;
@@ -44,6 +47,11 @@ public class AccountController {
     public String index(Merchant merchant, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest){
         LoginUser user = sessionUser.getUser();
         merchant.setMerchantID(user.getMerchantId());
+        String address = merchant.getAddressNumber()+ " " + merchant.getAddressStreet()+ " " 
+                + merchant.getAddressPostcode() + " " + merchant.getAddressState() + " " + merchant.getAddressCountry();
+        LatLongGenerator llg = new LatLongGenerator(address);
+        merchant.setLatitude(llg.getLatitude());
+        merchant.setLongitude(llg.getLongitude());
         merchantDao.update(merchant);
         return "redirect:/dashboard/account";
     }

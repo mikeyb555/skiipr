@@ -24,10 +24,11 @@ public class LatLongGenerator {
     private String longitude;
     
     public LatLongGenerator(String address){
-        System.out.println(address);
+        String strippedAddress = address.replace(' ', '+');
+        System.out.println(strippedAddress);
         try {
                         URL mapsUrl = new URL(
-                                        "http://maps.googleapis.com/maps/api/geocode/xml?address="+ address + "&sensor=false");
+                                        "http://maps.googleapis.com/maps/api/geocode/xml?address="+ strippedAddress + "&sensor=false");
                         InputStream openStream = mapsUrl.openStream();
                         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
                         DocumentBuilder db = dbf.newDocumentBuilder();

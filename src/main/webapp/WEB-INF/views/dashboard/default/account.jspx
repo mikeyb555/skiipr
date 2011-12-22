@@ -33,6 +33,7 @@
                 </form:create>
                 <form:dependency dependencies="${dependencies}" id="Merchant" render="${not empty dependencies}" />
             </div>
+            
         </div>
     </div>
 </div>
