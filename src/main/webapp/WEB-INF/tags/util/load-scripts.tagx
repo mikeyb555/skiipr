@@ -22,9 +22,9 @@
    <spring:url value="/resources/styles/dashboard/style.css" var="dashboard_general_css" />
    <spring:url value="/resources/styles/dashboard/fixed.css" var="dashboard_fixed_css" />
    <spring:url value="/resources/styles/standard.css" var="standard_css" />
-       <link rel="stylesheet" type="text/css" href="${standard_css}" title="fixed" media="screen" />
-    <link rel="stylesheet" type="text/css" href="${dashboard_general_css}" title="fixed" media="screen" />
-    <link rel="stylesheet" type="text/css" href="${dashboard_fixed_css}" title="fixed" media="screen" />
+   <link rel="stylesheet" type="text/css" href="${standard_css}" title="fixed" media="screen" />
+   <link rel="stylesheet" type="text/css" href="${dashboard_general_css}" title="fixed" media="screen" />
+   <link rel="stylesheet" type="text/css" href="${dashboard_fixed_css}" title="fixed" media="screen" />
 
 
 
@@ -33,9 +33,7 @@
   <script src="${spring_dojo_url}" type="text/javascript"><!-- required for FF3 and Opera --></script>
   
   <script type="text/javascript" src="${api_address}"><!-- required for FF3 and Opera --></script> 
-  ]
-  
-  
+
   <script type="text/javascript" src="${map_script}"><!-- required for FF3 and Opera --></script>
   
   <script language="JavaScript" type="text/javascript">dojo.require("dojo.parser");</script>
