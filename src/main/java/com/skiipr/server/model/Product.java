@@ -5,10 +5,12 @@
 package com.skiipr.server.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.DecimalMin;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
@@ -25,9 +27,10 @@ public class Product implements Serializable {
     private Long productID;
     @Length(max = 128)
     private String description;
-    
-    private float price;
+    @DecimalMin("0")
+    private BigDecimal price;
     @NotBlank
+    @Length(max= 128)
     private String name;
     private boolean active;
     private Long categoryID;
@@ -47,7 +50,7 @@ public class Product implements Serializable {
         this.name = name;
     }
     
-    public void setPrice(float price){
+    public void setPrice(BigDecimal price){
         this.price = price;
     }
     
@@ -65,7 +68,7 @@ public class Product implements Serializable {
         return description;
     }
     
-    public float getPrice(){
+    public BigDecimal getPrice(){
         return price;
     }
     

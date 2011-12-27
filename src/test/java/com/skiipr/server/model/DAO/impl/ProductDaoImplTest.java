@@ -6,6 +6,7 @@ import com.skiipr.server.model.DAO.CategoryDao;
 import com.skiipr.server.model.DAO.ProductDao;
 import com.skiipr.server.model.LoginUser;
 import com.skiipr.server.model.Product;
+import java.math.BigDecimal;
 import java.util.List;
 import junit.framework.Assert;
 import org.junit.Before;
@@ -61,7 +62,8 @@ public class ProductDaoImplTest {
         product.setDescription("foobar");
         product.setActive(true);
         product.setCategory(categoryDao.findByID(1l));
-        product.setPrice(1);
+        BigDecimal price = new BigDecimal("1");
+        product.setPrice(price);
         product.setName("banana");
         productDao.save(product);
         List<Product> products = productDao.findAll();
