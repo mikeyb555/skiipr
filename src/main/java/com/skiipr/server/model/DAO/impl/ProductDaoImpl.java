@@ -5,6 +5,7 @@ import com.skiipr.server.model.DAO.CategoryDao;
 import com.skiipr.server.model.DAO.ProductDao;
 import com.skiipr.server.model.LoginUser;
 import com.skiipr.server.model.Product;
+import java.util.Collections;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
@@ -103,18 +104,26 @@ public class ProductDaoImpl extends HibernateDaoSupport implements ProductDao {
     
     @Override
     public List<Product> findRange(Integer first, Integer max) {
-        Criteria criteria = getSession().createCriteria(Product.class)
+        try{
+            Criteria criteria = getSession().createCriteria(Product.class)
                 .setMaxResults(max)
                 .setFirstResult(first)
                 .add(Restrictions.in("category", categoryDao.findByMerchantId()));
-        List<Product> products = criteria.list();
-        System.out.println("Size:" + products.size());
-        System.out.println("Start: " + first);
-        System.out.println("Max: " + max);
-        if(products.isEmpty()){
+            List<Product> products = criteria.list();
+            if(products.isEmpty()){
             return null;
         }
 	return products;
+            
+        }
+        catch(Exception e){
+            return Collections.EMPTY_LIST;
+            
+        }
+        
+        
+       
+        
     }
     
      @Override

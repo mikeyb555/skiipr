@@ -9,6 +9,7 @@ import com.skiipr.server.model.Category;
 import com.skiipr.server.model.DAO.CategoryDao;
 import com.skiipr.server.model.DAO.MerchantDao;
 import com.skiipr.server.model.LoginUser;
+import java.util.Collections;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -75,7 +76,7 @@ public class CategoryDaoImpl extends HibernateDaoSupport implements CategoryDao 
         
         List list = getHibernateTemplate().find("from Category where merchantID =?", id);
         if(list.isEmpty()){
-            return null;
+            return Collections.EMPTY_LIST;
         }
 	return (List<Category>) list;
         
