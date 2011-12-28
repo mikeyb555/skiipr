@@ -10,6 +10,7 @@ import com.skiipr.server.model.DAO.OrderDao;
 import com.skiipr.server.model.LoginUser;
 import com.skiipr.server.model.Order;
 import com.skiipr.server.model.Plan;
+import java.util.Collections;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
@@ -79,7 +80,7 @@ public class OrderDaoImpl extends HibernateDaoSupport implements OrderDao {
     public List<Order> findAllByMerchant(Long merchantID){
         List<Order> orders = getHibernateTemplate().find("from Order where merchant.merchantID = ?", merchantID);
         if (orders.isEmpty()){
-            return null;
+            return Collections.EMPTY_LIST;
         }else{
             return (List<Order>) orders;
         }
@@ -123,6 +124,9 @@ public class OrderDaoImpl extends HibernateDaoSupport implements OrderDao {
     @Override
     public Integer countByMerchant(){
         return findAllByMerchant().size();
+        
+            
+        
     }
     
     

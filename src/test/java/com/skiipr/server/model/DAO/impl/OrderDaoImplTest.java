@@ -66,6 +66,14 @@ public class OrderDaoImplTest {
         Assert.assertEquals(order.getPaypalAddress(), "winning");
     }
     
+    @Test
+    public void testCount(){
+        List<Order> orders = orderDao.findAllByMerchant(20l);
+        Assert.assertEquals(orders.size(), 0);
+        
+        
+    }
+    
     
     
     
