@@ -13,4 +13,7 @@
     <definition extends="dashboard" name="/dashboard/orders/update">
             <put-attribute name="body" value="/WEB-INF/views/dashboard/orders/update.jspx"/>
     </definition>
+    <definition extends="dashboard" name="/dashboard/orders/products">
+            <put-attribute name="body" value="/WEB-INF/views/dashboard/orders/products.jspx"/>
+    </definition>
 </tiles-definitions>

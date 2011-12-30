@@ -51,6 +51,20 @@ public class OrderController {
         model.addAttribute("maxPages", this.getMaxPages(sizeNo));
         return "/dashboard/orders/list";
     }
+   @RequestMapping(value = "/dashboard/orders/products/{id}", method = RequestMethod.GET)
+   public String products(@PathVariable("id") Long id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model model) {
+        if(size == null){
+            size = 10;
+        }
+        if(page == null){
+            page = 1;
+        }
+        Integer sizeNo = this.getPageSize(size);
+        Integer startPage = this.getStartPage(page, sizeNo);
+        model.addAttribute("products", orderDao.findByID(id).getProducts());
+        model.addAttribute("maxPages", this.getMaxPages(sizeNo));
+        return "/dashboard/orders/products";
+    }
    
    @RequestMapping(value = "/dashboard/orders/edit", method = RequestMethod.PUT)
     public String update(@Valid Order order, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {

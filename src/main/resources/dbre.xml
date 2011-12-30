@@ -144,6 +144,11 @@
         <property name="total">
             <column name="total"  sql-type="NUMERIC(12,2)" not-null="true" />
         </property>
+        <set name = "products" table = "tbl_orderproduct" lazy = "false" cascade = "all" >
+            <key column = "order_id" />
+            <many-to-many column = "product_id" class = "com.skiipr.server.model.Product" lazy = "false" />
+            
+        </set>
         
     </class>
     

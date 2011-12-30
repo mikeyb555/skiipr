@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+   <ul class="breadcrumbs first">
+        <li><a href="#">Dashboard</a></li>
+    </ul>
+        <div class="grid_16 widget tabs first">
+            <div class="widget_title clearfix">
+                <h2>Order Products</h2>
+            </div>
+            <div class="widget_body">  
+                <div class="widget_content">
+                    <page:list id="pl_com_skiipr_server_model_Product" items="${products}">
+                        <table:table data="${products}" id="l_com_skiipr_server_model_Product" path="/dashboard/orders/products" typeIdFieldName="productID" create = "false" update = "false" delete = "false" show = "false">
+                            <table:column id="c_com_skiipr_server_model_Product_name" property="name" maxLength="45" />
+                            <table:column id="c_com_skiipr_server_model_Product_description" property="description" maxLength="45" />
+                            <table:column id="c_com_skiipr_server_model_Product_price" property="price" />
+                            <table:column id="c_com_skiipr_server_model_Product_active" property="active" />
+                            <table:column id="c_com_skiipr_server_model_Product_active" property="active" />
+                            
+                        </table:table>
+                    </page:list>
+                </div>
+            </div>
+    </div>
+</div>

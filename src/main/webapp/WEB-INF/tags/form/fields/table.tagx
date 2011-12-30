@@ -7,6 +7,7 @@
   <jsp:directive.attribute name="path" type="java.lang.String" required="true" rtexprvalue="true" description="Specify the URL path" />
   <jsp:directive.attribute name="typeIdFieldName" type="java.lang.String" required="false" rtexprvalue="true" description="The identifier field name for the type (defaults to 'id')" />
   <jsp:directive.attribute name="create" type="java.lang.Boolean" required="false" rtexprvalue="true" description="Include 'create' link into table (default true)" />
+  <jsp:directive.attribute name="show" type="java.lang.Boolean" required="false" rtexprvalue="true" description="Include 'show' link into table (default true)" />
   <jsp:directive.attribute name="update" type="java.lang.Boolean" required="false" rtexprvalue="true" description="Include 'update' link into table (default true)" />
   <jsp:directive.attribute name="delete" type="java.lang.Boolean" required="false" rtexprvalue="true" description="Include 'delete' link into table (default true)" />
   <jsp:directive.attribute name="render" type="java.lang.Boolean" required="false" rtexprvalue="true" description="Indicate if the contents of this tag and all enclosed tags should be rendered (default 'true')" />
@@ -28,6 +29,10 @@
 
     <c:if test="${empty update}">
       <c:set var="update" value="true" />
+    </c:if>
+    
+    <c:if test="${empty show}">
+      <c:set var="show" value="true" />
     </c:if>
 
     <c:if test="${empty delete}">
@@ -91,6 +96,9 @@
               <c:out value="${colTxt}" />
             </td>
           </c:forTokens>
+            <c:if test="${show}">
+            
+            
           <c:set var="itemId"><spring:eval expression="item[typeIdFieldName]"/></c:set>
           <td class="utilbox">
             <spring:url value="${path}/view/${itemId}" var="show_form_url" />
@@ -100,6 +108,7 @@
              <span>Show</span>
             </a>
           </td>
+            </c:if>
           <c:if test="${update}">
             <td class="utilbox">
               <spring:url value="${path}/edit/${itemId}" var="update_form_url" />

@@ -5,6 +5,8 @@
 package com.skiipr.server.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -26,6 +28,7 @@ public class Order implements Serializable {
     private Long status;
     private Long lastUpdated;
     private float total;
+    private Set<Product> products = new HashSet<Product>(0);
     
     
     public void setOrderID(Long id){
@@ -104,6 +107,20 @@ public class Order implements Serializable {
     
     public float getTotal(){
         return total;
+    }
+
+    /**
+     * @return the products
+     */
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    /**
+     * @param products the products to set
+     */
+    public void setProducts(Set<Product> products) {
+        this.products = products;
     }
     
     

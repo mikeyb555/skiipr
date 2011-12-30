@@ -12,7 +12,7 @@
             <div class="widget_content">
                 <jsp:directive.page contentType="text/html;charset=UTF-8"/>
                 <jsp:output omit-xml-declaration="yes"/>
-                <page:show id="ps_com_skiipr_server_model_Order" object="${order}" path="/dashboard/orders" update = "false" create = "false" delete = "false" cancel = "true" >
+                <page:show id="ps_com_skiipr_server_model_Order" object="${order}" path="/dashboard/orders" update = "false" create = "false" delete = "false" cancel = "true" showProducts = "true" >
                     <field:display field="orderID" id="s_com_skiipr_server_model_Order_orderID" object="${order}"/>
                     <field:display field="orderTime" id="c_com_skiipr_server_model_Order_orderTime" object="${order}"/>
                     <field:display field="paypalAddress" id="c_com_skiipr_server_model_Order_paypalAddress" object="${order}"/>
