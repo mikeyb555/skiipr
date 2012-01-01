@@ -122,11 +122,5 @@ public class Order implements Serializable {
     public void setProducts(Set<Product> products) {
         this.products = products;
     }
-    
-    
-    
-    
-    
-    
-    
+
 }

@@ -13,10 +13,6 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
-/**
- *
- * @author Michael
- */
 @Entity
 @Table(name = "tbl_category")
 public class Category implements Serializable {
