@@ -9,6 +9,6 @@
         <tbl_category category_id="3" name="Food" merchant_id="1" />
         <tbl_product product_id="1" name="foo" description="product1" price="3" active="1" category_id="1"  />
         <tbl_product product_id="2" name="bar" description="product2" price="5" active="0" category_id="1"  />
-        <tbl_order order_id="1" order_time="1" merchant_id = "1" paypal_address = "order1" paypal_ref= "3232" order_type = "1" status = "1" last_updated = "1" total = "3"  />
-        <tbl_order order_id="2" order_time="1" merchant_id = "1" paypal_address = "order2" paypal_ref= "3232" order_type = "1" status = "1" last_updated = "1" total = "3.2"  />     
+        <tbl_order order_id="1" order_time="1" merchant_id = "1" paypal_address = "order1" paypal_ref= "3232" order_type = "NORMAL" status = "PENDING" last_updated = "1" total = "3" email = "testuser@test.com" device_id="789345" payment_type="PAYPAL" />
+        <tbl_order order_id="2" order_time="1" merchant_id = "1" paypal_address = "order2" paypal_ref= "3232" order_type = "NORMAL" status = "NEW" last_updated = "1" total = "3.2" email = "testuser2@gmail.com" device_id="123456" payment_type="COD" />     
 </dataset>

@@ -4,6 +4,7 @@
  */
 package com.skiipr.server.controller.dashboard;
 
+import com.skiipr.server.enums.OrderType;
 import com.skiipr.server.model.Category;
 import com.skiipr.server.model.DAO.OrderDao;
 import com.skiipr.server.model.LoginUser;
@@ -20,10 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-/**
- *
- * @author Michael
- */
 @Controller
 public class OrderController {
     
@@ -115,7 +112,7 @@ public class OrderController {
     @RequestMapping(value = "/dashboard/orders/cancel/{id}", method = RequestMethod.GET)
     public String cancelOrder(@PathVariable("id") Long id, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         Order order = orderDao.findOrderByMerchant(id);
-        order.setOrderType(0l);
+        order.setOrderType(OrderType.NORMAL);
         orderDao.update(order);
         uiModel.addAttribute("order", new Order());
         return "redirect:/dashboard/orders";

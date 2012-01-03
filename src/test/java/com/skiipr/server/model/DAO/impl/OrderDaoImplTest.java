@@ -4,6 +4,9 @@
  */
 package com.skiipr.server.model.DAO.impl;
 
+import com.skiipr.server.enums.OrderStatus;
+import com.skiipr.server.enums.OrderType;
+import com.skiipr.server.enums.PaymentType;
 import com.skiipr.server.model.DAO.OrderDao;
 import com.skiipr.server.model.Merchant;
 import com.skiipr.server.model.Order;
@@ -16,12 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-/**
- *
- * @author Michael
- */
-
-@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath*:testApplicationContext.xml"})
 public class OrderDaoImplTest {
@@ -52,11 +49,14 @@ public class OrderDaoImplTest {
         Order order = new Order();
         order.setLastUpdated(123l);
         order.setOrderTime(1234l);
-        order.setOrderType(123l);
+        order.setOrderType(OrderType.NORMAL);
         order.setPaypalAddress("winning");
         order.setPaypalRef(1234l);
-        order.setStatus(1l);
+        order.setStatus(OrderStatus.COMPLETE);
+        order.setEmail("test@test.com");
+        order.setDeviceID("12345");
         order.setTotal(1234);
+        order.setPaymentType(PaymentType.PAYPAL);
         Merchant merchant = new Merchant();
         merchant.setMerchantID(3l);
         order.setMerchant(merchant);

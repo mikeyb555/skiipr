@@ -4,6 +4,9 @@
  */
 package com.skiipr.server.model;
 
+import com.skiipr.server.enums.OrderStatus;
+import com.skiipr.server.enums.OrderType;
+import com.skiipr.server.enums.PaymentType;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,26 +14,25 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**
- *
- * @author Michael
- */
 @Entity
 @Table(name = "tbl_order")
 public class Order implements Serializable {
+        
     @Id
     private Long orderID;
     private Long orderTime;
     private Merchant merchant;
     private String paypalAddress;
     private Long paypalRef;
-    private Long orderType;
-    private Long status;
+    private OrderType orderType;
+    private OrderStatus status;
     private Long lastUpdated;
     private float total;
-    private Set<Product> products = new HashSet<Product>(0);
-    
-    
+    private String email;
+    private String deviceID;
+    private Set<Product> products = new HashSet<Product>();
+    private PaymentType paymentType;
+
     public void setOrderID(Long id){
         this.orderID = id;
     }
@@ -47,12 +49,12 @@ public class Order implements Serializable {
         this.paypalRef = ref;
     }
     
-    public void setOrderType(Long type){
+    public void setOrderType(OrderType type){
         this.orderType = type;
         
     }
     
-    public void setStatus(Long status){
+    public void setStatus(OrderStatus status){
         this.status = status;
     }
     
@@ -92,12 +94,12 @@ public class Order implements Serializable {
         return paypalRef;
     }
     
-    public Long getOrderType(){
+    public OrderType getOrderType(){
         return orderType;
         
     }
     
-    public Long getStatus(){
+    public OrderStatus getStatus(){
         return status;
     }
     
@@ -109,18 +111,35 @@ public class Order implements Serializable {
         return total;
     }
 
-    /**
-     * @return the products
-     */
     public Set<Product> getProducts() {
         return products;
     }
 
-    /**
-     * @param products the products to set
-     */
     public void setProducts(Set<Product> products) {
         this.products = products;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getDeviceID() {
+        return deviceID;
+    }
+
+    public void setDeviceID(String deviceID) {
+        this.deviceID = deviceID;
+    }
+
+    public PaymentType getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(PaymentType paymentType) {
+        this.paymentType = paymentType;
+    }
 }
