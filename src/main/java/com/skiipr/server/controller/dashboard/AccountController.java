@@ -11,6 +11,7 @@ import com.skiipr.server.model.DAO.PlanDao;
 import com.skiipr.server.model.LoginUser;
 import com.skiipr.server.model.Merchant;
 import com.skiipr.server.model.Plan;
+import com.skiipr.server.model.validators.MerchantValidator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -38,9 +39,13 @@ public class AccountController {
     @Autowired
     private SessionUser sessionUser;
     
+    @Autowired
+    private MerchantValidator merchantValidator;
+    
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
         binder.setDisallowedFields("username", "password", "salt", "MerchantId");
+        binder.setValidator(merchantValidator);
     }
     
     @RequestMapping(value = "/dashboard/account", method = RequestMethod.POST)
