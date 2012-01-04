@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,23 +44,25 @@ public class AccountController {
     }
     
     @RequestMapping(value = "/dashboard/account", method = RequestMethod.POST)
-    public String index(Merchant merchant, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest){
+    public String updateAccountDetails(@Valid Merchant merchant, BindingResult bindingResult, ModelMap model, HttpServletRequest httpServletRequest){
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("merchant", merchant);
+            System.out.println("Error validating");
+            return acctountDetails(model);
+        }
         LoginUser user = sessionUser.getUser();
         merchant.setMerchantID(user.getMerchantId());
-//        String address = merchant.getAddressNumber()+ " " + merchant.getAddressStreet()+ " " 
-//                + merchant.getAddressPostcode() + " " + merchant.getAddressState() + " " + merchant.getAddressCountry();
-//        LatLongGenerator llg = new LatLongGenerator(address);
-//        merchant.setLatitude(llg.getLatitude());
-//        merchant.setLongitude(llg.getLongitude());
         merchantDao.update(merchant);
         return "redirect:/dashboard/account";
     }
     
     @RequestMapping(value = "/dashboard/account", method = RequestMethod.GET)
-    public String index(ModelMap model){
-        LoginUser user = sessionUser.getUser();
-        Merchant merchant = merchantDao.findById(user.getMerchantId());
-        model.addAttribute("merchant", merchant);
+    public String acctountDetails(ModelMap model){
+        if(!model.containsKey("merchant")){
+            LoginUser user = sessionUser.getUser();
+            Merchant merchant = merchantDao.findById(user.getMerchantId());
+            model.addAttribute("merchant", merchant);
+        }
         List<Plan> plans = planDao.findAll();
         model.addAttribute("plans", plans);
         List<MerchantType> merchantTypes = new ArrayList<MerchantType>(Arrays.asList(MerchantType.values()));
