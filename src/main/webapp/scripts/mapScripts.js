@@ -51,6 +51,7 @@ dojo.addOnLoad(function(){
             lat.value = position.lat();
             lon.value = position.lng();
             marker.setPosition(position);
+            map.setCenter(position);
         }
     }
 });

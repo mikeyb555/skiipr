@@ -30,12 +30,7 @@ public class MerchantValidator implements Validator{
             errors.rejectValue("email", "invalid.email.address");
             
         }
-        if(!merchant.getLatitude().matches("^-?([1-8]?[1-9]|[1-9]0)\\.{1}\\d{1,6}")){
-            errors.rejectValue("latitude", "invalid.latitude");
-        }
-        if(!merchant.getLatitude().matches("^-?([1]?[1-7][1-9]|[1]?[1-8][0]|[1-9]?[0-9])\\.{1}\\d{1,6}")){
-            errors.rejectValue("latitude", "invalid.longitude");
-        }
+        
          
             
         
