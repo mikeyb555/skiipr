@@ -14,12 +14,12 @@
                     <page:list id="pl_com_skiipr_server_model_Order" items="${orders}">
                         <table:table data="${orders}" id="l_com_skiipr_server_model_Order" path="/dashboard/orders" typeIdFieldName="orderID" create="false" update = "false" delete= "false">
                             <table:column id="c_com_skiipr_server_model_Order_orderID" property="orderID" />
-                            <table:column id="c_com_skiipr_server_model_Order_orderTime" property="orderTime" />
+                            <table:column id="c_com_skiipr_server_model_Order_orderTime" property="formattedOrderTime" date="true" dateTimePattern="dd/MM/yyyy HH:mm:ss z" maxLength = "-1"/>
                             <table:column id="c_com_skiipr_server_model_Order_paypalAddress" property="paypalAddress" />
                             <table:column id="c_com_skiipr_server_model_Order_paypalRef" property="paypalRef" />
                             <table:column id="c_com_skiipr_server_model_Order_orderType" property="orderType" />
                             <table:column id="c_com_skiipr_server_model_Order_status" property="status" />
-                            <table:column id="c_com_skiipr_server_model_Order_lastUpdated" property="lastUpdated" />
+                            <table:column id="c_com_skiipr_server_model_Order_lastUpdated" property="formattedLastUpdated" date="true" dateTimePattern="dd/MM/yyyy HH:mm:ss z" maxLength = "-1"/>
                             <table:column id="c_com_skiipr_server_model_Order_total" property="total" />
                             
                             

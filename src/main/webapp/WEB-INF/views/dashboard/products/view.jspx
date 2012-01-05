@@ -23,7 +23,7 @@
                 <page:show id="ps_com_skiipr_server_model_Product" object="${product}" path="/dashboard/products">
                     <field:display field="name" id="s_com_skiipr_server_model_Product_name" object="${product}"/>
                     <field:display field="description" id="s_com_skiipr_server_model_Product_description" object="${product}"/>
-                    <field:display field="price" id="s_com_skiipr_server_model_Product_price" object="${product}"/>
+                    <field:display field="formattedPrice" id="s_com_skiipr_server_model_Product_price" object="${product}"/>
                     <field:display field="active" id="s_com_skiipr_server_model_Product_active" object="${product}"/>
                     <field:display field="name" id="s_com_skiipr_server_model_Product_categoryID" object = "${product.category}" />
                 </page:show>

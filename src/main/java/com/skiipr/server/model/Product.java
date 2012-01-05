@@ -6,6 +6,7 @@ package com.skiipr.server.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.text.NumberFormat;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -36,6 +37,12 @@ public class Product implements Serializable {
     private Long categoryID;
     @ManyToOne
     private Category category;
+    
+    public String getFormattedPrice(){
+        NumberFormat nf = NumberFormat.getCurrencyInstance();
+        return nf.format(price);
+        
+    }
     
     public void setProductID(Long id){
         this.productID = id;
