@@ -14,13 +14,15 @@
                 <jsp:output omit-xml-declaration="yes"/>
                 <page:show id="ps_com_skiipr_server_model_Order" object="${order}" path="/dashboard/orders" update = "false" create = "false" delete = "false" cancel = "true" showProducts = "true" >
                     <field:display field="orderID" id="s_com_skiipr_server_model_Order_orderID" object="${order}"/>
-                    <field:display field="orderTime" id="c_com_skiipr_server_model_Order_orderTime" object="${order}"/>
+                    <field:display field="formattedOrderTime" id="c_com_skiipr_server_model_Order_formattedDate" object="${order}" date="true" dateTimePattern="dd/MM/yyyy HH:mm:ss z" />
                     <field:display field="paypalAddress" id="c_com_skiipr_server_model_Order_paypalAddress" object="${order}"/>
                     <field:display field="paypalRef" id="c_com_skiipr_server_model_Order_paypalRef" object="${order}"/>
                     <field:display field="orderType" id="c_com_skiipr_server_model_Order_orderType" object="${order}"/>
                     <field:display field="status" id="c_com_skiipr_server_model_Order_status" object="${order}"/>
-                    <field:display field="lastUpdated" id="c_com_skiipr_server_model_Order_lastUpdated" object="${order}"/>
+                    <field:display field="formattedLastUpdated" id="c_com_skiipr_server_model_Order_lastUpdated" object="${order}" date="true" dateTimePattern="dd/MM/yyyy HH:mm:ss z" />
                     <field:display field="total" id="c_com_skiipr_server_model_Order_total" object="${order}"/>
+                   
+                    
                    
                 </page:show>
             </div>

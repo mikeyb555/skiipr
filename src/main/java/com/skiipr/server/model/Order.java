@@ -8,11 +8,14 @@ import com.skiipr.server.enums.OrderStatus;
 import com.skiipr.server.enums.OrderType;
 import com.skiipr.server.enums.PaymentType;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "tbl_order")
@@ -32,6 +35,16 @@ public class Order implements Serializable {
     private String deviceID;
     private Set<Product> products = new HashSet<Product>();
     private PaymentType paymentType;
+    
+    
+    public Date getFormattedOrderTime() {
+        Date formattedDate = new Date(orderTime * 1000);
+        return formattedDate;
+    }
+    public Date getFormattedLastUpdated(){
+        Date formattedDate = new Date(lastUpdated * 1000);
+        return formattedDate;
+    }
 
     public void setOrderID(Long id){
         this.orderID = id;
@@ -142,4 +155,11 @@ public class Order implements Serializable {
     public void setPaymentType(PaymentType paymentType) {
         this.paymentType = paymentType;
     }
+
+    /**
+     * @return the formattedDate
+     */
+    
+    
+
 }
