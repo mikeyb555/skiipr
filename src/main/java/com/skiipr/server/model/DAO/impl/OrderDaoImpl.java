@@ -5,6 +5,7 @@
 package com.skiipr.server.model.DAO.impl;
 
 import com.skiipr.server.components.SessionUser;
+import com.skiipr.server.enums.OrderStatus;
 import com.skiipr.server.model.DAO.OrderDao;
 
 import com.skiipr.server.model.LoginUser;
@@ -110,7 +111,9 @@ public class OrderDaoImpl extends HibernateDaoSupport implements OrderDao {
         Criteria criteria = getSession().createCriteria(Order.class)
                 .setMaxResults(max)
                 .setFirstResult(first)
-                .add(Restrictions.eq("merchant.merchantID", merchantID));
+                .add(Restrictions.eq("merchant.merchantID", merchantID))
+                .add(Restrictions.ne("status", OrderStatus.PENDING));
+        
         List<Order> categories = criteria.list();
         System.out.println("Size:" + categories.size());
         System.out.println("Start: " + first);

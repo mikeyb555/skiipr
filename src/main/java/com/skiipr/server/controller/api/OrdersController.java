@@ -4,8 +4,11 @@ import com.skiipr.server.components.POJOBuilders;
 import com.skiipr.server.model.DAO.OrderDao;
 import com.skiipr.server.model.Order;
 import com.skiipr.server.model.OrderResponse;
+import com.skiipr.server.model.validators.OrderValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +19,9 @@ public class OrdersController {
     
     @Autowired
     private POJOBuilders builder;
+    
+    @Autowired
+    private OrderValidator orderValidator;
     
     @Autowired
     private OrderDao orderDao;
@@ -30,6 +36,13 @@ public class OrdersController {
         public void setOrder(String order) {
             this.order = order;
         }
+    }
+    
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        
+        binder.setValidator(orderValidator);
+        
     }
     
     @ModelAttribute("order")
