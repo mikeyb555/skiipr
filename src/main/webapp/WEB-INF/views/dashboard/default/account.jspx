@@ -22,7 +22,10 @@
                     <field:input field="addressStreet" id="Merchant_addressStreet" label="Street name" />
                     <field:input field="addressPostcode" id="Merchant_addressPostcode" label="Postcode" />
                     <field:input field="addressState" id="Merchant_addressState" label="State" />
-                    <field:input field="addressCountry" id="Merchant_addressCountry" label="Country" />
+                   <field:select field = "addressCountry" id="country" itemValue="countryCode" itemLabel="countryName" items="${countries}" multiple = "false" path="" label = "Select Country" />
+                    
+                    <field:input field="website" id="Merchant_website" label="Website" />
+                    <field:input field="phoneNumber" id="Merchant_phoneNumber" label="Phone Number" />
                     <div>
                         <div id ="map_canvas" style="width: 250px; height: 250px;"></div>
                     </div>

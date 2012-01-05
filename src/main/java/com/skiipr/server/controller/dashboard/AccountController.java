@@ -3,6 +3,7 @@ package com.skiipr.server.controller.dashboard;
 import com.skiipr.server.components.FlashNotification;
 import com.skiipr.server.components.LatLongGenerator;
 import com.skiipr.server.components.SessionUser;
+import com.skiipr.server.enums.Country;
 import com.skiipr.server.enums.CurrencyType;
 import com.skiipr.server.enums.MerchantType;
 import com.skiipr.server.enums.Status;
@@ -15,6 +16,7 @@ import com.skiipr.server.model.validators.MerchantValidator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,12 +48,14 @@ public class AccountController {
     protected void initBinder(WebDataBinder binder) {
         binder.setDisallowedFields("username", "password", "salt", "MerchantId");
         binder.setValidator(merchantValidator);
+        
     }
     
     @RequestMapping(value = "/dashboard/account", method = RequestMethod.POST)
     public String updateAccountDetails(@Valid Merchant merchant, BindingResult bindingResult, ModelMap model, HttpServletRequest httpServletRequest){
         if (bindingResult.hasErrors()) {
             model.addAttribute("merchant", merchant);
+            
             System.out.println("Error validating");
             return acctountDetails(model);
         }
@@ -72,8 +76,10 @@ public class AccountController {
         model.addAttribute("plans", plans);
         List<MerchantType> merchantTypes = new ArrayList<MerchantType>(Arrays.asList(MerchantType.values()));
         List<CurrencyType> currencyTypes = new ArrayList<CurrencyType>(Arrays.asList(CurrencyType.values()));
+        List<Country> countries = new ArrayList<Country>(Arrays.asList(Country.values()));
         model.addAttribute("merchantTypes", merchantTypes);
         model.addAttribute("currencyTypes", currencyTypes);
+        model.addAttribute("countries", countries);
         return "/dashboard/default/account";
     }
 }

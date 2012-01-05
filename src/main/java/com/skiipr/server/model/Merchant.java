@@ -6,6 +6,7 @@ package com.skiipr.server.model;
 
 import java.io.Serializable;
 import java.util.Set;
+import java.util.regex.Pattern;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -18,7 +19,6 @@ import org.hibernate.validator.constraints.NotBlank;
 @Entity
 @Table(name = "tbl_merchant")
 public class Merchant implements Serializable {
-    @Length(max = 80)
     private String username;
     private String password;
     private Long merchantID;
@@ -35,13 +35,16 @@ public class Merchant implements Serializable {
     private String paypal;
     private String latitude;
     private String longitude;
-    @Email
+    //@Email
     private String email;
     private int planId;
     private int type;
     private Plan plan;
     private Set categories;
     private String currencyType;
+    private String website;
+    //@Length(max = 5)
+    private String phoneNumber;
     
     @JsonIgnore
     public String getUsername(){
@@ -318,5 +321,33 @@ public class Merchant implements Serializable {
      */
     public void setCurrencyType(String currencyType) {
         this.currencyType = currencyType;
+    }
+
+    /**
+     * @return the website
+     */
+    public String getWebsite() {
+        return website;
+    }
+
+    /**
+     * @param website the website to set
+     */
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    /**
+     * @return the phoneNumber
+     */
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    /**
+     * @param phoneNumber the phoneNumber to set
+     */
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

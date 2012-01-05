@@ -56,6 +56,13 @@
         <property name="email" type="string">
             <column name="email" length="20" not-null="true" />
         </property>
+        <property name="website" type="string">
+            <column name="website" length="128" not-null="true" />
+        </property>
+        <property name="phoneNumber" type="string">
+            <column name="phone_number" length="20" not-null="true" />
+        </property>
+        
         <property name="type" type="int">
             <column name="type" length="11" not-null="true" />
         </property>
