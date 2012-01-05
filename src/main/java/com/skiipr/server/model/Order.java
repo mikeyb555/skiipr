@@ -8,6 +8,7 @@ import com.skiipr.server.enums.OrderStatus;
 import com.skiipr.server.enums.OrderType;
 import com.skiipr.server.enums.PaymentType;
 import java.io.Serializable;
+import java.text.NumberFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -44,6 +45,10 @@ public class Order implements Serializable {
     public Date getFormattedLastUpdated(){
         Date formattedDate = new Date(lastUpdated * 1000);
         return formattedDate;
+    }
+    public String getFormattedTotal(){
+        NumberFormat nf = NumberFormat.getCurrencyInstance();
+        return nf.format(total);
     }
 
     public void setOrderID(Long id){
