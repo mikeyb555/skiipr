@@ -20,16 +20,16 @@
 	
   	<body id="loginpage" class="tundra spring">
             <div class="container_16 clearfix">
-                        <div class="push_5 grid_6">
+                        <div class="push_5 grid_6" style ="margin-top: 100px">
                             <spring:url value="/images/dashboard/biglogo.png" var="big_logo" />
                             <a href="#"><img src="${big_logo}" /></a>
                         </div>
                         <div class="clear"><jsp:text/></div>
-                        <div class="widget push_5 grid_6" id="login">
+                        <div class="widget push_5 grid_6" id="login" style ="margin-top: 30px">
                             <div class="widget_title">
                                 <h2>Login</h2>
                             </div>
-                            <div class="widget_body">
+                            <div class="widget_body" >
                                 <div class="widget_content">
                                     <tiles:insertAttribute name="body"/> 
                                     <div class="clear"><jsp:text/></div>
