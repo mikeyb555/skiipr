@@ -27,8 +27,8 @@ public class Merchant implements Serializable {
     private int lastLoginTime;
     private String salt;
     private String name;
-    private String addressNumber;
-    private String addressStreet;
+    private String suburb;
+    private String addressNumberStreet;
     private String addressPostcode;
     private String addressState;
     private String addressCountry;
@@ -136,29 +136,29 @@ public class Merchant implements Serializable {
     /**
      * @return the addressNumber
      */
-    public String getAddressNumber() {
-        return addressNumber;
+    public String getSuburb() {
+        return suburb;
     }
 
     /**
      * @param addressNumber the addressNumber to set
      */
-    public void setAddressNumber(String addressNumber) {
-        this.addressNumber = addressNumber;
+    public void setSuburb(String addressNumber) {
+        this.suburb = addressNumber;
     }
 
     /**
      * @return the addressStreet
      */
-    public String getAddressStreet() {
-        return addressStreet;
+    public String getAddressNumberStreet() {
+        return addressNumberStreet;
     }
 
     /**
      * @param addressStreet the addressStreet to set
      */
-    public void setAddressStreet(String addressStreet) {
-        this.addressStreet = addressStreet;
+    public void setAddressNumberStreet(String addressStreet) {
+        this.addressNumberStreet = addressStreet;
     }
 
     /**

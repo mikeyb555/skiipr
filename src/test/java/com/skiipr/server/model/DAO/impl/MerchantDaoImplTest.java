@@ -46,11 +46,11 @@ public class MerchantDaoImplTest {
     public void testUpdate(){
         Merchant merchant = merchantDao.findById(2l);
         merchant.setUsername("foobar");
-        merchant.setAddressStreet("green street");
+        merchant.setAddressNumberStreet("green street");
         merchantDao.update(merchant);
         merchant = merchantDao.findById(2l);
         Assert.assertEquals(merchant.getUsername(), "george");
-        Assert.assertEquals(merchant.getAddressStreet(), "green street");
+        Assert.assertEquals(merchant.getAddressNumberStreet(), "green street");
     }
     
     @Test

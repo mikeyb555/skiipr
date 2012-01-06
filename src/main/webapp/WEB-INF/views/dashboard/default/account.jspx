@@ -18,18 +18,22 @@
             <div class="widget_content">
                 <form:create id="Merchant" modelAttribute="merchant" path="/dashboard/account" render="${empty dependencies}" label="Please fill out your merchant account details">
                     <field:input field="name" id="Merchant_name" required="true" label="Trading name" />
-                    <field:input field="addressNumber" id="Merchant_addressNumber" label="Street number" />
-                    <field:input field="addressStreet" id="Merchant_addressStreet" label="Street name" />
+                    <field:input field="addressNumberStreet" id="Merchant_addressStreet" label="Street Address and Number"/>
+                    <field:input field="suburb" id="Merchant_s" label="Suburb" />
                     <field:input field="addressPostcode" id="Merchant_addressPostcode" label="Postcode" />
                     <field:input field="addressState" id="Merchant_addressState" label="State" />
                    <field:select field = "addressCountry" id="country" itemValue="countryCode" itemLabel="countryName" items="${countries}" multiple = "false" path="" label = "Select Country" />
                     
                     <field:input field="website" id="Merchant_website" label="Website" />
                     <field:input field="phoneNumber" id="Merchant_phoneNumber" label="Phone Number" />
+                    
                     <div>
                         <div id ="map_canvas" style="width: 250px; height: 250px;"></div>
                     </div>
+                    
                     <a class="btn grey left medium" id="find_link"><span>Find address</span></a>
+                    <br/><br/>
+                    
                     <field:input field="latitude" id="Merchant_latitude" required="true" label="Latitude" />
                     <field:input field="longitude" id="Merchant_longitude" required="true" label="Longitude" />
                     <field:input field="paypal" id="Merchant_paypal" required="true" label="Paypal address" />

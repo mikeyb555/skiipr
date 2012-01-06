@@ -30,12 +30,12 @@ dojo.addOnLoad(function(){
         dojo.connect(findLink, "onclick", codeAddress);
 
         function codeAddress() {
-            var streetNumber = dojo.byId("_addressNumber_id").value;
-            var streetAddress = dojo.byId("_addressStreet_id").value;
+            var suburb = dojo.byId("_suburb_id").value;
+            var streetAddress = dojo.byId("_addressNumberStreet_id").value;
             var streetPostcode = dojo.byId("_addressPostcode_id").value;
             var streetState = dojo.byId("_addressState_id").value;
             var streetCountry = dojo.byId("_addressCountry_id").value;
-            var address = streetNumber + " " + streetAddress + " " + streetPostcode + " " + streetState + " " + streetCountry;
+            var address = streetAddress + " " + suburb + " "  + streetPostcode + " " + streetState + " " + streetCountry;
             var geocoder = new google.maps.Geocoder();
             geocoder.geocode( { 'address': address}, function(results, status) {
               if (status == google.maps.GeocoderStatus.OK) {

@@ -29,11 +29,11 @@
         <property name="name" type="string">
             <column name="name" length="20" not-null="true" unique="true" />
         </property>
-        <property name="addressNumber" type="string">
-            <column name="address_number" length="20" not-null="true" />
+        <property name="suburb" type="string">
+            <column name="suburb" length="128" not-null="true" />
         </property>
-        <property name="addressStreet" type="string">
-            <column name="address_street" length="20" not-null="true" />
+        <property name="addressNumberStreet" type="string">
+            <column name="address_number_street" length="128" not-null="true" />
         </property>
         <property name="addressPostcode" type="string">
             <column name="address_postcode" length="5" not-null="true" />
