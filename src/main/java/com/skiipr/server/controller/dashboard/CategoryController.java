@@ -5,6 +5,7 @@ import com.skiipr.server.components.SessionUser;
 import com.skiipr.server.enums.Status;
 import com.skiipr.server.model.Category;
 import com.skiipr.server.model.DAO.CategoryDao;
+import com.skiipr.server.model.DAO.ProductDao;
 import com.skiipr.server.model.LoginUser;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -21,6 +22,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class CategoryController {
     @Autowired
     private CategoryDao categoryDao;
+    
+    @Autowired
+    private ProductDao productDao;
     
     @Autowired
     private SessionUser sessionUser;
@@ -73,12 +77,22 @@ public class CategoryController {
     @RequestMapping(value = "/dashboard/categories/delete/{id}", method = RequestMethod.GET)
     public String delete(@PathVariable("id") Long id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
         Category category = categoryDao.findCategoryByMerchantId(id);
-        categoryDao.delete(category);
-        uiModel.asMap().clear();
-        uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
-        uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
-        uiModel.addAttribute("flash", FlashNotification.create(Status.SUCCESS, "Category Deleted"));
-        return list(page, size, uiModel);
+        if(!productDao.findByCategoryID(category.getCategoryID()).isEmpty()){
+            uiModel.asMap().clear();
+            uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
+            uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
+            uiModel.addAttribute("flash", FlashNotification.create(Status.FAILURE, "Category Has products associated with it. "
+                    + "Please delete or change the category of these products before deleting the category"));
+            return list(page, size, uiModel);
+        }else{
+            categoryDao.delete(category);
+            uiModel.asMap().clear();
+            uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
+            uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
+            uiModel.addAttribute("flash", FlashNotification.create(Status.SUCCESS, "Category Deleted"));
+            return list(page, size, uiModel);
+        }
+        
     }
     
     @RequestMapping(value = "/dashboard/categories/view", method = RequestMethod.POST)
