@@ -77,7 +77,7 @@ public class CategoryController {
     @RequestMapping(value = "/dashboard/categories/delete/{id}", method = RequestMethod.GET)
     public String delete(@PathVariable("id") Long id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
         Category category = categoryDao.findCategoryByMerchantId(id);
-        if(!productDao.findByCategoryID(category.getCategoryID()).isEmpty()){
+        if(productDao.findByCategoryID(category.getCategoryID()).isEmpty()){
             uiModel.asMap().clear();
             uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
             uiModel.addAttribute("size", (size == null) ? "10" : size.toString());

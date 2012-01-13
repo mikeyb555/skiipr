@@ -13,7 +13,9 @@ import com.skiipr.server.model.Category;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import com.skiipr.server.model.DAO.CategoryDao;
+import com.skiipr.server.model.DAO.ProductDao;
 import com.skiipr.server.model.LoginUser;
+import com.skiipr.server.model.Product;
 import java.util.Map;
 import org.springframework.ui.Model;
 import junit.framework.Assert;
@@ -36,10 +38,16 @@ public class CategoryControllerTest {
     Category category;
     
     @Mock
+    ProductDao productDao;
+    
+    @Mock
     Model model;
     
     @Mock
     List<Category> categoryList;
+    
+    @Mock
+    List<Product> productList;
     
     @Mock
     BindingResult bindingResult;
@@ -68,6 +76,8 @@ public class CategoryControllerTest {
         Mockito.when(categoryDao.findByMerchantId(5l)).thenReturn(categoryList);
         Mockito.when(categoryDao.findCategoryByMerchantId(3l)).thenReturn(category);
         Mockito.when(categoryDao.findByMerchantId()).thenReturn(categoryList);
+        Mockito.when(productDao.findByCategoryID(3l)).thenReturn(productList);
+        Mockito.when(productList.isEmpty()).thenReturn(false);
         Mockito.doNothing().when(categoryDao).update(category);
         Mockito.doNothing().when(categoryDao).save(category);
         Mockito.when(model.addAttribute("category", category)).thenReturn(model);
@@ -118,6 +128,8 @@ public class CategoryControllerTest {
     public void testDelete() {
         Assert.assertEquals("/dashboard/categories/list", controller.delete(3l, 2, 2, model));
         Mockito.verify(categoryDao).findCategoryByMerchantId(3l);
+        Mockito.verify(productDao).findByCategoryID(3l);
+        Mockito.verify(productList).isEmpty();
         Mockito.verify(categoryDao).delete(category);
         Mockito.verify(map).clear();
     }
