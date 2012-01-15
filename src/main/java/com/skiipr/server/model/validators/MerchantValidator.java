@@ -20,7 +20,6 @@ public class MerchantValidator implements Validator{
             errors.rejectValue("addressPostcode", "invalid.postcode.size");
         }
         if(merchant.getWebsite().contains("http")){
-
             errors.rejectValue("website", "invalid.website.address");
         }
         if((merchant.getPhoneNumber().length() < 8) || (merchant.getPhoneNumber().length() > 20)){
@@ -30,10 +29,5 @@ public class MerchantValidator implements Validator{
             errors.rejectValue("email", "invalid.email.address");
             
         }
-        
-         
-            
-        
     }
-
 }

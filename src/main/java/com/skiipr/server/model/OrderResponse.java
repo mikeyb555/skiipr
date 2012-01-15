@@ -11,18 +11,19 @@ public class OrderResponse {
         NONE,
         TOTAL_MISMATCH,
         PRODUCT_INVALID,
-        DETAILS_INVALID
+        DETAILS_INVALID,
+        SERVER_ERROR
     }
     
-    private int orderID;
+    private Long orderID;
     private ResponseStatus response;
     private ResponseErrors error;
     
-    public int getOrderID() {
+    public Long getOrderID() {
         return orderID;
     }
 
-    public void setOrderID(int orderID) {
+    public void setOrderID(Long orderID) {
         this.orderID = orderID;
     }
 
