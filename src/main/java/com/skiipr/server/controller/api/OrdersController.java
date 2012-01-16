@@ -5,6 +5,7 @@ import com.skiipr.server.model.DAO.OrderDao;
 import com.skiipr.server.model.Order;
 import com.skiipr.server.model.OrderResponse;
 import com.skiipr.server.model.validators.OrderValidator;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindException;
@@ -26,27 +27,29 @@ public class OrdersController {
     private OrderDao orderDao;
 
     public class RequestBody{
-        private String order;
+        private String payload;
         
-        public String getOrder() {
-            return order;
+        public String getPayload() {
+            return payload;
         }
 
-        public void setOrder(String order) {
-            this.order = order;
+        public void setPayload(String payload) {
+            this.payload = payload;
         }
     }
     
-    @ModelAttribute("order")
+    @ModelAttribute("payload")
     public RequestBody getRequestBinder(){
         return new RequestBody();
     }
     
+    
+    
     @RequestMapping(value="/api/orders/submit", method = RequestMethod.POST)
-    public @ResponseBody OrderResponse submitOrder(@ModelAttribute("order") RequestBody body){
+    public @ResponseBody OrderResponse submitOrder(@ModelAttribute("payload") RequestBody body){
         OrderResponse response = new OrderResponse();
         try{
-            String json = body.getOrder();
+            String json = body.getPayload();
             System.out.println(json);
             Order order = builder.createOrderFromJson(json);
             BindException error = new BindException(order, "Order");
@@ -71,6 +74,28 @@ public class OrdersController {
             response.setError(OrderResponse.ResponseErrors.SERVER_ERROR);
             response.setOrderID(null);           
         }
+        return response;
+    }
+    
+    @RequestMapping(value = "api/orders/cancel", method = RequestMethod.POST)
+    public @ResponseBody OrderResponse cancelOrder(@ModelAttribute("payload") RequestBody body){
+        OrderResponse response = new OrderResponse();
+        try{
+            String json = body.getPayload();
+            System.out.println(json);
+            JSONObject jObject = JSONObject.fromObject(json);
+            Long orderID = jObject.getLong("orderID");
+            Order order = orderDao.findByID(orderID);
+            orderDao.delete(order);
+            response.setResponse(OrderResponse.ResponseStatus.SUCCESS);
+            response.setOrderID(orderID);
+            response.setError(OrderResponse.ResponseErrors.NONE);
+        }catch(Exception e){
+            
+            response.setResponse(OrderResponse.ResponseStatus.ERROR);
+            response.setError(OrderResponse.ResponseErrors.DETAILS_INVALID);
+        }
+        System.out.println(response.toString());
         return response;
     }
 }
