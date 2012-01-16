@@ -103,6 +103,31 @@
             <column name="merchant_id" not-null="true"/>
         </property>
     </class>
+    <class name="com.skiipr.server.model.Coupon" table="tbl_coupon">
+        <id name="couponID" type="java.lang.Long">
+            <column name="coupon_id" />
+            <generator class="identity" />
+        </id>
+        <property name="merchantID" type="java.lang.Long" update="false">
+            <column name="merchant_id" not-null="true"/>
+        </property>
+        <property name="active" type="boolean">
+            <column name="active" length="1" not-null="true" />
+        </property>
+        <property name="couponCode" type="int">
+            <column name="coupon_code" length="11" not-null="true" />
+        </property>
+        <property name="couponType">
+            <column name="coupon_type"  not-null="true" />
+            <type name="org.hibernate.type.EnumType"> 
+                <param name="enumClass">com.skiipr.server.enums.CouponType</param> 
+                <param name="type">12</param> 
+            </type> 
+        </property>
+        <property name="percentage">
+            <column name="percentage" sql-type="NUMERIC(12,2)" not-null="true"/>
+        </property>
+    </class>
     <class name="com.skiipr.server.model.Product" table="tbl_product">
         <id name="productID" type="java.lang.Long">
             <column name="product_id" />

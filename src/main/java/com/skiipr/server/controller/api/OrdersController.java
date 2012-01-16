@@ -1,10 +1,15 @@
 package com.skiipr.server.controller.api;
 
 import com.skiipr.server.components.POJOBuilders;
+import com.skiipr.server.enums.CouponType;
+import com.skiipr.server.model.Coupon;
+import com.skiipr.server.model.CouponResponse;
+import com.skiipr.server.model.DAO.CouponDao;
 import com.skiipr.server.model.DAO.OrderDao;
 import com.skiipr.server.model.Order;
 import com.skiipr.server.model.OrderResponse;
 import com.skiipr.server.model.validators.OrderValidator;
+import java.math.BigDecimal;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +27,9 @@ public class OrdersController {
     
     @Autowired
     private OrderValidator orderValidator;
+    
+    @Autowired
+    private CouponDao couponDao;
     
     @Autowired
     private OrderDao orderDao;
@@ -96,6 +104,29 @@ public class OrdersController {
             response.setError(OrderResponse.ResponseErrors.DETAILS_INVALID);
         }
         System.out.println(response.toString());
+        return response;
+    }
+    
+    @RequestMapping(value = "api/orders/coupon", method = RequestMethod.POST)
+    public @ResponseBody CouponResponse returnCoupon(@ModelAttribute("payload") RequestBody body){
+        CouponResponse response = new CouponResponse();
+        try{
+            String json = body.getPayload();
+            JSONObject jObject = JSONObject.fromObject(json);
+            int couponCode = jObject.getInt("couponCode");
+            System.out.println("Yhe coupon code is " + couponCode);
+            Coupon coupon = couponDao.findByCode(couponCode);
+            System.out.println("The coupon is" + coupon.getCouponID());
+            response.setResponse(CouponResponse.ResponseStatus.VALID);
+            response.setCouponType(coupon.getCouponType());
+            response.setValue(coupon.getPercentage());
+            
+        }catch(Exception e){
+            
+            response.setResponse(CouponResponse.ResponseStatus.INVALID);
+            
+        }
+        
         return response;
     }
 }
