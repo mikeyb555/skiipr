@@ -114,8 +114,9 @@ public class OrdersController {
             String json = body.getPayload();
             JSONObject jObject = JSONObject.fromObject(json);
             int couponCode = jObject.getInt("couponCode");
+            Long merchantID = jObject.getLong("merchantID");
             System.out.println("Yhe coupon code is " + couponCode);
-            Coupon coupon = couponDao.findByCode(couponCode);
+            Coupon coupon = couponDao.findByCode(couponCode, merchantID);
             System.out.println("The coupon is" + coupon.getCouponID());
             response.setResponse(CouponResponse.ResponseStatus.VALID);
             response.setCouponType(coupon.getCouponType());

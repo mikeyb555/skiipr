@@ -28,8 +28,10 @@ public class CouponDaoImpl extends HibernateDaoSupport implements CouponDao {
     
 
     @Override
-    public Coupon findByCode(int couponCode) {
-        List list = getHibernateTemplate().find("from Coupon where couponCode=?", couponCode);
+    public Coupon findByCode(int couponCode, Long merchantID) {
+        String[] params = {"couponC", "merchID"};
+        Object[] values = {couponCode, merchantID};
+        List list = getHibernateTemplate().findByNamedParam("from Coupon where (couponCode = :couponC) AND  (merchantID = :merchID)", params, values);
         if(list.isEmpty()){
             return null;
         }

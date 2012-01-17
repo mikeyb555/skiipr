@@ -11,6 +11,6 @@ import com.skiipr.server.model.Coupon;
  * @author Michael
  */
 public interface CouponDao {
-    public Coupon findByCode(int couponCode);
+    public Coupon findByCode(int couponCode, Long merchantID);
     
 }
