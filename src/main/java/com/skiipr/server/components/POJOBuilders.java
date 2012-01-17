@@ -4,8 +4,13 @@ import com.skiipr.server.enums.OrderStatus;
 import com.skiipr.server.enums.OrderType;
 import com.skiipr.server.enums.PaymentType;
 import com.skiipr.server.model.DAO.MerchantDao;
+import com.skiipr.server.model.DAO.ProductDao;
 import com.skiipr.server.model.Merchant;
 import com.skiipr.server.model.Order;
+import com.skiipr.server.model.Product;
+import java.util.HashSet;
+import java.util.Set;
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,6 +20,9 @@ public class POJOBuilders {
 
     @Autowired
     private MerchantDao merchantDao;
+    
+    @Autowired
+    private ProductDao productDao;
     
     public Order createOrderFromJson(String json){
         Order order = new Order();
@@ -36,6 +44,20 @@ public class POJOBuilders {
         order.setLastUpdated(time);
         order.setStatus(OrderStatus.PENDING);
         order.setPaymentType(PaymentType.PAYPAL);
+        Set<Product> products = new HashSet<Product>();
+        JSONArray productList = jObject.getJSONArray("products");
+        for(int i=0;i < productList.size();i++){
+            JSONObject jProduct = productList.getJSONObject(i);
+            
+            Product product = productDao.findByID(jProduct.getLong("productID"));
+            for(int count=0;count <= jProduct.getInt("quantity");count++){
+                products.add(product);
+            }
+            
+            
+        }
+        order.setProducts(products);
+        
         return order;
     }
 }
