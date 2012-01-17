@@ -7,6 +7,7 @@ package com.skiipr.server.controller.dashboard;
 import com.skiipr.server.enums.OrderType;
 import com.skiipr.server.model.Category;
 import com.skiipr.server.model.DAO.OrderDao;
+import com.skiipr.server.model.DAO.OrderProductDao;
 import com.skiipr.server.model.LoginUser;
 import com.skiipr.server.model.Order;
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +27,9 @@ public class OrderController {
     
     @Autowired
     private OrderDao orderDao;
+    
+    @Autowired
+    private OrderProductDao orderProductDao;
     
      @RequestMapping(value = "/dashboard/orders/view/{id}", method = RequestMethod.GET)
     public String show(@PathVariable("id") Long id, Model uiModel) {
@@ -58,7 +62,7 @@ public class OrderController {
         }
         Integer sizeNo = this.getPageSize(size);
         Integer startPage = this.getStartPage(page, sizeNo);
-        model.addAttribute("products", orderDao.findByID(id).getProducts());
+        model.addAttribute("products", orderProductDao.findByOrderID(id));
         model.addAttribute("maxPages", this.getMaxPages(sizeNo));
         return "/dashboard/orders/products";
     }

@@ -11,9 +11,11 @@ import java.io.Serializable;
 import java.text.NumberFormat;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.Transient;
@@ -34,7 +36,6 @@ public class Order implements Serializable {
     private float total;
     private String email;
     private String deviceID;
-    private Set<Product> products = new HashSet<Product>();
     private PaymentType paymentType;
     
     
@@ -129,14 +130,6 @@ public class Order implements Serializable {
         return total;
     }
 
-    public Set<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(Set<Product> products) {
-        this.products = products;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -161,9 +154,6 @@ public class Order implements Serializable {
         this.paymentType = paymentType;
     }
 
-    /**
-     * @return the formattedDate
-     */
     
     
 

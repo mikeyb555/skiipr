@@ -103,6 +103,17 @@
             <column name="merchant_id" not-null="true"/>
         </property>
     </class>
+    <class name="com.skiipr.server.model.OrderProduct" table="tbl_orderproduct">
+        <id name="orderProductID" type="java.lang.Long">
+            <column name="order_product_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name = "product" class = "com.skiipr.server.model.Product" cascade="none" lazy="false" column = "product_id" /> 
+        <property name="quantity" type="int">
+            <column name="quantity" length="10" not-null="true" />
+        </property>
+        <many-to-one name = "userOrder" class = "com.skiipr.server.model.Order" cascade="none" lazy="false" column = "order_id" /> 
+    </class>
     <class name="com.skiipr.server.model.Coupon" table="tbl_coupon">
         <id name="couponID" type="java.lang.Long">
             <column name="coupon_id" />
@@ -197,10 +208,7 @@
         <property name="total">
             <column name="total"  sql-type="NUMERIC(12,2)" not-null="true" />
         </property>
-        <set name = "products" table = "tbl_orderproduct" lazy = "false" cascade = "all" >
-            <key column = "order_id" />
-            <many-to-many column = "product_id" class = "com.skiipr.server.model.Product" lazy = "false" />
-        </set>
+        
         
     </class>
     

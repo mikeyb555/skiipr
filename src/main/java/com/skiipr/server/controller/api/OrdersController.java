@@ -6,10 +6,13 @@ import com.skiipr.server.model.Coupon;
 import com.skiipr.server.model.CouponResponse;
 import com.skiipr.server.model.DAO.CouponDao;
 import com.skiipr.server.model.DAO.OrderDao;
+import com.skiipr.server.model.DAO.OrderProductDao;
 import com.skiipr.server.model.Order;
+import com.skiipr.server.model.OrderProduct;
 import com.skiipr.server.model.OrderResponse;
 import com.skiipr.server.model.validators.OrderValidator;
 import java.math.BigDecimal;
+import java.util.List;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +27,9 @@ public class OrdersController {
     
     @Autowired
     private POJOBuilders builder;
+    
+    @Autowired
+    private OrderProductDao orderProductDao;
     
     @Autowired
     private OrderValidator orderValidator;
@@ -72,6 +78,10 @@ public class OrdersController {
                 }
             }else{
                 orderDao.save(order);
+                List<OrderProduct> orderProducts = builder.createOrderProductFromJson(json, order);
+                for(OrderProduct o: orderProducts){
+                    orderProductDao.save(o);
+                }
                 response.setResponse(OrderResponse.ResponseStatus.SUCCESS);
                 response.setError(OrderResponse.ResponseErrors.NONE);
                 response.setOrderID(order.getOrderID());
