@@ -8,6 +8,7 @@ import com.skiipr.server.model.Product;
 import java.util.Collections;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,6 +70,17 @@ public class ProductDaoImpl extends HibernateDaoSupport implements ProductDao {
         }
 	return (Product) products.get(0);
     }
+    
+    @Override
+    public List<Product> findByCollection(List<Long> ids, Long merchantID){
+        Criteria criteria = getSession().createCriteria(Product.class)
+                .add(Restrictions.in("category", categoryDao.findByMerchantId(merchantID)))
+                .add(Restrictions.in("productID", ids));
+        List<Product> products = criteria.list();
+        return products;
+        
+       
+    }
 
     @Override
     public Product findByMerchant(Long productID) {
@@ -99,7 +111,7 @@ public class ProductDaoImpl extends HibernateDaoSupport implements ProductDao {
     @Override
     public List<Product> findAllByMerchant(Long merchantID){
         List<Product> products = getHibernateTemplate().find("from Product where (category.merchantID = ?)", merchantID);
-	return (List<Product>) products;       
+	return (List<Product>) products;
     }
     
     @Override

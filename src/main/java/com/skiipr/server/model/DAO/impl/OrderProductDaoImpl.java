@@ -45,6 +45,7 @@ public class OrderProductDaoImpl extends HibernateDaoSupport implements OrderPro
         System.out.println("hello world");
         List list = getHibernateTemplate().find("from OrderProduct where userOrder.orderID=?", id);
         
+        
         if(list.isEmpty()){
             return null;
         }
@@ -57,5 +58,7 @@ public class OrderProductDaoImpl extends HibernateDaoSupport implements OrderPro
         return products;
 	
     }
+    
+    
     
 }

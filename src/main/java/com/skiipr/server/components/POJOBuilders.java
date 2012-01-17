@@ -12,6 +12,7 @@ import com.skiipr.server.model.Order;
 import com.skiipr.server.model.OrderProduct;
 import com.skiipr.server.model.Product;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -67,23 +68,33 @@ public class POJOBuilders {
         JSONObject jObject = JSONObject.fromObject(json);
         ArrayList<OrderProduct> opList = new ArrayList();
         JSONArray productList = jObject.getJSONArray("products");
+        
+        ArrayList<Long> productIDs = new ArrayList();
+        ArrayList<Integer> productQuantity = new ArrayList();
+        
         for(int i=0;i < productList.size();i++){
             JSONObject jProduct = productList.getJSONObject(i);
-            
-            Product product = productDao.findByID(jProduct.getLong("productID"));
-            OrderProduct orderProduct = new OrderProduct();
-            orderProduct.setProduct(product);
-            orderProduct.setUserOrder(order);
-            orderProduct.setQuantity(jProduct.getInt("quantity"));
-            
-            
-            opList.add(orderProduct);
-            
-            
-           
-            
+            productIDs.add(jProduct.getLong("productID"));
             
         }
+        for(int i=0;i < productList.size();i++){
+            JSONObject jQuantity = productList.getJSONObject(i);
+            productQuantity.add(jQuantity.getInt("quantity"));
+            
+        }
+        List<Product> products = productDao.findByCollection(productIDs, jObject.getLong("merchantID"));
+        
+        for(int b=0;b < productIDs.size();b++){
+            OrderProduct orderProduct = new OrderProduct();
+            orderProduct.setProduct(products.get(b));
+            orderProduct.setUserOrder(order);
+            orderProduct.setQuantity(productQuantity.get(b));
+            opList.add(orderProduct);
+            
+        }
+        
+        
+        
         
         return opList;
         
