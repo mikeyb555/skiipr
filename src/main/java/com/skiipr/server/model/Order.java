@@ -39,6 +39,7 @@ public class Order implements Serializable {
     private String email;
     private String deviceID;
     private PaymentType paymentType;
+    private String apid;
     
     
     public Date getFormattedOrderTime() {
@@ -168,6 +169,20 @@ public class Order implements Serializable {
      */
     public void setOrderProducts(Set<OrderProduct> orderProducts) {
         this.orderProducts = orderProducts;
+    }
+
+    /**
+     * @return the apid
+     */
+    public String getApid() {
+        return apid;
+    }
+
+    /**
+     * @param apid the apid to set
+     */
+    public void setApid(String apid) {
+        this.apid = apid;
     }
 
     

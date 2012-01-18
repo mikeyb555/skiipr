@@ -47,6 +47,7 @@ public class POJOBuilders {
         Merchant merchant = merchantDao.findById(merchantID);
         order.setMerchant(merchant);
         order.setOrderTime(jObject.getLong("orderTime"));
+        order.setApid(jObject.getString("apid"));
         String stringTotal = jObject.getString("total");
         order.setTotal(new Float(stringTotal));
         order.setOrderType(OrderType.NORMAL);
