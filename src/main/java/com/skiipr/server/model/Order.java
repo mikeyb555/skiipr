@@ -28,6 +28,8 @@ public class Order implements Serializable {
     private Long orderID;
     private Long orderTime;
     private Merchant merchant;
+    @OneToMany
+    private Set<OrderProduct> orderProducts;
     private String paypalAddress;
     private Long paypalRef;
     private OrderType orderType;
@@ -152,6 +154,20 @@ public class Order implements Serializable {
 
     public void setPaymentType(PaymentType paymentType) {
         this.paymentType = paymentType;
+    }
+
+    /**
+     * @return the orderProducts
+     */
+    public Set<OrderProduct> getOrderProducts() {
+        return orderProducts;
+    }
+
+    /**
+     * @param orderProducts the orderProducts to set
+     */
+    public void setOrderProducts(Set<OrderProduct> orderProducts) {
+        this.orderProducts = orderProducts;
     }
 
     

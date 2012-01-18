@@ -56,6 +56,7 @@ public class POJOBuilders {
         order.setLastUpdated(time);
         order.setStatus(OrderStatus.PENDING);
         order.setPaymentType(PaymentType.PAYPAL);
+        order.setOrderProducts(createOrderProductFromJson(json, order));
         
         
         
@@ -64,7 +65,7 @@ public class POJOBuilders {
         return order;
     }
     
-    public ArrayList<OrderProduct> createOrderProductFromJson(String json, Order order){
+    public Set<OrderProduct> createOrderProductFromJson(String json, Order order){
         JSONObject jObject = JSONObject.fromObject(json);
         ArrayList<OrderProduct> opList = new ArrayList();
         JSONArray productList = jObject.getJSONArray("products");
@@ -96,7 +97,8 @@ public class POJOBuilders {
         
         
         
-        return opList;
+        Set returnSet = new HashSet(opList);
+        return returnSet;
         
         
         

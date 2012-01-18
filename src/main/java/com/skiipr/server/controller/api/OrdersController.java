@@ -78,10 +78,6 @@ public class OrdersController {
                 }
             }else{
                 orderDao.save(order);
-                List<OrderProduct> orderProducts = builder.createOrderProductFromJson(json, order);
-                for(OrderProduct o: orderProducts){
-                    orderProductDao.save(o);
-                }
                 response.setResponse(OrderResponse.ResponseStatus.SUCCESS);
                 response.setError(OrderResponse.ResponseErrors.NONE);
                 response.setOrderID(order.getOrderID());
