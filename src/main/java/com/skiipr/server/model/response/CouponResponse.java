@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.skiipr.server.model;
+package com.skiipr.server.model.response;
 
 import com.skiipr.server.enums.CouponType;
 import java.math.BigDecimal;

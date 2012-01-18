@@ -2,15 +2,16 @@ package com.skiipr.server.controller.api;
 
 import com.skiipr.server.components.POJOBuilders;
 import com.skiipr.server.enums.CouponType;
+import com.skiipr.server.enums.OrderStatus;
 import com.skiipr.server.model.Coupon;
-import com.skiipr.server.model.CouponResponse;
+import com.skiipr.server.model.response.CouponResponse;
 import com.skiipr.server.model.DAO.CouponDao;
 import com.skiipr.server.model.DAO.OrderDao;
 import com.skiipr.server.model.DAO.OrderProductDao;
 import com.skiipr.server.model.Order;
 import com.skiipr.server.model.OrderProduct;
-import com.skiipr.server.model.OrderResponse;
-import com.skiipr.server.model.StatusResponse;
+import com.skiipr.server.model.response.OrderResponse;
+import com.skiipr.server.model.response.StatusResponse;
 import com.skiipr.server.model.validators.OrderValidator;
 import java.math.BigDecimal;
 import java.util.List;
@@ -146,11 +147,12 @@ public class OrdersController {
             
             Order order = orderDao.findByID(id);
             response.setLastUpdated(order.getLastUpdated());
-            response.setOrderID(order.getOrderID());
-            response.setStatus(StatusResponse.ResponseStatus.READY);
+            response.setOrderID(id);
+            response.setStatus(order.getStatus());
             
         }catch(Exception e){
-            response.setStatus(StatusResponse.ResponseStatus.NOTREADY);
+            response.setLastUpdated(0l);
+            response.setStatus(OrderStatus.ERROR);
         }
         
         return response;

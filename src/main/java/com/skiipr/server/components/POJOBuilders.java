@@ -58,11 +58,6 @@ public class POJOBuilders {
         order.setStatus(OrderStatus.PENDING);
         order.setPaymentType(PaymentType.PAYPAL);
         order.setOrderProducts(createOrderProductFromJson(json, order));
-        
-        
-        
-       
-        
         return order;
     }
     
@@ -94,14 +89,7 @@ public class POJOBuilders {
             opList.add(orderProduct);
             
         }
-        
-        
-        
-        
         Set returnSet = new HashSet(opList);
         return returnSet;
-        
-        
-        
     }
 }

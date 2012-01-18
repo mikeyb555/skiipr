@@ -1,4 +1,4 @@
-package com.skiipr.server.model;
+package com.skiipr.server.model.response;
 
 public class OrderResponse {
 
