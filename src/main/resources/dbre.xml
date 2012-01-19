@@ -91,6 +91,9 @@
         <property name="canPaypal" type="boolean">
             <column name="can_paypal" length="1" not-null="true" />
         </property>
+        <property name="canCOD" type="boolean">
+            <column name="can_cod" length="1" not-null="true" />
+        </property>
     </class>
     <class name="com.skiipr.server.model.Banned" table="tbl_banned">
         <id name="bannedID" type="java.lang.Long">

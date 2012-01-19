@@ -59,7 +59,7 @@ public class POJOBuilders {
         if(jObject.getString("paymentType").equals("PAYPAL")){
             order.setPaymentType(PaymentType.PAYPAL);
         }
-        else{
+        if(jObject.getString("paymentType").equals("COD")){
             order.setPaymentType(PaymentType.COD);
         }
         

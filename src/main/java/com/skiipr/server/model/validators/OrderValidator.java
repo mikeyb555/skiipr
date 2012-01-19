@@ -73,6 +73,10 @@ public class OrderValidator implements Validator{
                 
             }
             
+            if(order.getPaymentType().equals(PaymentType.COD) && !(order.getMerchant().getPlan().getCanCOD())){
+                errors.rejectValue("merchantID", null);
+            }
+            
             
             
             

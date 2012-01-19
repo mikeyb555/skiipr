@@ -13,6 +13,7 @@ public class Plan implements Serializable {
     private Long planId;
     private String planName;
     private boolean canPaypal;
+    private boolean canCOD;
     
     public void setPlanId(Long id){
         planId = id;
@@ -36,6 +37,20 @@ public class Plan implements Serializable {
     
     public boolean getCanPaypal(){
         return canPaypal;
+    }
+
+    /**
+     * @return the canCOD
+     */
+    public boolean getCanCOD() {
+        return canCOD;
+    }
+
+    /**
+     * @param canCOD the canCOD to set
+     */
+    public void setCanCOD(boolean canCOD) {
+        this.canCOD = canCOD;
     }
     
 }
