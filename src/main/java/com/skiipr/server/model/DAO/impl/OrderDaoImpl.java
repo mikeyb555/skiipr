@@ -114,19 +114,23 @@ public class OrderDaoImpl extends HibernateDaoSupport implements OrderDao {
                 .add(Restrictions.eq("merchant.merchantID", merchantID))
                 .add(Restrictions.ne("status", OrderStatus.PENDING));
         
-        List<Order> categories = criteria.list();
-        System.out.println("Size:" + categories.size());
+        List<Order> orders = criteria.list();
+        System.out.println("Size:" + orders.size());
         System.out.println("Start: " + first);
         System.out.println("Max: " + max);
-        if(categories.isEmpty()){
+        if(orders.isEmpty()){
             return null;
         }
-	return categories;
+	return orders;
     }
     
     @Override
     public Integer countByMerchant(){
-        return findAllByMerchant().size();
+        Long merchantID = sessionUser.getUser().getMerchantId();
+        Criteria criteria = getSession().createCriteria(Order.class)
+                .add(Restrictions.eq("merchant.merchantID", merchantID))
+                .add(Restrictions.ne("status", OrderStatus.PENDING));
+        return criteria.list().size();
         
             
         
