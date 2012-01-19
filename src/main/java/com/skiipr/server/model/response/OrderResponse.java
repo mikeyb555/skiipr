@@ -12,7 +12,11 @@ public class OrderResponse {
         TOTAL_MISMATCH,
         PRODUCT_INVALID,
         DETAILS_INVALID,
-        SERVER_ERROR
+        SERVER_ERROR,
+        INVALID_EMAIL,
+        BLOCKED,
+        MERCHANT_CLOSED,
+        PAYMENT_UNSUPPORTED
     }
     
     private Long orderID;

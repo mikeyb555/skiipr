@@ -83,6 +83,22 @@ public class OrdersController {
                 if(error.hasFieldErrors("total")){
                     response.setError(OrderResponse.ResponseErrors.TOTAL_MISMATCH);
                 }
+                if(error.hasFieldErrors("email")){
+                    response.setError(OrderResponse.ResponseErrors.INVALID_EMAIL);
+                }
+                if(error.hasFieldErrors("deviceID")){
+                    response.setError(OrderResponse.ResponseErrors.BLOCKED);
+                }
+                if(error.hasFieldErrors("merchantID")){
+                    response.setError(OrderResponse.ResponseErrors.MERCHANT_CLOSED);
+                    
+                }
+                if(error.hasFieldErrors("paymentType")){
+                    response.setError(OrderResponse.ResponseErrors.PAYMENT_UNSUPPORTED);
+                }
+                
+                
+                
             }else{
                 orderDao.save(order);
                 response.setResponse(OrderResponse.ResponseStatus.SUCCESS);

@@ -58,7 +58,6 @@ public class OrderValidator implements Validator{
             identifiers.add(order.getDeviceID());
             identifiers.add(order.getEmail());
             if(bannedDao.isBanned(identifiers, order.getMerchantID())){
-                errors.rejectValue("email", null);
                 errors.rejectValue("deviceID", null);
             }
             
@@ -74,7 +73,7 @@ public class OrderValidator implements Validator{
             }
             
             if(order.getPaymentType().equals(PaymentType.COD) && !(order.getMerchant().getPlan().getCanCOD())){
-                errors.rejectValue("merchantID", null);
+                errors.rejectValue("paymentType", null);
             }
             
             
