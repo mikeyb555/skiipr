@@ -91,6 +91,18 @@
             <column name="can_paypal" length="1" not-null="true" />
         </property>
     </class>
+    <class name="com.skiipr.server.model.Banned" table="tbl_banned">
+        <id name="bannedID" type="java.lang.Long">
+            <column name="banned_id" />
+            <generator class="identity" />
+        </id>
+        <property name="identifier" type="string">
+            <column name="identifier" length="50" not-null="true" />
+        </property>
+        <property name="merchantID" type="java.lang.Long">
+            <column name="merchant_id" length="11" not-null="true" />
+        </property>
+    </class>
     <class name="com.skiipr.server.model.Category" table="tbl_category">
         <id name="categoryID" type="java.lang.Long">
             <column name="category_id" />

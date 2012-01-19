@@ -4,6 +4,7 @@ import com.skiipr.server.components.POJOBuilders;
 import com.skiipr.server.enums.CouponType;
 import com.skiipr.server.enums.OrderStatus;
 import com.skiipr.server.model.Coupon;
+import com.skiipr.server.model.DAO.BannedDao;
 import com.skiipr.server.model.response.CouponResponse;
 import com.skiipr.server.model.DAO.CouponDao;
 import com.skiipr.server.model.DAO.OrderDao;
@@ -30,6 +31,9 @@ public class OrdersController {
     
     @Autowired
     private POJOBuilders builder;
+    
+    @Autowired
+    private BannedDao bannedDao;
     
     @Autowired
     private OrderProductDao orderProductDao;

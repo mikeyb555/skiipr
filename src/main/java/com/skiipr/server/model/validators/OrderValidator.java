@@ -4,16 +4,25 @@
  */
 package com.skiipr.server.model.validators;
 
+import com.skiipr.server.model.DAO.BannedDao;
 import com.skiipr.server.model.Order;
 import com.skiipr.server.model.OrderProduct;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Set;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 @Component
 public class OrderValidator implements Validator{
+    
+    @Autowired
+    private BannedDao bannedDao;
+    
+    
+    
     @Override
         public boolean supports(Class<?> type) {
             return Order.class.equals(type);
@@ -40,6 +49,15 @@ public class OrderValidator implements Validator{
             if (!order.getEmail().matches("^[\\w\\-]+(\\.[\\w\\-]+)*@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}$")){
                 errors.rejectValue("email", null);
             }
+            ArrayList<String> identifiers = new ArrayList();
+            identifiers.add(order.getDeviceID());
+            identifiers.add(order.getEmail());
+            if(bannedDao.isBanned(identifiers, order.getMerchantID())){
+                errors.rejectValue("email", null);
+                errors.rejectValue("deviceID", null);
+            }
+            
+            
             
         }
 }
