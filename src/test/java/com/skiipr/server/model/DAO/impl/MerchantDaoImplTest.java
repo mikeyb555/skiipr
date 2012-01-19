@@ -37,6 +37,7 @@ public class MerchantDaoImplTest {
         Merchant merchant = merchantDao.findByUsername("fred");
         merchant.setUsername("alex");
         merchant.setName("round club");
+        merchant.setOpen(Boolean.TRUE);
         merchantDao.save(merchant);
         merchant = merchantDao.findByUsername("alex");
         Assert.assertEquals(merchant.getName(), "round club");

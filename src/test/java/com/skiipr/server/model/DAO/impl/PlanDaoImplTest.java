@@ -21,13 +21,13 @@ public class PlanDaoImplTest {
     @Autowired
     private PlanDao planDao;
     
-    private static int count = 2;
+    private static int count = 3;
 
     @Test
     public void testFindAll() {
         List<Plan> plans = planDao.findAll();
         Plan plan1 = plans.get(1);
-        Assert.assertEquals(plan1.getPlanName(), "plan3");
+        Assert.assertEquals(plan1.getPlanName(), "plan1");
         Assert.assertEquals(plans.size(), count);
     }
     
@@ -44,9 +44,9 @@ public class PlanDaoImplTest {
         plan.setCanPaypal(true);
         planDao.save(plan);
         List<Plan> plans = planDao.findAll();
-        assertEquals(plans.size(), 3);
+        assertEquals(plans.size(), 4);
         plan = plans.get(2);
-        Assert.assertEquals(plan.getPlanName(), "foobar");
+        Assert.assertEquals(plan.getPlanName(), "plan3");
         count = count + 1;
     }
     

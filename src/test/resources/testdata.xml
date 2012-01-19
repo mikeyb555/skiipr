@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
+        <tbl_plan plan_id="1" plan_name="plan1" can_paypal="1"/>
 	<tbl_plan plan_id="2" plan_name="plan1" can_paypal="1"/>
 	<tbl_plan plan_id="3" plan_name="plan3" can_paypal="0"/>
-        <tbl_merchant merchant_id="1" username="fred" salt="1234" password="fc74acb4ad8fb836068a543aafa45d5275e934af" last_login="1322206746" 
+        <tbl_merchant merchant_id="1" open = "1" username="fred" salt="1234" password="fc74acb4ad8fb836068a543aafa45d5275e934af" last_login="1322206746" 
         login_count="0" failed_login_time="1322179536" name="big bar" suburb="Bridgeman Downs" 
         address_number_street="Long street" address_postcode="2000" address_state="Queensland" 
         address_country="Australia" paypal="test@test.com" latitude="100" longitude="200" 
         email="contact@website.com" plan_id="3" website = "www.skiipr.com" phone_number = "12345678"  type = "0" currency_type="AUD" />
-        <tbl_merchant merchant_id="2" username="george" website = "www.skiipr.com" phone_number = "12345678" salt="1234" password="fc74acb4ad8fb836068a543aafa45d5275e934af" last_login="1322206746" login_count="0" failed_login_time="1322179536" name="loud bar" suburb="Aspley" address_number_street="8 Short street" address_postcode="3000" address_state="NSW" address_country="Australia" paypal="hai@test.com" latitude="-27.70344" longitude="150.37717" email="info@website.com" plan_id="1" type = "0" currency_type="AUD" />
+        <tbl_merchant merchant_id="2" username="george" website = "www.skiipr.com" phone_number = "12345678" salt="1234" password="fc74acb4ad8fb836068a543aafa45d5275e934af" last_login="1322206746" login_count="0" failed_login_time="1322179536" name="loud bar" suburb="Aspley" address_number_street="8 Short street" address_postcode="3000" address_state="NSW" address_country="Australia" paypal="hai@test.com" latitude="-27.70344" longitude="150.37717" email="info@website.com" plan_id="1" open = "1" type = "0" currency_type="AUD" />
         <tbl_category category_id="1" name="Basics" merchant_id="1" />
         <tbl_category category_id="2" name="Cocktails" merchant_id="2" />
         <tbl_category category_id="3" name="Food" merchant_id="1" />
         <tbl_product product_id="1" name="foo" description="product1" price="3" active="1" category_id="1"  />
         <tbl_product product_id="2" name="bar" description="product2" price="5" active="0" category_id="1"  />
-        <tbl_order order_id="1" order_time="1" merchant_id = "1" paypal_address = "order1" paypal_ref= "3232" order_type = "NORMAL" status = "PENDING" last_updated = "1" total = "3" email = "testuser@test.com" device_id="789345" payment_type="PAYPAL" />
-        <tbl_order order_id="2" order_time="1" merchant_id = "1" paypal_address = "order2" paypal_ref= "3232" order_type = "NORMAL" status = "NEW" last_updated = "1" total = "3.2" email = "testuser2@gmail.com" device_id="123456" payment_type="COD" />     
+        <tbl_order apid = "1" order_id="1" order_time="1" merchant_id = "1" paypal_address = "order1" paypal_ref= "3232" order_type = "NORMAL" status = "PENDING" last_updated = "1" total = "3" email = "testuser@test.com" device_id="789345" payment_type="PAYPAL" />
+        <tbl_order apid = "1" order_id="2" order_time="1" merchant_id = "1" paypal_address = "order2" paypal_ref= "3232" order_type = "NORMAL" status = "NEW" last_updated = "1" total = "3.2" email = "testuser2@gmail.com" device_id="123456" payment_type="COD" />     
 </dataset>

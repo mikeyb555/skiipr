@@ -57,6 +57,7 @@ public class OrderDaoImplTest {
         order.setDeviceID("12345");
         order.setTotal(1234);
         order.setPaymentType(PaymentType.PAYPAL);
+        order.setApid("1");
         Merchant merchant = new Merchant();
         merchant.setMerchantID(3l);
         order.setMerchant(merchant);
