@@ -56,7 +56,13 @@ public class POJOBuilders {
         Long time = System.currentTimeMillis()/1000;
         order.setLastUpdated(time);
         order.setStatus(OrderStatus.PENDING);
-        order.setPaymentType(PaymentType.PAYPAL);
+        if(jObject.getString("paymentType").equals("PAYPAL")){
+            order.setPaymentType(PaymentType.PAYPAL);
+        }
+        else{
+            order.setPaymentType(PaymentType.COD);
+        }
+        
         order.setOrderProducts(createOrderProductFromJson(json, order));
         return order;
     }

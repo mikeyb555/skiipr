@@ -260,17 +260,6 @@ public class Merchant implements Serializable {
         this.email = email;
     }
 
-    @JsonIgnore
-    public int getPlanId() {
-        return planId;
-    }
-
-    /**
-     * @param planId the planId to set
-     */
-    public void setPlanId(int planId) {
-        this.planId = planId;
-    }
     
      /**
      * @return the plan

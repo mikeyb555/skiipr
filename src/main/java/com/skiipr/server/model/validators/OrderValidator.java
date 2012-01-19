@@ -4,6 +4,7 @@
  */
 package com.skiipr.server.model.validators;
 
+import com.skiipr.server.enums.PaymentType;
 import com.skiipr.server.model.DAO.BannedDao;
 import com.skiipr.server.model.DAO.MerchantDao;
 import com.skiipr.server.model.Order;
@@ -64,6 +65,16 @@ public class OrderValidator implements Validator{
             if(!order.getMerchant().getOpen()){
                 errors.rejectValue("merchantID", null);
             }
+            
+            if(order.getPaymentType().equals(PaymentType.PAYPAL) && !(order.getMerchant().getPlan().getCanPaypal())){
+                
+                errors.rejectValue("merchantID", null);
+            
+                
+            }
+            
+            
+            
             
             
             

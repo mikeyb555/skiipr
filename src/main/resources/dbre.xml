@@ -69,9 +69,7 @@
         <property name="currencyType" type="string">
             <column name="currency_type" length="3" not-null="true" />
         </property>
-        <property name="planId" type="int">
-            <column name="plan_id" length="20" not-null="true" />
-        </property>
+        <many-to-one name = "plan" class = "com.skiipr.server.model.Plan" cascade="none" lazy="false" column = "plan_id" /> 
         <property name="open" type="boolean">
             <column name="open" length="1"/>
         </property>
