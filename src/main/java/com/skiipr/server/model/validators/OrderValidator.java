@@ -5,6 +5,7 @@
 package com.skiipr.server.model.validators;
 
 import com.skiipr.server.model.DAO.BannedDao;
+import com.skiipr.server.model.DAO.MerchantDao;
 import com.skiipr.server.model.Order;
 import com.skiipr.server.model.OrderProduct;
 import java.math.BigDecimal;
@@ -20,6 +21,9 @@ public class OrderValidator implements Validator{
     
     @Autowired
     private BannedDao bannedDao;
+    
+    @Autowired
+    private MerchantDao merchantDao;
     
     
     
@@ -55,6 +59,10 @@ public class OrderValidator implements Validator{
             if(bannedDao.isBanned(identifiers, order.getMerchantID())){
                 errors.rejectValue("email", null);
                 errors.rejectValue("deviceID", null);
+            }
+            
+            if(!order.getMerchant().getOpen()){
+                errors.rejectValue("merchantID", null);
             }
             
             

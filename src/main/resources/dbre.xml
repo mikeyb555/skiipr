@@ -72,6 +72,9 @@
         <property name="planId" type="int">
             <column name="plan_id" length="20" not-null="true" />
         </property>
+        <property name="open" type="boolean">
+            <column name="open" length="1"/>
+        </property>
         <set name="categories" inverse="true" lazy="false" fetch="join">
              <key>
                 <column name="merchant_id" not-null="true" />

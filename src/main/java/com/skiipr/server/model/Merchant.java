@@ -45,6 +45,7 @@ public class Merchant implements Serializable {
     private String website;
     //@Length(max = 5)
     private String phoneNumber;
+    private Boolean open;
     
     @JsonIgnore
     public String getUsername(){
@@ -349,5 +350,19 @@ public class Merchant implements Serializable {
      */
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    /**
+     * @return the open
+     */
+    public Boolean getOpen() {
+        return open;
+    }
+
+    /**
+     * @param open the open to set
+     */
+    public void setOpen(Boolean open) {
+        this.open = open;
     }
 }
