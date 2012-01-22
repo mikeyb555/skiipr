@@ -1,14 +1,12 @@
 package com.skiipr.server.model.DAO.impl;
 
+import com.skiipr.server.components.SessionUser;
 import com.skiipr.server.model.DAO.MerchantDao;
+import com.skiipr.server.model.LoginUser;
 import com.skiipr.server.model.Merchant;
-import com.skiipr.server.model.Product;
 import java.util.ArrayList;
 import java.util.List;
-import org.hibernate.Criteria;
-import org.hibernate.Hibernate;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
@@ -16,6 +14,9 @@ import org.springframework.stereotype.Repository;
 @Repository("MerchantDao")
 public class MerchantDaoImpl extends HibernateDaoSupport implements MerchantDao{
 
+    @Autowired
+    private SessionUser sessionUser;
+    
     @Autowired
     public void init(SessionFactory factory) {
         setSessionFactory(factory);
@@ -68,21 +69,11 @@ public class MerchantDaoImpl extends HibernateDaoSupport implements MerchantDao{
             String stringLongitude = merchant.getLongitude();
             double merchantLatitude = Double.parseDouble(stringLatitude);
             double merchantLongitude = Double.parseDouble(stringLongitude);
-            
-            
-            if (withinRadius(merchantLatitude, merchantLongitude, lat, lon, radius)){
-                
+            if (withinRadius(merchantLatitude, merchantLongitude, lat, lon, radius)){                
                 returnList.add(merchant);
-            }
-            
-         
-             
+            } 
         }
-        
-        
-        return returnList;
-        
-        
+        return returnList; 
     }
     
     private boolean withinRadius(double merchantLatitude, double merchantLongitude, double userLatitude, double userLongitude, double radius){
@@ -92,11 +83,7 @@ public class MerchantDaoImpl extends HibernateDaoSupport implements MerchantDao{
         dist = Math.acos(dist);
         dist = rad2deg(dist);
         dist = dist * 60 * 1.1515 * 1.609344;
-        //System.out.println("The distance is " + dist);
-       
-        
         return (radius >= dist);
-    
     }
     
     private double deg2rad(double deg) {
@@ -104,7 +91,6 @@ public class MerchantDaoImpl extends HibernateDaoSupport implements MerchantDao{
     }
     
     private double rad2deg(double rad) {
-        
         return (rad * 180.0 / Math.PI);
     }
 
@@ -113,9 +99,17 @@ public class MerchantDaoImpl extends HibernateDaoSupport implements MerchantDao{
         getHibernateTemplate().setMaxResults(10);
         return getHibernateTemplate().find("from Merchant WHERE name LIKE concat('%',?,'%')", name);
     }
-    
    
-        
+    @Override
+    public boolean usernameAvailable(String username){
+        LoginUser user = sessionUser.getUser();
+        List<Merchant> results = getHibernateTemplate().find("FROM Merchant WHERE (username = ?) AND (merchantID != ?)", username, user.getMerchantId());
+        return results.isEmpty();
+    }   
     
+    @Override
+    public Merchant findCurrentMerchant(){
+        return findById(sessionUser.getUser().getMerchantId());
+    }
     
 }

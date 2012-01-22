@@ -9,20 +9,11 @@
   <jsp:output omit-xml-declaration="yes" />
     <spring:url value="/j_spring_security_check" var="form_url" />
      <form:form  method="POST" action="${fn:escapeXml(form_url)}">
-         
-      <div>
-          
-          <div><c:if test="${not empty param.login_error}">
-          
+             <div>
+      <div><c:if test="${not empty param.login_error}">
           <general:notification message="Login Failed. Reason:  ${SPRING_SECURITY_LAST_EXCEPTION.message} " status = "${flash.status}"/>
-          
         </c:if>
-          
-          </div>
-           
-         
-            
-          
+      </div>
         <label for="j_username">
           <spring:message code="security_login_form_name" />
         </label>

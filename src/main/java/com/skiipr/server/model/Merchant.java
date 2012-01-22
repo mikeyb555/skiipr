@@ -120,159 +120,93 @@ public class Merchant implements Serializable {
         setLastLoginTime((int) (System.currentTimeMillis() / 1000L));
     }
 
-    /**
-     * @return the name
-     */
     public String getName() {
         return name;
     }
 
-    /**
-     * @param name the name to set
-     */
     public void setName(String name) {
         this.name = name;
     }
 
-    /**
-     * @return the addressNumber
-     */
     public String getSuburb() {
         return suburb;
     }
 
-    /**
-     * @param addressNumber the addressNumber to set
-     */
     public void setSuburb(String addressNumber) {
         this.suburb = addressNumber;
     }
 
-    /**
-     * @return the addressStreet
-     */
     public String getAddressNumberStreet() {
         return addressNumberStreet;
     }
 
-    /**
-     * @param addressStreet the addressStreet to set
-     */
     public void setAddressNumberStreet(String addressStreet) {
         this.addressNumberStreet = addressStreet;
     }
 
-    /**
-     * @return the addressPostcode
-     */
     public String getAddressPostcode() {
         return addressPostcode;
     }
 
-    /**
-     * @param addressPostcode the addressPostcode to set
-     */
     public void setAddressPostcode(String addressPostcode) {
         this.addressPostcode = addressPostcode;
     }
 
-    /**
-     * @return the addressCountry
-     */
     public String getAddressCountry() {
         return addressCountry;
     }
 
-    /**
-     * @param addressCountry the addressCountry to set
-     */
     public void setAddressCountry(String addressCountry) {
         this.addressCountry = addressCountry;
     }
 
-     /**
-     * @return the addressState
-     */
     public String getAddressState() {
         return addressState;
     }
 
-    /**
-     * @param addressCountry the addressCountry to set
-     */
     public void setAddressState(String addressState) {
         this.addressState = addressState;
     }
 
-    /**
-     * @return the paypal
-     */
     public String getPaypal() {
         return paypal;
     }
 
-    /**
-     * @param paypal the paypal to set
-     */
     public void setPaypal(String paypal) {
         this.paypal = paypal;
     }
 
-    /**
-     * @return the latitude
-     */
     public String getLatitude() {
         return latitude;
     }
 
-    /**
-     * @param latittude the latitude to set
-     */
     public void setLatitude(String latitude) {
         this.latitude = latitude;
     }
 
-    /**
-     * @return the longitude
-     */
     public String getLongitude() {
         return longitude;
     }
 
-    /**
-     * @param longitude the longitude to set
-     */
     public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
 
-    /**
-     * @return the email
-     */
     public String getEmail() {
         return email;
     }
 
-    /**
-     * @param email the email to set
-     */
     public void setEmail(String email) {
         this.email = email;
     }
 
     
-     /**
-     * @return the plan
-     */
     @JsonIgnore
     @OneToOne
     public Plan getPlan(){
         return plan;
     }
 
-    /**
-     * @param plan the plan to set
-     */
     public void setPlan(Plan plan) {
         this.plan = plan;
     }
@@ -285,73 +219,44 @@ public class Merchant implements Serializable {
         return categories;
     }
 
-    /**
-     * @return the type
-     */
     public int getType() {
         return type;
     }
 
-    /**
-     * @param type the type to set
-     */
     public void setType(int type) {
         this.type = type;
     }
 
-    /**
-     * @return the currencyType
-     */
     public String getCurrencyType() {
         return currencyType;
     }
 
-    /**
-     * @param currencyType the currencyType to set
-     */
     public void setCurrencyType(String currencyType) {
         this.currencyType = currencyType;
     }
 
-    /**
-     * @return the website
-     */
     public String getWebsite() {
         return website;
     }
 
-    /**
-     * @param website the website to set
-     */
     public void setWebsite(String website) {
         this.website = website;
     }
 
-    /**
-     * @return the phoneNumber
-     */
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    /**
-     * @param phoneNumber the phoneNumber to set
-     */
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
-    /**
-     * @return the open
-     */
     public Boolean getOpen() {
         return open;
     }
 
-    /**
-     * @param open the open to set
-     */
     public void setOpen(Boolean open) {
         this.open = open;
     }
+    
 }

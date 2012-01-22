@@ -10,15 +10,12 @@ import com.skiipr.server.enums.PaymentType;
 import java.io.Serializable;
 import java.text.NumberFormat;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.Transient;
+
 
 @Entity
 @Table(name = "tbl_order")

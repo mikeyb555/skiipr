@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.skiipr.server.controller.dashboard;
 
 import com.skiipr.server.components.FlashNotification;

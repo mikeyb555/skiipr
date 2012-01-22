@@ -1,4 +1,10 @@
-<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:spring="http://www.springframework.org/tags" xmlns:form="http://www.springframework.org/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+<jsp:root 
+    xmlns:c="http://java.sun.com/jsp/jstl/core" 
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+    xmlns:spring="http://www.springframework.org/tags" 
+    xmlns:form="http://www.springframework.org/tags/form" 
+    xmlns:jsp="http://java.sun.com/JSP/Page" 
+    version="2.0">
   <jsp:output omit-xml-declaration="yes" />
 
   <jsp:directive.attribute name="id" type="java.lang.String" required="true" rtexprvalue="true" description="The identifier for this tag (do not change!)" />
@@ -18,12 +24,17 @@
   <jsp:directive.attribute name="type" type="java.lang.String" required="false" rtexprvalue="true" description="Set field type (default 'text', or 'password')" />
   <jsp:directive.attribute name="render" type="java.lang.Boolean" required="false" rtexprvalue="true" description="Indicate if the contents of this tag and all enclosed tags should be rendered (default 'true')" />
   <jsp:directive.attribute name="z" type="java.lang.String" required="false" description="Used for checking if element has been modified (to recalculate simply provide empty string value)" />
+  <jsp:directive.attribute name="inline" type="java.lang.Boolean" required="false" description="Should a line break be put after the label (default false)" />
   
   <c:if test="${empty render or render}">
   
     <c:if test="${empty type}">
       <c:set value="text" var="type" />
     </c:if>
+      
+      <c:if test="${empty inline}">
+          <c:set value="false" var="inline" />
+      </c:if>
     
     <c:if test="${empty disabled}">
       <c:set value="false" var="disabled" />
@@ -57,12 +68,14 @@
     
     <div id="_${fn:escapeXml(id)}_id">
       <label for="_${sec_field}_id">
-        <c:out value="${fn:escapeXml(label)}" />
-        :
+          <c:out value="${fn:escapeXml(label)}" />
       </label>
+          <c:if test="${not inline}">
+              <br />
+          </c:if>
       <c:choose>
         <c:when test="${disableFormBinding}">
-          <input id="_${sec_field}_id" name="${sec_field}" type="${fn:escapeXml(type)}" />
+          <input id="_${sec_field}_id" name="${sec_field}" type="${fn:escapeXml(type)}"/>
         </c:when>
         <c:otherwise>
           <c:choose>
@@ -78,6 +91,7 @@
         </c:otherwise>
       </c:choose>
       <c:choose>
+        
         <c:when test="${required}">
           <spring:message code="field_required" var="field_required" htmlEscape="false" />
           <spring:message argumentSeparator="," arguments="${label},(${field_required})" code="field_simple_validation" var="field_validation" htmlEscape="false" />

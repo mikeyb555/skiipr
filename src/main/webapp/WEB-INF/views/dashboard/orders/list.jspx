@@ -21,8 +21,6 @@
                             <table:column id="c_com_skiipr_server_model_Order_status" property="status" />
                             <table:column id="c_com_skiipr_server_model_Order_lastUpdated" property="formattedLastUpdated" date="true" dateTimePattern="dd/MM/yyyy HH:mm:ss z" maxLength = "-1"/>
                             <table:column id="c_com_skiipr_server_model_Order_total" property="formattedTotal" />
-                            
-                            
                         </table:table>
                     </page:list>
                 </div>

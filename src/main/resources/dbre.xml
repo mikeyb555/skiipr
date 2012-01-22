@@ -8,10 +8,10 @@
             <column name="merchant_id" />
             <generator class="identity" />
         </id>
-        <property name="username" type="string" update="false">
+        <property name="username" type="string">
             <column name="username" length="10" not-null="true" unique="true" />
         </property>
-        <property name="password" type="string" update="false">
+        <property name="password" type="string">
             <column name="password" length="20" not-null="true" unique="true" />
         </property>
         <property name="salt" type="string" update="false">

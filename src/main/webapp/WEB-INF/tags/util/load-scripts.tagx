@@ -5,8 +5,9 @@
   <spring:url value="/resources/dojo/dojo.js" var="dojo_url" />
   <spring:url value="/resources/spring/Spring.js" var="spring_url" />
   <spring:url value="/resources/spring/Spring-Dojo.js" var="spring_dojo_url" />
-  <spring:url value="/resources/dijit/themes/tundra/tundra.css" var="tundra_url" />
+  <spring:url value="/resources/dijit/themes/claro/claro.css" var="tundra_url" />
   <spring:url value="/resources/dojo/resources/dojo.css" var="dojo_css_url" />
+  <spring:url value="/resources/scripts/pageScripts.js" var="page_scripts" />
   
  
   <spring:url value="http://maps.googleapis.com/maps/api/js?key=AIzaSyBqRWOTGf0xyvhYVpc_MZ_cxpqCj-E8auI&amp;sensor=false" var="api_address" />
@@ -36,7 +37,15 @@
 
   <script type="text/javascript" src="${map_script}"><!-- required for FF3 and Opera --></script>
   
-  <script language="JavaScript" type="text/javascript">dojo.require("dojo.parser");</script>
+  <script type="text/javascript" src="${page_scripts}"><!-- required for FF3 and Opera --></script>
   
+  <script language="JavaScript" type="text/javascript">
+      //load the parser
+        dojo.require('dojo.parser');
 
+        //parse the page
+        dojo.ready(function() {
+          dojo.parser.parse()
+        });
+  </script>
 </jsp:root>

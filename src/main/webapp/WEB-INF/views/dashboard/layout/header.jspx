@@ -19,11 +19,11 @@
                     </ul>
                 </div>
 
-                <div id="navclose"></div>
+                <div id="navclose"><!-- nav --></div>
 
                 <ul class="sf-menu">
                     <li>
-                        <spring:url value="/images/dashboard/menu/settings.png" var="dashboard_icon" />
+                        <spring:url value="/images/dashboard/menu/house.png" var="dashboard_icon" />
                         <spring:url value="/dashboard" var="dashboard_link" />
                         <a href="${dashboard_link}">
                             <span class="icon"><img src="${dashboard_icon}" /></span>
@@ -60,6 +60,14 @@
                         <a href="${stats_link}">
                             <span class="icon"><img src="${stats_icon}" /></span>
                             <span class="title">Statistics</span>
+                        </a>
+                    </li>
+                    <li>
+                        <spring:url value="/images/dashboard/menu/settings.png" var="settings_icon" />
+                        <spring:url value="/dashboard/settings" var="settings_link" />
+                        <a href="${settings_link}">
+                            <span class="icon"><img src="${settings_icon}" /></span>
+                            <span class="title">Configuration</span>
                         </a>
                     </li>
                     <li class="sep">

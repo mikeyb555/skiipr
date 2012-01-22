@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-        <tbl_plan plan_id="1" plan_name="plan1" can_paypal="1"/>
-	<tbl_plan plan_id="2" plan_name="plan1" can_paypal="1"/>
-	<tbl_plan plan_id="3" plan_name="plan3" can_paypal="0"/>
+        <tbl_plan plan_id="1" plan_name="plan1" can_paypal="1" can_cod="1" />
+	<tbl_plan plan_id="2" plan_name="plan1" can_paypal="1" can_cod="1" />
+	<tbl_plan plan_id="3" plan_name="plan3" can_paypal="0" can_cod="1" />
         <tbl_merchant merchant_id="1" open = "1" username="fred" salt="1234" password="fc74acb4ad8fb836068a543aafa45d5275e934af" last_login="1322206746" 
         login_count="0" failed_login_time="1322179536" name="big bar" suburb="Bridgeman Downs" 
         address_number_street="Long street" address_postcode="2000" address_state="Queensland" 

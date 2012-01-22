@@ -25,61 +25,45 @@ public class OrderValidator implements Validator{
     
     @Autowired
     private MerchantDao merchantDao;
-    
-    
-    
-    @Override
-        public boolean supports(Class<?> type) {
-            return Order.class.equals(type);
-        }
 
-        @Override
-        public void validate(Object o, Errors errors) {
-            Order order = (Order) o;
-            if(order.getTotal() <= 0.00){
-                errors.rejectValue("total", null);
-            }
-            float expectedTotal = 0;
-            Set<OrderProduct> orderProducts = order.getOrderProducts();
-            for (OrderProduct op: orderProducts){
-                float amount = (op.getQuantity() * op.getProduct().getPrice().floatValue());
-                expectedTotal += amount;
-                
-            }
-            
-            if (order.getTotal() != expectedTotal){
-                errors.rejectValue("total", null);
-            }
-            
-            if (!order.getEmail().matches("^[\\w\\-]+(\\.[\\w\\-]+)*@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}$")){
-                errors.rejectValue("email", null);
-            }
-            ArrayList<String> identifiers = new ArrayList();
-            identifiers.add(order.getDeviceID());
-            identifiers.add(order.getEmail());
-            if(bannedDao.isBanned(identifiers, order.getMerchantID())){
-                errors.rejectValue("deviceID", null);
-            }
-            
-            if(!order.getMerchant().getOpen()){
-                errors.rejectValue("merchantID", null);
-            }
-            
-            if(order.getPaymentType().equals(PaymentType.PAYPAL) && !(order.getMerchant().getPlan().getCanPaypal())){
-                
-                errors.rejectValue("merchantID", null);
-            
-                
-            }
-            
-            if(order.getPaymentType().equals(PaymentType.COD) && !(order.getMerchant().getPlan().getCanCOD())){
-                errors.rejectValue("paymentType", null);
-            }
-            
-            
-            
-            
-            
-            
+    @Override
+    public boolean supports(Class<?> type) {
+        return Order.class.equals(type);
+    }
+
+    @Override
+    public void validate(Object o, Errors errors) {
+        Order order = (Order) o;
+        if(order.getTotal() <= 0.00){
+            errors.rejectValue("total", null);
         }
+        float expectedTotal = 0;
+        Set<OrderProduct> orderProducts = order.getOrderProducts();
+        for (OrderProduct op: orderProducts){
+            float amount = (op.getQuantity() * op.getProduct().getPrice().floatValue());
+            expectedTotal += amount;
+
+        }
+        if (order.getTotal() != expectedTotal){
+            errors.rejectValue("total", null);
+        }
+        if (!order.getEmail().matches("^[\\w\\-]+(\\.[\\w\\-]+)*@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}$")){
+            errors.rejectValue("email", null);
+        }
+        ArrayList<String> identifiers = new ArrayList();
+        identifiers.add(order.getDeviceID());
+        identifiers.add(order.getEmail());
+        if(bannedDao.isBanned(identifiers, order.getMerchantID())){
+            errors.rejectValue("deviceID", null);
+        }
+        if(!order.getMerchant().getOpen()){
+            errors.rejectValue("merchantID", null);
+        }
+        if(order.getPaymentType().equals(PaymentType.PAYPAL) && !(order.getMerchant().getPlan().getCanPaypal())){
+            errors.rejectValue("merchantID", null);
+        }
+        if(order.getPaymentType().equals(PaymentType.COD) && !(order.getMerchant().getPlan().getCanCOD())){
+            errors.rejectValue("paymentType", null);
+        }
+    }
 }

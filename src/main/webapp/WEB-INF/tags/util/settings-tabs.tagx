@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root  
+    xmlns:jsp="http://java.sun.com/JSP/Page" 
+    xmlns:general="urn:jsptagdir:/WEB-INF/tags/general"
+    version="2.0">
+  <jsp:output omit-xml-declaration="yes" />
+  <jsp:directive.attribute name="current" type="java.lang.String" required="true"  description="The currently selected tab" />
+  <script type="text/javascript">
+       dojo.ready(function(){
+           dojo.addClass("${current}", "current");
+       });
+  </script>
+    <div class="left_tab_links">
+        <ul>
+          <li><general:link id="settings_tab_1" url="/dashboard/settings" label="Location and contact"/></li>
+          <li><general:link id="settings_tab_2" url="/dashboard/settings/security" label="Banning and security"/></li>
+          <li><general:link id="settings_tab_3" url="/dashboard/security" label="Discount codes"/></li>
+          <li><general:link id="settings_tab_4" url="/dashboard/security" label="Customer payment options"/></li>
+        </ul>
+    </div>
+    <div class="left_tab_content">
+        <jsp:doBody />
+    </div>
+    <div class="clear"><!-- clear --></div>
+</jsp:root>
