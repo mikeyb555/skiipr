@@ -15,5 +15,6 @@ public interface MerchantDao {
     public ArrayList<Merchant> findWithinRadius(double lat, double lon, double radius);
     public List<Merchant> findByName(String name);
     public boolean usernameAvailable(String username);
+    public boolean tradingNameAvailable(String name);
     public Merchant findCurrentMerchant();
 }

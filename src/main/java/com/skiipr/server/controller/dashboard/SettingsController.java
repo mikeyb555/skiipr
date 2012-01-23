@@ -14,20 +14,17 @@ import com.skiipr.server.model.DAO.PlanDao;
 import com.skiipr.server.model.LoginUser;
 import com.skiipr.server.model.Merchant;
 import com.skiipr.server.model.Plan;
+import com.skiipr.server.model.form.MerchantDetails;
 import com.skiipr.server.model.validators.MerchantValidator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -51,28 +48,27 @@ public class SettingsController {
     private BannedDao bannedDao;
     
     @RequestMapping(value = "/dashboard/settings", method = RequestMethod.POST)
-    public String updateSettings(@Valid Merchant merchant, BindingResult bindingResult, ModelMap model, HttpServletRequest httpServletRequest){
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("merchant", merchant);
-            
-            System.out.println("Error validating");
-            return viewSettings(model);
+    public String updateSettings(@ModelAttribute("merchantModel") MerchantDetails merchantModel, BindingResult bindingResult, ModelMap model, HttpServletRequest httpServletRequest){
+        if(merchantModel.validate(bindingResult, merchantDao)){
+            model.addAttribute("flash", FlashNotification.create(Status.SUCCESS, "Merchant details updated."));
+            Merchant merchant = merchantDao.findCurrentMerchant();
+            merchantModel.setAttributes(merchant);
+            merchantDao.update(merchant);
+        }else{
+            model.addAttribute("flash", FlashNotification.create(Status.FAILURE, "There was an error updating your details."));
         }
-        LoginUser user = sessionUser.getUser();
-        merchant.setMerchantID(user.getMerchantId());
-        merchantDao.update(merchant);
-        return "redirect:/dashboard/settings";
+        model.addAttribute("merchantModel", merchantModel);
+        return viewSettings(model);
     }
     
     @RequestMapping(value = "/dashboard/settings", method = RequestMethod.GET)
     public String viewSettings(ModelMap model){
-        if(!model.containsKey("merchant")){
-            LoginUser user = sessionUser.getUser();
-            Merchant merchant = merchantDao.findById(user.getMerchantId());
-            model.addAttribute("merchant", merchant);
+        if(!model.containsKey("merchantModel")){
+            Merchant merchant = merchantDao.findCurrentMerchant();
+            MerchantDetails merchantModel = new MerchantDetails();
+            merchantModel.getAttributes(merchant);
+            model.addAttribute("merchantModel", merchantModel);
         }
-        List<Plan> plans = planDao.findAll();
-        model.addAttribute("plans", plans);
         List<MerchantType> merchantTypes = new ArrayList<MerchantType>(Arrays.asList(MerchantType.values()));
         List<CurrencyType> currencyTypes = new ArrayList<CurrencyType>(Arrays.asList(CurrencyType.values()));
         List<Country> countries = new ArrayList<Country>(Arrays.asList(Country.values()));

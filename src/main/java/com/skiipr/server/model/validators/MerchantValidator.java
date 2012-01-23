@@ -27,7 +27,6 @@ public class MerchantValidator implements Validator{
         }
         if(!merchant.getEmail().matches("^[\\w\\-]+(\\.[\\w\\-]+)*@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}$")){
             errors.rejectValue("email", "invalid.email.address");
-            
         }
     }
 }

@@ -3,6 +3,7 @@
      xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" 
      xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" 
      xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+     xmlns:general="urn:jsptagdir:/WEB-INF/tags/general"
      xmlns:jsp="http://java.sun.com/JSP/Page" 
      xmlns:spring="http://www.springframework.org/tags" version="2.0">
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
@@ -21,8 +22,10 @@
             </div>
             
             <util:settings-tabs current="settings_tab_1">
-                    <form:create id="Merchant" modelAttribute="merchant" path="/dashboard/account" render="${empty dependencies}" label="Please fill out your merchant account details">
-                                       
+                    <c:if test="${not empty flash}">
+                        <general:notification message="${flash.message}" status = "${flash.status}"/>  
+                    </c:if>
+                    <form:create id="Merchant" modelAttribute="merchantModel" path="/dashboard/settings" render="${empty dependencies}" label="Please fill out your merchant account details">   
                     <div class="map_container">
                         <b>Pinpoint your exact location</b>
                         <div id="map_canvas" style="width: 280px; height: 280px; margin-bottom: 5px;"><!-- Map --></div>
@@ -36,10 +39,9 @@
                     <field:input field="suburb" id="Merchant_s" label="Suburb" />
                     <field:input field="addressPostcode" id="Merchant_addressPostcode" label="Postcode" />
                     <field:input field="addressState" id="Merchant_addressState" label="State" />
-                    <field:select field = "addressCountry" id="country" itemValue="countryCode" itemLabel="countryName" items="${countries}" multiple = "false" path="" label = "Select Country" />   
+                    <field:select field="addressCountry" id="country" itemValue="countryCode" itemLabel="countryName" items="${countries}" multiple = "false" path="" label = "Select Country" />   
                     <field:input field="website" id="Merchant_website" label="Website" />
                     <field:input field="phoneNumber" id="Merchant_phoneNumber" label="Phone Number" />
-                    <field:input field="email" id="Merchant_email" required="true" validationMessageCode="field_invalid_email" label="Email address" />
                     <field:select field = "type" id="merchantTypes" itemValue="index" itemLabel="name" items="${merchantTypes}" multiple = "false" path="" label = "Select Type" />
                 </form:create>
                 <form:dependency dependencies="${dependencies}" id="Merchant" render="${not empty dependencies}" />
