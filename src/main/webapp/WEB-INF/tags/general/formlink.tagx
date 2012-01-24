@@ -1,0 +1,42 @@
+<jsp:root 
+    xmlns:c="http://java.sun.com/jsp/jstl/core" 
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+    xmlns:jsp="http://java.sun.com/JSP/Page" 
+    xmlns:spring="http://www.springframework.org/tags" 
+    version="2.0">
+  <jsp:output omit-xml-declaration="yes" />
+
+  <jsp:directive.attribute name="id" type="java.lang.String" required="true" rtexprvalue="true" description="The identifier for this tag (do not change!)" />
+  <jsp:directive.attribute name="url" type="java.lang.String" required="true" rtexprvalue="true" description="The URL to submit to" />
+  <jsp:directive.attribute name="label" type="java.lang.String" required="true" rtexprvalue="true" description="The label used for this menu item" />
+  <jsp:directive.attribute name="method" type="java.lang.String" required="false" rtexprvalue="true" description="The form method which should be used." />
+  <jsp:directive.attribute name="params" type="java.lang.String" required="true" rtexprvalue="true" description="The params to be passed in the form, seperated by commas." />
+  <jsp:directive.attribute name="values" type="java.lang.String" required="true" rtexprvalue="true" description="The values to be passed in the form, seperated by commas." />
+  <jsp:directive.attribute name="render" type="java.lang.Boolean" required="false" rtexprvalue="true" description="Indicate if the contents of this tag and all enclosed tags should be rendered (default 'true')" />
+  <jsp:directive.attribute name="htmlClass" type="java.lang.String" required="false" description="Class to apply to the a attribute" />
+  <c:if test="${empty method}">
+      <c:set var="method" value="POST"/>
+  </c:if>
+      
+  <c:if test="${empty htmlClass}">
+      <c:set var="htmlClass" value=""/>
+  </c:if>
+  
+    <c:if test="${empty render or render}">
+        <spring:url value="${url}" var="menu_item_url"/>
+        <c:set var="lengths" value="${fn:split(columnMaxLengths, ',')}" scope="request" />
+        <c:set var="splitParams" value="${fn:split(params, ',')}" />
+        <c:set var="splitValues" value="${fn:split(values, ',')}" />
+        <c:set var="fieldCount" value="0" />
+        <form name="input" action="${url}" method="post">
+            <input type="hidden" name="_method" value="${method}"/>
+            <c:forEach items="${splitParams}" var="field">
+                <input type="hidden" name="${field}" value="${splitValues[fieldCount]}" />
+            </c:forEach>
+            <c:set var="fieldCount" value="${fieldCount + 1}" />
+           <a href="#" onclick="parentNode.submit()" id="${fn:escapeXml(id)}" class="${htmlClass}">
+                <c:out value="${label}"/>
+           </a>
+        </form>
+    </c:if>
+</jsp:root>

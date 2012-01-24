@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class SettingsController {
@@ -79,28 +80,24 @@ public class SettingsController {
     }
     
     @RequestMapping(value = "/dashboard/settings/security", method = RequestMethod.GET)
-    public String viewSecurity(ModelMap model, HttpServletRequest httpServletRequest){
-        if(httpServletRequest.getSession().getAttribute("flash") != null){
-            FlashNotification flash = (FlashNotification) httpServletRequest.getSession().getAttribute("flash");
-            model.addAttribute("flash", flash);
-            httpServletRequest.getSession().removeAttribute("flash");
-        }
+    public String viewSecurity(ModelMap model){
         List<Banned> banned = bannedDao.findAll();
         model.addAttribute("banned", banned);
         return "/dashboard/settings/security";
     }
     
-    @RequestMapping(value = "/dashboard/settings/security/delete-ban/{id}", method = RequestMethod.GET)
-    public String deleteBan(@PathVariable("id") Long id, ModelMap model, HttpServletRequest httpServletRequest){
+    @RequestMapping(value = "/dashboard/settings/security", method = RequestMethod.DELETE)
+    public String deleteBan(@RequestParam("bannedID") Long id, ModelMap model, HttpServletRequest httpServletRequest){
         Banned ban = bannedDao.getBan(id);
         FlashNotification flash;
         if(ban == null){
            flash = FlashNotification.create(Status.FAILURE, "There was an error revoking this ban.");
+           model.addAttribute("flash", flash);
         }else{
             bannedDao.delete(ban);
             flash = FlashNotification.create(Status.SUCCESS, "Ban revoked");
+            model.addAttribute("flash", flash);
         }
-        httpServletRequest.getSession().setAttribute("flash", flash);
-        return "redirect:/dashboard/settings/security";
+        return viewSecurity(model);
     }
 }

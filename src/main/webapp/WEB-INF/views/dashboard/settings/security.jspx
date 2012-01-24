@@ -38,8 +38,8 @@
                         <a href="#" class="delete_ban row_control"><img src="${cross}" alt="delete" /></a>
                         <div class="delete_ban_confirmation row_notice">
                             Are you sure?
-                            <spring:url value="/dashboard/settings/security/delete-ban/${ban.bannedID}" var="ban_delete_link" />
-                            <a class="btn grey right medium" href="${ban_delete_link}"><span>Delete</span></a>
+                            <spring:url value="/dashboard/settings/security" var="ban_delete_link" />
+                            <general:formlink id="delete_ban_${ban.bannedID}" url="${ban_delete_link}" htmlClass="btn grey right medium" method="DELETE" params="bannedID" values="${ban.bannedID}" label="delete" />
                             <a class="btn grey right medium cancel_ban_delete"><span>Cancel</span></a>
                         </div>
                     </div>
