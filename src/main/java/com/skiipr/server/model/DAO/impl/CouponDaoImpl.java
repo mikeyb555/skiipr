@@ -59,9 +59,16 @@ public class CouponDaoImpl extends HibernateDaoSupport implements CouponDao {
 	return (Coupon)list.get(0);
     }
     
+    @Override
+    public Coupon findByCode(int couponCode){
+        LoginUser user = sessionUser.getUser();
+        return findByCode(couponCode, user.getMerchantId());
+    }
+    
 
     @Override
     public Coupon findByCode(int couponCode, Long merchantID) {
+        
         String[] params = {"couponC", "merchID"};
         Object[] values = {couponCode, merchantID};
         List list = getHibernateTemplate().findByNamedParam("from Coupon where (couponCode = :couponC) AND  (merchantID = :merchID)", params, values);

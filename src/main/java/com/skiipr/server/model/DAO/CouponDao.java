@@ -16,6 +16,7 @@ public interface CouponDao {
     public void update(Coupon coupon);
     public void delete(Coupon coupon);
     public Coupon findByCode(int couponCode, Long merchantID);
+    public Coupon findByCode(int couponCode);
     public List<Coupon> findAllByMerchant();
      public Coupon findByIDandMerchant(Long id);
     
