@@ -35,7 +35,9 @@
             </c:forEach>
             <c:set var="fieldCount" value="${fieldCount + 1}" />
            <a href="#" onclick="parentNode.submit()" id="${fn:escapeXml(id)}" class="${htmlClass}">
-                <c:out value="${label}"/>
+               <span>
+                    <c:out value="${label}"/>
+               </span>
            </a>
         </form>
     </c:if>

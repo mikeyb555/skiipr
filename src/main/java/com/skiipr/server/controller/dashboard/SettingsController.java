@@ -1,7 +1,6 @@
 package com.skiipr.server.controller.dashboard;
 
 import com.skiipr.server.components.FlashNotification;
-import com.skiipr.server.components.LatLongGenerator;
 import com.skiipr.server.components.SessionUser;
 import com.skiipr.server.enums.Country;
 import com.skiipr.server.enums.CurrencyType;
@@ -11,21 +10,19 @@ import com.skiipr.server.model.Banned;
 import com.skiipr.server.model.DAO.BannedDao;
 import com.skiipr.server.model.DAO.MerchantDao;
 import com.skiipr.server.model.DAO.PlanDao;
-import com.skiipr.server.model.LoginUser;
 import com.skiipr.server.model.Merchant;
-import com.skiipr.server.model.Plan;
 import com.skiipr.server.model.form.MerchantDetails;
 import com.skiipr.server.model.validators.MerchantValidator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import org.apache.commons.validator.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -96,6 +93,26 @@ public class SettingsController {
         }else{
             bannedDao.delete(ban);
             flash = FlashNotification.create(Status.SUCCESS, "Ban revoked");
+            model.addAttribute("flash", flash);
+        }
+        return viewSecurity(model);
+    }
+    
+    @RequestMapping(value = "/dashboard/settings/security", method = RequestMethod.PUT)
+    public String addBan(@RequestParam("banned_email") String email, ModelMap model, HttpServletRequest httpServletRequest){
+        FlashNotification flash;
+        if(bannedDao.isBanned(email)){
+           flash = FlashNotification.create(Status.FAILURE, "This email is already banned.");
+           model.addAttribute("flash", flash);          
+        }else if(!EmailValidator.getInstance().isValid(email)){
+           flash = FlashNotification.create(Status.FAILURE, "An invalid email address was entered.");
+           model.addAttribute("flash", flash);
+        }else{
+            Banned ban = new Banned();
+            ban.setIdentifier(email);
+            ban.setMerchantID(sessionUser.getUser().getMerchantId());
+            bannedDao.save(ban);
+            flash = FlashNotification.create(Status.SUCCESS, "Ban added.");
             model.addAttribute("flash", flash);
         }
         return viewSecurity(model);

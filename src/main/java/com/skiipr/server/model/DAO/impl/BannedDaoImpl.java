@@ -79,4 +79,13 @@ public class BannedDaoImpl extends HibernateDaoSupport implements BannedDao {
         }
     }
     
+    @Override
+    public boolean isBanned(String identifier){
+        Long merchantID = sessionUser.getUser().getMerchantId();
+        Criteria criteria = getSession().createCriteria(Banned.class)
+                .add(Restrictions.eq("identifier", identifier))
+                .add(Restrictions.eq("merchantID", merchantID));
+        List<Banned> results = criteria.list();
+        return !results.isEmpty();  
+    }
 }
