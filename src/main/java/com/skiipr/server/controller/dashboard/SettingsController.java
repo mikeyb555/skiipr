@@ -1,7 +1,6 @@
 package com.skiipr.server.controller.dashboard;
 
 import com.skiipr.server.components.FlashNotification;
-import com.skiipr.server.components.LatLongGenerator;
 import com.skiipr.server.components.SessionUser;
 import com.skiipr.server.enums.Country;
 import com.skiipr.server.enums.CouponType;
@@ -14,23 +13,24 @@ import com.skiipr.server.model.DAO.BannedDao;
 import com.skiipr.server.model.DAO.CouponDao;
 import com.skiipr.server.model.DAO.MerchantDao;
 import com.skiipr.server.model.DAO.PlanDao;
-import com.skiipr.server.model.LoginUser;
 import com.skiipr.server.model.Merchant;
-import com.skiipr.server.model.Plan;
 import com.skiipr.server.model.form.MerchantDetails;
 import com.skiipr.server.model.validators.MerchantValidator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+<<<<<<< HEAD
 import javax.validation.Valid;
+=======
+import org.apache.commons.validator.EmailValidator;
+>>>>>>> origin/master
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -141,28 +141,44 @@ public class SettingsController {
     }
     
     @RequestMapping(value = "/dashboard/settings/security", method = RequestMethod.GET)
-    public String viewSecurity(ModelMap model, HttpServletRequest httpServletRequest){
-        if(httpServletRequest.getSession().getAttribute("flash") != null){
-            FlashNotification flash = (FlashNotification) httpServletRequest.getSession().getAttribute("flash");
-            model.addAttribute("flash", flash);
-            httpServletRequest.getSession().removeAttribute("flash");
-        }
+    public String viewSecurity(ModelMap model){
         List<Banned> banned = bannedDao.findAll();
         model.addAttribute("banned", banned);
         return "/dashboard/settings/security";
     }
     
-    @RequestMapping(value = "/dashboard/settings/security/delete-ban/{id}", method = RequestMethod.GET)
-    public String deleteBan(@PathVariable("id") Long id, ModelMap model, HttpServletRequest httpServletRequest){
+    @RequestMapping(value = "/dashboard/settings/security", method = RequestMethod.DELETE)
+    public String deleteBan(@RequestParam("bannedID") Long id, ModelMap model, HttpServletRequest httpServletRequest){
         Banned ban = bannedDao.getBan(id);
         FlashNotification flash;
         if(ban == null){
            flash = FlashNotification.create(Status.FAILURE, "There was an error revoking this ban.");
+           model.addAttribute("flash", flash);
         }else{
             bannedDao.delete(ban);
             flash = FlashNotification.create(Status.SUCCESS, "Ban revoked");
+            model.addAttribute("flash", flash);
         }
-        httpServletRequest.getSession().setAttribute("flash", flash);
-        return "redirect:/dashboard/settings/security";
+        return viewSecurity(model);
+    }
+    
+    @RequestMapping(value = "/dashboard/settings/security", method = RequestMethod.PUT)
+    public String addBan(@RequestParam("banned_email") String email, ModelMap model, HttpServletRequest httpServletRequest){
+        FlashNotification flash;
+        if(bannedDao.isBanned(email)){
+           flash = FlashNotification.create(Status.FAILURE, "This email is already banned.");
+           model.addAttribute("flash", flash);          
+        }else if(!EmailValidator.getInstance().isValid(email)){
+           flash = FlashNotification.create(Status.FAILURE, "An invalid email address was entered.");
+           model.addAttribute("flash", flash);
+        }else{
+            Banned ban = new Banned();
+            ban.setIdentifier(email);
+            ban.setMerchantID(sessionUser.getUser().getMerchantId());
+            bannedDao.save(ban);
+            flash = FlashNotification.create(Status.SUCCESS, "Ban added.");
+            model.addAttribute("flash", flash);
+        }
+        return viewSecurity(model);
     }
 }

@@ -12,5 +12,5 @@ public interface BannedDao {
     public void delete(Banned banned);
     public Banned getBan(Long id);
     public List<Banned> findAll();
-   
+    public boolean isBanned(String identifier);
 }
