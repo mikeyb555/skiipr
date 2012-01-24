@@ -10,6 +10,9 @@
     <definition extends="dashboard" name="/dashboard/settings/discountcodes/view">
         <put-attribute name="body" value="/WEB-INF/views/dashboard/settings/discountcodes/view.jspx"/>
     </definition>
+    <definition extends="dashboard" name="/dashboard/settings/discountcodes/update">
+        <put-attribute name="body" value="/WEB-INF/views/dashboard/settings/discountcodes/update.jspx"/>
+    </definition>
     <definition extends="dashboard" name="/dashboard/settings/discountcodes/create">
         <put-attribute name="body" value="/WEB-INF/views/dashboard/settings/discountcodes/create.jspx"/>
     </definition>
