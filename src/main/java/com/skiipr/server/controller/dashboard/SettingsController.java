@@ -179,4 +179,29 @@ public class SettingsController {
         }
         return viewSecurity(model);
     }
+    
+    @RequestMapping(value = "/dashboard/settings/discountcodes/edit", method = RequestMethod.PUT)
+    public String updateCoupon(@Valid Coupon coupon, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
+        if (bindingResult.hasErrors()) {
+            uiModel.addAttribute("coupon", coupon);
+            return updateCouponForm(coupon.getCouponID(), uiModel);
+        }
+        uiModel.asMap().clear();
+        uiModel.addAttribute("flash", FlashNotification.create(Status.SUCCESS, "Product Updated"));
+        coupon.setMerchantID(sessionUser.getUser().getMerchantId());
+        couponDao.update(coupon);
+        return updateCouponForm(coupon.getCouponID(), uiModel);
+    }
+    
+    @RequestMapping(value = "/dashboard/settings/discountcodes/edit/{id}", method = RequestMethod.GET)
+    public String updateCouponForm(@PathVariable("id") Long id, Model uiModel) {
+        Coupon coupon = couponDao.findByIDandMerchant(id);
+        if (coupon == null){
+            return "redirect:/dashboard/settings/discountcodes";
+        }else{
+            uiModel.addAttribute("coupon", coupon);
+            return "/dashboard/settings/discountcodes/update";  
+        }
+        
+    }
 }

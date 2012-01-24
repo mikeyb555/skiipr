@@ -18,6 +18,6 @@ public interface CouponDao {
     public Coupon findByCode(int couponCode, Long merchantID);
     public Coupon findByCode(int couponCode);
     public List<Coupon> findAllByMerchant();
-     public Coupon findByIDandMerchant(Long id);
+    public Coupon findByIDandMerchant(Long id);
     
 }
