@@ -9,16 +9,31 @@ dojo.addOnLoad(function(){
 });
 
 dojo.ready(function(){
-   var deleteButton = dojo.query(".delete_ban");
-   var cancelDeleteButton = dojo.query(".cancel_ban_delete");
+   var deleteButton = dojo.query(".confirm_delete");
+   var cancelDeleteButton = dojo.query(".cancel_delete");
+   
+   var editButton = dojo.query(".edit_item");
+   var cancelEditButton = dojo.query(".cancel_edit");
+   
    var confirmDeleteAction = function(event){
-       var panel = dojo.query(event.currentTarget).next(".delete_ban_confirmation");
-       panel.style("display", "block");
+       dojo.query(event.currentTarget).nextAll(".delete_confirmation").style("display", "block");
+       dojo.query(event.currentTarget).nextAll(".edit_panel").style("display", "none");
    }
   var cancelDeleteAction = function(event){
-       var panel = dojo.query(event.currentTarget).parent(".delete_ban_confirmation");
-       panel.style("display", "none");
+       dojo.query(event.currentTarget).parent(".delete_confirmation").style("display", "none");
    }
+   
+  var editItemAction = function(event){
+       dojo.query(event.currentTarget).nextAll(".edit_panel").style("display", "block");
+       dojo.query(event.currentTarget).nextAll(".delete_confirmation").style("display", "none");
+   }
+  var cancelEditAction = function(event){
+       dojo.query(event.currentTarget).parent(".edit_panel").style("display", "none");
+  }
    cancelDeleteButton.connect("onclick", cancelDeleteAction);
    deleteButton.connect("onclick", confirmDeleteAction);
+
+   cancelEditButton.connect("onclick", cancelEditAction);
+   editButton.connect("onclick", editItemAction);
+   
 });

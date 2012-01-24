@@ -4,6 +4,10 @@
      xmlns:c="http://java.sun.com/jsp/jstl/core"
      xmlns:general="urn:jsptagdir:/WEB-INF/tags/general"
      xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" 
+     xmlns:form="http://www.springframework.org/tags/form" 
+     xmlns:springForm="http://www.springframework.org/tags/form" 
      xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
@@ -15,14 +19,43 @@
                 <h2>Categories</h2>
             </div>
             <div class="widget_body">  
+                <div class="widget_options">
+                    These are the categories that will appear to customers in the app. You can put products in these categories to make your products easier to navigate and find.
+                 </div>
                 <div class="widget_content">
                     <c:if test="${not empty flash}">
                         <general:notification message="${flash.message}" status = "${flash.status}"/>  
                     </c:if>
                     <page:list id="pl_com_skiipr_server_model_Category" items="${categories}">
-                        <table:table data="${categories}" id="l_com_skiipr_server_model_Category" path="/dashboard/categories" typeIdFieldName="categoryID">
-                            <table:column id="c_com_skiipr_server_model_Category_name" property="name" maxLength="45" />
-                        </table:table>
+                        <spring:url value="/images/icons/37-circle-x.png" var="cross" />
+                        <spring:url value="/images/icons/27-circle-o.png" var="dot" />
+                        <spring:url value="/dashboard/categories" var="this_url" />
+                        <c:forEach var="category" items="${categories}">
+                            <div class="grey_list_row">
+                                <c:out value="${category.name}" />
+                                <a href="#" class="confirm_delete row_control"><img src="${cross}" width="16" alt="delete" /></a>
+                                <a href="#" class="edit_item row_control"><img src="${dot}" width="16" alt="edit" /></a>
+                                <div class="edit_panel row_notice notice_white">
+                                    <springForm:form action="${this_url}" method="POST">
+                                        <label>Category Name</label><br />
+                                       <input name="category_name_${category.categoryID}" id="category_name_${category.categoryID}" value="${category.name}" />
+                                       <a class="btn grey right medium cancel_edit" href="#"><span>Cancel</span></a>
+                                       <a class="btn grey right medium cancel_edit" href="#" onclick="parentNode.submit()"><span>Submit</span></a>
+                                    </springForm:form>
+                                     <script type="text/javascript">
+                                        Spring.addDecoration(new Spring.ElementDecoration({elementId : 'category_name_${category.categoryID}', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {required : true}})); 
+                                      </script>
+                                    
+                                </div>
+                                <div class="delete_confirmation row_notice notice_yellow">
+                                    Are you sure?
+                                    <a class="btn grey right medium cancel_delete"><span>Cancel</span></a>
+                                </div>
+                            </div>
+                        </c:forEach>
+                      <c:if test="${not empty maxPages}">
+                        <util:pagination maxPages="${maxPages}" page="${param.page}" size="${param.size}" />
+                      </c:if>
                     </page:list>
                 </div>
             </div>

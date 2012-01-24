@@ -310,9 +310,6 @@ hr{
 }
 
 .row_notice{
-    background: url(../../images/dashboard/menu/bg.png);
-    background-color: #FBF176;
-    background-position: center;
     margin-top: 5px;
     margin-left: -10px;
     margin-bottom: -10px;
@@ -324,5 +321,18 @@ hr{
 }
 
 .row_notice a{
-    margin-top: -18px;
+   
+}
+
+.notice_yellow{
+    background: url(../../images/dashboard/menu/bg.png);
+    background-color: #FBF176;   
+    background-position: center center;
+}
+
+.notice_white{
+    border-top-color: #CCCCCC;
+    border-top-width: 1px;
+    border-top-style: solid;
+    background-color: #F7F7F7;
 }

@@ -12,6 +12,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,7 +39,7 @@ public class CategoryController {
     }
     
    @RequestMapping(value = "/dashboard/categories", method = RequestMethod.GET)
-   public String list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model model) {
+   public String list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, ModelMap modelMap) {
         if(size == null){
             size = 10;
         }
@@ -47,24 +48,22 @@ public class CategoryController {
         }
         Integer sizeNo = this.getPageSize(size);
         Integer startPage = this.getStartPage(page, sizeNo);
-        model.addAttribute("categories", categoryDao.findRange(startPage, sizeNo));
-        model.addAttribute("maxPages", this.getMaxPages(sizeNo));
+        modelMap.addAttribute("categories", categoryDao.findRange(startPage, sizeNo));
+        modelMap.addAttribute("categoryModel", new Category());
+        modelMap.addAttribute("maxPages", this.getMaxPages(sizeNo));
         return "/dashboard/categories/list";
     }
    
-   @RequestMapping(value = "/dashboard/categories/edit", method = RequestMethod.PUT)
-    public String update(@Valid Category category, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
+   @RequestMapping(value = "/dashboard/categories", method = RequestMethod.POST)
+    public String update(@Valid Category category, BindingResult bindingResult, ModelMap modelMap) {
+       System.out.println("Category name: " + category.getName());
         if (bindingResult.hasErrors()) {
-            uiModel.addAttribute("category", category);
-            return "/dashboard/categories/edit";
+            modelMap.addAttribute("flash", FlashNotification.create(Status.FAILURE, "There was an error updating your category"));
+        }else{
+            categoryDao.update(category);
+            modelMap.addAttribute("flash", FlashNotification.create(Status.SUCCESS, "Category Updated"));
         }
-        uiModel.asMap().clear();
-        uiModel.addAttribute("flash", FlashNotification.create(Status.SUCCESS, "Category Updated"));
-        categoryDao.update(category);
-        
-        return updateForm(category.getCategoryID(), uiModel);
-        
-       
+        return list(null, null, modelMap);
     }
     
     @RequestMapping(value = "/dashboard/categories/edit/{id}", method = RequestMethod.GET)
@@ -83,16 +82,16 @@ public class CategoryController {
             uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
             uiModel.addAttribute("flash", FlashNotification.create(Status.FAILURE, "Category Has products associated with it. "
                     + "Please delete or change the category of these products before deleting the category"));
-            return list(page, size, uiModel);
+           // return list(page, size, uiModel);
         }else{
             categoryDao.delete(category);
             uiModel.asMap().clear();
             uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
             uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
             uiModel.addAttribute("flash", FlashNotification.create(Status.SUCCESS, "Category Deleted"));
-            return list(page, size, uiModel);
+            //return list(page, size, uiModel);
         }
-        
+        return "";
     }
     
     @RequestMapping(value = "/dashboard/categories/view", method = RequestMethod.POST)

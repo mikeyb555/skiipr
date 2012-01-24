@@ -38,15 +38,15 @@
                   </script>
                 </div>
                 <hr />
-                <spring:url value="/images/dashboard/fugue/cross-circle.png" var="cross" />
+                <spring:url value="/images/icons/37-circle-x.png" var="cross" />
                 <c:forEach var="ban" begin="0" items="${banned}">
                     <div class="grey_list_row">
                         <c:out value="${ban.identifier}" />
-                        <a href="#" class="delete_ban row_control"><img src="${cross}" alt="delete" /></a>
-                        <div class="delete_ban_confirmation row_notice">
+                        <a href="#" class="confirm_delete row_control"><img src="${cross}" width="16" alt="delete" /></a>
+                        <div class="delete_confirmation row_notice notice_yellow">
                             Are you sure?
                             <general:formlink id="delete_ban_${ban.bannedID}" url="${this_link}" htmlClass="btn grey right medium" method="DELETE" params="bannedID" values="${ban.bannedID}" label="delete" />
-                            <a class="btn grey right medium cancel_ban_delete"><span>Cancel</span></a>
+                            <a class="btn grey right medium cancel_delete"><span>Cancel</span></a>
                         </div>
                     </div>
                 </c:forEach>
