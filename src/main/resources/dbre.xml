@@ -142,7 +142,7 @@
             <column name="active" length="1" not-null="true" />
         </property>
         <property name="couponCode" type="int">
-            <column name="coupon_code" length="11" not-null="true" />
+            <column name="coupon_code" length="11" not-null="true" unique = "true" />
         </property>
         <property name="couponType">
             <column name="coupon_type"  not-null="true" />

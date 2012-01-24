@@ -4,11 +4,14 @@ import com.skiipr.server.components.FlashNotification;
 import com.skiipr.server.components.LatLongGenerator;
 import com.skiipr.server.components.SessionUser;
 import com.skiipr.server.enums.Country;
+import com.skiipr.server.enums.CouponType;
 import com.skiipr.server.enums.CurrencyType;
 import com.skiipr.server.enums.MerchantType;
 import com.skiipr.server.enums.Status;
 import com.skiipr.server.model.Banned;
+import com.skiipr.server.model.Coupon;
 import com.skiipr.server.model.DAO.BannedDao;
+import com.skiipr.server.model.DAO.CouponDao;
 import com.skiipr.server.model.DAO.MerchantDao;
 import com.skiipr.server.model.DAO.PlanDao;
 import com.skiipr.server.model.LoginUser;
@@ -20,14 +23,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class SettingsController {
@@ -40,6 +46,9 @@ public class SettingsController {
     
     @Autowired
     private SessionUser sessionUser;
+    
+    @Autowired
+    private CouponDao couponDao;
     
     @Autowired
     private MerchantValidator merchantValidator;
@@ -76,6 +85,59 @@ public class SettingsController {
         model.addAttribute("currencyTypes", currencyTypes);
         model.addAttribute("countries", countries);
         return "/dashboard/settings";
+    }
+    @RequestMapping(value = "/dashboard/settings/discountcodes", method = RequestMethod.GET)
+    public String viewDiscountCodes(ModelMap model, HttpServletRequest httpServletRequest){
+        if(httpServletRequest.getSession().getAttribute("flash") != null){
+            FlashNotification flash = (FlashNotification) httpServletRequest.getSession().getAttribute("flash");
+            model.addAttribute("flash", flash);
+            httpServletRequest.getSession().removeAttribute("flash");
+        }
+        List<Coupon> coupons = couponDao.findAllByMerchant();
+        model.addAttribute("coupons", coupons);
+        return "/dashboard/settings/discountcodes";
+        
+    }
+    
+    @RequestMapping(value = "/dashboard/settings/discountcodes/new", method = RequestMethod.POST)
+    public String createDiscountCode(@Valid Coupon coupon, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
+        if (bindingResult.hasErrors()) {
+            uiModel.addAttribute("coupon", coupon);
+            
+            return "/dashboard/settings/discountcodes/create";
+        }
+        uiModel.asMap().clear();
+        coupon.setMerchantID(sessionUser.getUser().getMerchantId());
+        couponDao.save(coupon);
+        uiModel.addAttribute("flash", FlashNotification.create(Status.SUCCESS, "Product Added"));
+        return show(coupon.getCouponID(), uiModel);
+        
+        
+    }
+    
+     @RequestMapping(value = "/dashboard/settings/discountcodes/new", method = RequestMethod.GET)
+    public String createForm(Model uiModel) {
+        uiModel.addAttribute("coupon", new Coupon());
+        List<CouponType> couponTypes = new ArrayList<CouponType>(Arrays.asList(CouponType.values()));
+        uiModel.addAttribute("couponTypes", couponTypes);
+        
+        
+        return "/dashboard/settings/discountcodes/create";
+    }
+     
+    @RequestMapping(value = "/dashboard/settings/discountcodes/view/{id}", method = RequestMethod.GET)
+    public String show(@PathVariable("id") Long id, Model uiModel) {
+        uiModel.addAttribute("coupon", couponDao.findByIDandMerchant(id));
+        uiModel.addAttribute("itemId", id);
+        return "/dashboard/settings/discountcodes/view";
+    }
+    
+    @RequestMapping(value = "/dashboard/settings/discountcodes/delete/{id}", method = RequestMethod.GET)
+    public String deleteCoupon(@PathVariable("id") Long id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
+        Coupon coupon = couponDao.findByIDandMerchant(id);
+        couponDao.delete(coupon);
+        return "redirect:/dashboard/settings/discountcodes";
+        
     }
     
     @RequestMapping(value = "/dashboard/settings/security", method = RequestMethod.GET)

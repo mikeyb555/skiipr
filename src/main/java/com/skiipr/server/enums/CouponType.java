@@ -10,5 +10,11 @@ package com.skiipr.server.enums;
  */
 public enum CouponType {
     NORMAL,
-    PERCENTAGE
+    PERCENTAGE;
+    
+    public String getName(){
+        return this.toString();
+    }
 }
+
+

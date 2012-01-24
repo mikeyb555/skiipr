@@ -4,6 +4,15 @@
     <definition extends="dashboard" name="/dashboard/settings">
         <put-attribute name="body" value="/WEB-INF/views/dashboard/settings/settings.jspx"/>
     </definition>
+    <definition extends="dashboard" name="/dashboard/settings/discountcodes">
+        <put-attribute name="body" value="/WEB-INF/views/dashboard/settings/discountcodes/list.jspx"/>
+    </definition>
+    <definition extends="dashboard" name="/dashboard/settings/discountcodes/view">
+        <put-attribute name="body" value="/WEB-INF/views/dashboard/settings/discountcodes/view.jspx"/>
+    </definition>
+    <definition extends="dashboard" name="/dashboard/settings/discountcodes/create">
+        <put-attribute name="body" value="/WEB-INF/views/dashboard/settings/discountcodes/create.jspx"/>
+    </definition>
     <definition extends="dashboard" name="/dashboard/settings/security">
         <put-attribute name="body" value="/WEB-INF/views/dashboard/settings/security.jspx"/>
     </definition>
