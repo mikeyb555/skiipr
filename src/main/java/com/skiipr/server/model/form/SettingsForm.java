@@ -16,8 +16,6 @@ public class SettingsForm {
     private int type;
     private String website;
     private String phoneNumber;
-    private Boolean paypalEnabled;
-    private Boolean codEnabled;
 
     public String getName() {
         return name;
@@ -119,8 +117,6 @@ public class SettingsForm {
         merchant.setType(type);
         merchant.setWebsite(website);
         merchant.setPhoneNumber(phoneNumber);
-        merchant.setPaypalEnabled(paypalEnabled);
-        merchant.setCodEnabled(codEnabled);
     }
     
     public void getAttributes(Merchant merchant){
@@ -135,8 +131,6 @@ public class SettingsForm {
         type = merchant.getType();
         website = merchant.getWebsite();
         phoneNumber = merchant.getPhoneNumber();
-        paypalEnabled = merchant.getPaypalEnabled();
-        codEnabled = merchant.getCodEnabled();
     }
     
     public boolean validate(Errors errors, MerchantDao dao){
@@ -153,33 +147,5 @@ public class SettingsForm {
             errors.rejectValue("name", "invalid.name.taken");
         }
         return !errors.hasErrors();
-    }
-
-    /**
-     * @return the paypalEnabled
-     */
-    public Boolean getPaypalEnabled() {
-        return paypalEnabled;
-    }
-
-    /**
-     * @param paypalEnabled the paypalEnabled to set
-     */
-    public void setPaypalEnabled(Boolean paypalEnabled) {
-        this.paypalEnabled = paypalEnabled;
-    }
-
-    /**
-     * @return the codEnabled
-     */
-    public Boolean getCodEnabled() {
-        return codEnabled;
-    }
-
-    /**
-     * @param codEnabled the codEnabled to set
-     */
-    public void setCodEnabled(Boolean codEnabled) {
-        this.codEnabled = codEnabled;
     }
 }
