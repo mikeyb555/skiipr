@@ -14,6 +14,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
@@ -107,15 +108,9 @@ public class CategoryDaoImpl extends HibernateDaoSupport implements CategoryDao 
         Criteria criteria = getSession().createCriteria(Category.class)
                 .setMaxResults(max)
                 .setFirstResult(first)
-                .add(Restrictions.eq("merchantID", merchantID));
-//        Query query = getSession().createQuery("from Category where (merchantID = :merchantID)")
-//                .setParameter("merchantID", merchantID)
-//                .setMaxResults(max)
-//                .setFirstResult(first);
+                .add(Restrictions.eq("merchantID", merchantID))
+                .addOrder(Order.desc("categoryID"));
         List<Category> categories = criteria.list();
-        System.out.println("Size:" + categories.size());
-        System.out.println("Start: " + first);
-        System.out.println("Max: " + max);
         if(categories.isEmpty()){
             return null;
         }
@@ -129,4 +124,13 @@ public class CategoryDaoImpl extends HibernateDaoSupport implements CategoryDao 
         return count.intValue();
     }
     
+    @Override
+    public boolean nameInUse(String name, Long existingCategoryID){
+        Long merchantID = sessionUser.getUser().getMerchantId();
+        Criteria criteria = getSession().createCriteria(Category.class)
+                .add(Restrictions.eq("merchantID", merchantID))
+                .add(Restrictions.eq("name", name))
+                .add(Restrictions.ne("categoryID", existingCategoryID));
+        return !criteria.list().isEmpty();
+    }
 }

@@ -20,7 +20,7 @@ dojo.ready(function(){
        dojo.query(event.currentTarget).nextAll(".edit_panel").style("display", "none");
    }
   var cancelDeleteAction = function(event){
-       dojo.query(event.currentTarget).parent(".delete_confirmation").style("display", "none");
+       dojo.query(event.currentTarget).parents(".delete_confirmation").style("display", "none");
    }
    
   var editItemAction = function(event){
@@ -28,7 +28,7 @@ dojo.ready(function(){
        dojo.query(event.currentTarget).nextAll(".delete_confirmation").style("display", "none");
    }
   var cancelEditAction = function(event){
-       dojo.query(event.currentTarget).parent(".edit_panel").style("display", "none");
+       dojo.query(event.currentTarget).parents(".edit_panel").style("display", "none");
   }
    cancelDeleteButton.connect("onclick", cancelDeleteAction);
    deleteButton.connect("onclick", confirmDeleteAction);

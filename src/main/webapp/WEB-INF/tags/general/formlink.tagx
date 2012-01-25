@@ -32,8 +32,8 @@
             <input type="hidden" name="_method" value="${method}"/>
             <c:forEach items="${splitParams}" var="field">
                 <input type="hidden" name="${field}" value="${splitValues[fieldCount]}" />
+                <c:set var="fieldCount" value="${fieldCount + 1}" />
             </c:forEach>
-            <c:set var="fieldCount" value="${fieldCount + 1}" />
            <a href="#" onclick="parentNode.submit()" id="${fn:escapeXml(id)}" class="${htmlClass}">
                <span>
                     <c:out value="${label}"/>

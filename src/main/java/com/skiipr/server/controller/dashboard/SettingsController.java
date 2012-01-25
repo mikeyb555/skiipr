@@ -14,7 +14,7 @@ import com.skiipr.server.model.DAO.CouponDao;
 import com.skiipr.server.model.DAO.MerchantDao;
 import com.skiipr.server.model.DAO.PlanDao;
 import com.skiipr.server.model.Merchant;
-import com.skiipr.server.model.form.MerchantDetails;
+import com.skiipr.server.model.form.SettingsForm;
 import com.skiipr.server.model.validators.MerchantValidator;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -55,7 +55,7 @@ public class SettingsController {
     private BannedDao bannedDao;
     
     @RequestMapping(value = "/dashboard/settings", method = RequestMethod.POST)
-    public String updateSettings(@ModelAttribute("merchantModel") MerchantDetails merchantModel, BindingResult bindingResult, ModelMap model, HttpServletRequest httpServletRequest){
+    public String updateSettings(@ModelAttribute("merchantModel") SettingsForm merchantModel, BindingResult bindingResult, ModelMap model, HttpServletRequest httpServletRequest){
         if(merchantModel.validate(bindingResult, merchantDao)){
             model.addAttribute("flash", FlashNotification.create(Status.SUCCESS, "Merchant details updated."));
             Merchant merchant = merchantDao.findCurrentMerchant();
@@ -72,7 +72,7 @@ public class SettingsController {
     public String viewSettings(ModelMap model){
         if(!model.containsKey("merchantModel")){
             Merchant merchant = merchantDao.findCurrentMerchant();
-            MerchantDetails merchantModel = new MerchantDetails();
+            SettingsForm merchantModel = new SettingsForm();
             merchantModel.getAttributes(merchant);
             model.addAttribute("merchantModel", merchantModel);
         }
@@ -165,7 +165,7 @@ public class SettingsController {
         FlashNotification flash;
         if(bannedDao.isBanned(email)){
            flash = FlashNotification.create(Status.FAILURE, "This email is already banned.");
-           model.addAttribute("flash", flash);          
+           model.addAttribute("flash", flash); 
         }else if(!EmailValidator.getInstance().isValid(email)){
            flash = FlashNotification.create(Status.FAILURE, "An invalid email address was entered.");
            model.addAttribute("flash", flash);

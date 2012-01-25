@@ -23,4 +23,5 @@ public interface CategoryDao {
     public Category findCategoryByMerchantId(Long categoryID, Long merchantID);
     public List<Category> findRange(Integer first, Integer max);
     public Integer countByMerchant();
+    public boolean nameInUse(String name, Long existingCategoryID);
 }

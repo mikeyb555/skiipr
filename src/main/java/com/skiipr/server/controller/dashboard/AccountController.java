@@ -5,7 +5,7 @@ import com.skiipr.server.components.SessionUser;
 import com.skiipr.server.enums.Status;
 import com.skiipr.server.model.DAO.MerchantDao;
 import com.skiipr.server.model.Merchant;
-import com.skiipr.server.model.form.AccountOptions;
+import com.skiipr.server.model.form.AccountForm;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
@@ -30,14 +30,14 @@ public class AccountController {
     public String account(ModelMap model){
         if(!model.containsKey("accountFields")){
             Merchant merchant = merchantDao.findCurrentMerchant();
-            AccountOptions fieldModel = new AccountOptions(merchant);
+            AccountForm fieldModel = new AccountForm(merchant);
             model.addAttribute("accountFields", fieldModel);
         }
         return "/dashboard/default/account";
     }
     
     @RequestMapping(value = "/dashboard/account", method = RequestMethod.POST)
-    public String updateAccount(@ModelAttribute("accountFields") AccountOptions accountFields, BindingResult bindingResult, ModelMap model, HttpServletRequest httpServletRequest){
+    public String updateAccount(@ModelAttribute("accountFields") AccountForm accountFields, BindingResult bindingResult, ModelMap model, HttpServletRequest httpServletRequest){
         if(accountFields.validate(merchantDao, bindingResult)){
             Merchant merchant = merchantDao.findCurrentMerchant();
             accountFields.setAttributes(merchant);

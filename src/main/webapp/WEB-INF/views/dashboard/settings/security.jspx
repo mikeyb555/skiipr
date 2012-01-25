@@ -44,9 +44,10 @@
                         <c:out value="${ban.identifier}" />
                         <a href="#" class="confirm_delete row_control"><img src="${cross}" width="16" alt="delete" /></a>
                         <div class="delete_confirmation row_notice notice_yellow">
-                            Are you sure?
-                            <general:formlink id="delete_ban_${ban.bannedID}" url="${this_link}" htmlClass="btn grey right medium" method="DELETE" params="bannedID" values="${ban.bannedID}" label="delete" />
-                            <a class="btn grey right medium cancel_delete"><span>Cancel</span></a>
+                            Are you sure you want to delete this ban?
+                            <general:formlink id="delete_ban_${ban.bannedID}" url="${this_link}" htmlClass="btn grey right medium" method="DELETE" params="bannedID" values="${ban.bannedID}" label="Yes" />
+                            <a class="btn grey medium right cancel_delete"><span>Cancel</span></a>
+                            <div class="clear"><!--- clear --></div>
                         </div>
                     </div>
                 </c:forEach>

@@ -4,18 +4,18 @@ import com.skiipr.server.model.DAO.MerchantDao;
 import com.skiipr.server.model.Merchant;
 import org.springframework.validation.Errors;
 
-public class AccountOptions{
+public class AccountForm{
     private String username;
     private String password;
     private String password2;
     private String email;
 
-    public AccountOptions(Merchant merchant){
+    public AccountForm(Merchant merchant){
         username = merchant.getUsername();
         email = merchant.getEmail();
     }
 
-    public AccountOptions() {}
+    public AccountForm() {}
 
     public String getUsername() {
         return username;

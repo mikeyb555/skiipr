@@ -6,15 +6,13 @@ import com.skiipr.server.enums.Status;
 import com.skiipr.server.model.Category;
 import com.skiipr.server.model.DAO.CategoryDao;
 import com.skiipr.server.model.DAO.ProductDao;
-import com.skiipr.server.model.LoginUser;
+import com.skiipr.server.model.form.CategoryForm;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,14 +27,6 @@ public class CategoryController {
     
     @Autowired
     private SessionUser sessionUser;
-    
-    @RequestMapping(value = "/dashboard/categories/view/{id}", method = RequestMethod.GET)
-    public String show(@PathVariable("id") Long id, Model uiModel) {
-        uiModel.addAttribute("category", categoryDao.findCategoryByMerchantId(id));
-        uiModel.addAttribute("itemId", id);
-        return "/dashboard/categories/view";
-        
-    }
     
    @RequestMapping(value = "/dashboard/categories", method = RequestMethod.GET)
    public String list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, ModelMap modelMap) {
@@ -55,66 +45,54 @@ public class CategoryController {
     }
    
    @RequestMapping(value = "/dashboard/categories", method = RequestMethod.POST)
-    public String update(@Valid Category category, BindingResult bindingResult, ModelMap modelMap) {
-       System.out.println("Category name: " + category.getName());
-        if (bindingResult.hasErrors()) {
+    public String update(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, CategoryForm formCategory, BindingResult bindingResult, ModelMap modelMap) {
+       if (!formCategory.validate(categoryDao, bindingResult)) {
             modelMap.addAttribute("flash", FlashNotification.create(Status.FAILURE, "There was an error updating your category"));
         }else{
-            categoryDao.update(category);
-            modelMap.addAttribute("flash", FlashNotification.create(Status.SUCCESS, "Category Updated"));
+            Category category = categoryDao.findCategoryByMerchantId(formCategory.getCategoryID());
+            if(category == null){
+                modelMap.addAttribute("flash", FlashNotification.create(Status.FAILURE, "This caregory does not exist."));
+            }else{
+                formCategory.setAttributes(category);
+                categoryDao.update(category);
+                modelMap.addAttribute("flash", FlashNotification.create(Status.SUCCESS, "Category Updated"));
+            }
+        }
+        modelMap.addAttribute("openCatID", formCategory.getCategoryID());
+        return list(page, size, modelMap);
+    }
+    
+    @RequestMapping(value = "/dashboard/categories", method = RequestMethod.DELETE)
+    public String deleteCategory(@RequestParam("categoryID") Long id, ModelMap model, HttpServletRequest httpServletRequest){
+        Category category = categoryDao.findCategoryByMerchantId(id);
+        if(category == null){
+           model.addAttribute("flash", FlashNotification.create(Status.FAILURE, "This category does not belong to you or is invalid."));
+        }else if(!productDao.findByCategoryID(id).isEmpty()){
+            model.addAttribute("flash", FlashNotification.create(Status.FAILURE, "There are still products in this category, please remove them first."));    
+        }else{
+            categoryDao.delete(category);
+            model.addAttribute("flash", FlashNotification.create(Status.SUCCESS, "Category deleted"));
+        }
+        return list(null, null, model);
+    }
+    
+    @RequestMapping(value = "/dashboard/categories", method = RequestMethod.PUT)
+    public String create(CategoryForm formCategory, BindingResult bindingResult, ModelMap modelMap) {
+       formCategory.setCategoryID(0l);
+       if (!formCategory.validate(categoryDao, bindingResult)) {
+            modelMap.addAttribute("flash", FlashNotification.create(Status.FAILURE, "There was an error creating your category"));
+            modelMap.addAttribute("openCatID", 0);
+       }else{
+            Category category = new Category();
+            formCategory.setAttributes(category);
+            category.setMerchantID(sessionUser.getUser().getMerchantId());
+            categoryDao.save(category);
+            modelMap.addAttribute("flash", FlashNotification.create(Status.SUCCESS, "Category Created"));
+            modelMap.addAttribute("openCatID", category.getCategoryID());
         }
         return list(null, null, modelMap);
     }
     
-    @RequestMapping(value = "/dashboard/categories/edit/{id}", method = RequestMethod.GET)
-    public String updateForm(@PathVariable("id") Long id, Model uiModel) {
-        uiModel.addAttribute("category", categoryDao.findCategoryByMerchantId(id));
-        return "/dashboard/categories/update";
-        }
-    
-    
-    @RequestMapping(value = "/dashboard/categories/delete/{id}", method = RequestMethod.GET)
-    public String delete(@PathVariable("id") Long id, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, Model uiModel) {
-        Category category = categoryDao.findCategoryByMerchantId(id);
-        if(productDao.findByCategoryID(category.getCategoryID()).isEmpty()){
-            uiModel.asMap().clear();
-            uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
-            uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
-            uiModel.addAttribute("flash", FlashNotification.create(Status.FAILURE, "Category Has products associated with it. "
-                    + "Please delete or change the category of these products before deleting the category"));
-           // return list(page, size, uiModel);
-        }else{
-            categoryDao.delete(category);
-            uiModel.asMap().clear();
-            uiModel.addAttribute("page", (page == null) ? "1" : page.toString());
-            uiModel.addAttribute("size", (size == null) ? "10" : size.toString());
-            uiModel.addAttribute("flash", FlashNotification.create(Status.SUCCESS, "Category Deleted"));
-            //return list(page, size, uiModel);
-        }
-        return "";
-    }
-    
-    @RequestMapping(value = "/dashboard/categories/view", method = RequestMethod.POST)
-    public String create(@Valid Category category, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
-        if (bindingResult.hasErrors()) {
-            uiModel.addAttribute("category", category);
-            return "/dashboard/categories/create";
-        }
-        uiModel.asMap().clear();
-        
-        LoginUser user = sessionUser.getUser();
-        category.setMerchantID(user.getMerchantId());
-        categoryDao.save(category);
-        uiModel.addAttribute("flash", FlashNotification.create(Status.SUCCESS, "Category Added"));
-        return show(category.getCategoryID(), uiModel);
-        //return "redirect:/dashboard/categories/view/" + category.getCategoryID().toString();
-    }
-    
-    @RequestMapping(value = "/dashboard/categories/new", method = RequestMethod.GET)
-    public String createForm(Model uiModel) {
-        uiModel.addAttribute("category", new Category());
-        return "/dashboard/categories/create";
-    }
     
     private Integer getPageSize(Integer size){
         if(size == null){

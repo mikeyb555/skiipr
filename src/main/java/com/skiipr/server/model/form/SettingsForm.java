@@ -4,7 +4,7 @@ import com.skiipr.server.model.DAO.MerchantDao;
 import com.skiipr.server.model.Merchant;
 import org.springframework.validation.Errors;
 
-public class MerchantDetails {
+public class SettingsForm {
     private String name;
     private String suburb;
     private String addressNumberStreet;
