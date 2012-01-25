@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" 
+     xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" 
+     xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" 
+     xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+     xmlns:general="urn:jsptagdir:/WEB-INF/tags/general"
+     xmlns:jsp="http://java.sun.com/JSP/Page" 
+     xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+        <ul class="breadcrumbs first">
+        <li><a href="#">Dashboard</a></li>
+    </ul>
+
+    <div class="grid_16 widget tabs first">
+        <div class="widget_title clearfix">
+            <h2>Merchant configuration</h2>
+        </div>
+        <div class="widget_body">  
+            <div class="widget_options">
+                The settings here relate to how patrons see and interact business through the app. Changes made here may not appear in the app immediately, though they should if you restart your phone or force the app to close.
+            </div>
+            
+            <util:settings-tabs current="settings_tab_4">
+                    <c:if test="${not empty flash}">
+                        <general:notification message="${flash.message}" status = "${flash.status}"/>  
+                    </c:if>
+                    <form:create id="Merchant" modelAttribute="merchantModel" path="/dashboard/settings/paymentoptions" render="${empty dependencies}" label="Please fill out your merchant account details">   
+                    
+                    <c:if test="${not empty canPaypal}">  
+                    <field:checkbox field="paypalEnabled" id="Merchant_paypalEnabled" label="Paypal Enabled" />
+                    <field:input field = "paypal" id= "Merchant_paypal" label = "Paypal email" />
+                    </c:if> 
+                    <c:if test="${not empty canCod}">
+                    <field:checkbox field="codEnabled" id="Merchant_codEnabled" label= "Cod Enabled" />
+                    </c:if>
+                    <field:checkbox field="codEnabled" id="Merchant_codEnabled" label= "Cod Enabled" render = "false"/>
+            
+                </form:create>
+                <form:dependency dependencies="${dependencies}" id="Merchant" render="${not empty dependencies}" />
+            </util:settings-tabs>
+        </div>
+    </div>
+</div>

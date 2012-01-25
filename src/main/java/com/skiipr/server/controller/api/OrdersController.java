@@ -196,7 +196,7 @@ public class OrdersController {
                 return false;
             }
             
-            if(order.getPaymentType().equals(PaymentType.PAYPAL) && !(order.getMerchant().getPlan().getCanPaypal())){
+            if(order.getPaymentType().equals(PaymentType.PAYPAL) && !(order.getMerchant().getPaypalEnabled())){
                 
                 response.setError(OrderResponse.ResponseErrors.PAYMENT_UNSUPPORTED);
                 return false;
@@ -204,7 +204,7 @@ public class OrdersController {
                 
             }
             
-            if(order.getPaymentType().equals(PaymentType.COD) && !(order.getMerchant().getPlan().getCanCOD())){
+            if(order.getPaymentType().equals(PaymentType.COD) && !(order.getMerchant().getCodEnabled())){
                 response.setError(OrderResponse.ResponseErrors.PAYMENT_UNSUPPORTED);
                 return false;
             }

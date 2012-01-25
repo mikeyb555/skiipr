@@ -4,6 +4,9 @@
     <definition extends="dashboard" name="/dashboard/settings">
         <put-attribute name="body" value="/WEB-INF/views/dashboard/settings/settings.jspx"/>
     </definition>
+    <definition extends="dashboard" name="/dashboard/settings/paymentoptions">
+        <put-attribute name="body" value="/WEB-INF/views/dashboard/settings/paymentoptions.jspx"/>
+    </definition>
     <definition extends="dashboard" name="/dashboard/settings/discountcodes">
         <put-attribute name="body" value="/WEB-INF/views/dashboard/settings/discountcodes/list.jspx"/>
     </definition>

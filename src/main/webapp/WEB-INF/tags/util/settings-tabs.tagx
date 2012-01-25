@@ -15,7 +15,7 @@
           <li><general:link id="settings_tab_1" url="/dashboard/settings" label="Location and contact"/></li>
           <li><general:link id="settings_tab_2" url="/dashboard/settings/security" label="Banning and security"/></li>
           <li><general:link id="settings_tab_3" url="/dashboard/settings/discountcodes" label="Discount codes"/></li>
-          <li><general:link id="settings_tab_4" url="/dashboard/security" label="Customer payment options"/></li>
+          <li><general:link id="settings_tab_4" url="/dashboard/settings/paymentoptions" label="Customer payment options"/></li>
         </ul>
     </div>
     <div class="left_tab_content">

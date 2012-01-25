@@ -73,6 +73,12 @@
         <property name="open" type="boolean">
             <column name="open" length="1"/>
         </property>
+        <property name="paypalEnabled" type="boolean">
+            <column name="paypal_enabled" length="1"/>
+        </property>
+        <property name="codEnabled" type="boolean">
+            <column name="cod_enabled" length="1"/>
+        </property>
         <set name="categories" inverse="true" lazy="false" fetch="join">
              <key>
                 <column name="merchant_id" not-null="true" />
