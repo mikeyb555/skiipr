@@ -46,6 +46,8 @@ public class Merchant implements Serializable {
     //@Length(max = 5)
     private String phoneNumber;
     private Boolean open;
+    private Boolean paypalEnabled;
+    private Boolean codEnabled;
     
     @JsonIgnore
     public String getUsername(){
@@ -257,6 +259,34 @@ public class Merchant implements Serializable {
 
     public void setOpen(Boolean open) {
         this.open = open;
+    }
+
+    /**
+     * @return the paypalEnabled
+     */
+    public Boolean getPaypalEnabled() {
+        return paypalEnabled;
+    }
+
+    /**
+     * @param paypalEnabled the paypalEnabled to set
+     */
+    public void setPaypalEnabled(Boolean paypalEnabled) {
+        this.paypalEnabled = paypalEnabled;
+    }
+
+    /**
+     * @return the codEnabled
+     */
+    public Boolean getCodEnabled() {
+        return codEnabled;
+    }
+
+    /**
+     * @param codEnabled the codEnabled to set
+     */
+    public void setCodEnabled(Boolean codEnabled) {
+        this.codEnabled = codEnabled;
     }
     
 }

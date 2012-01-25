@@ -16,6 +16,8 @@ public class MerchantDetails {
     private int type;
     private String website;
     private String phoneNumber;
+    private Boolean paypalEnabled;
+    private Boolean codEnabled;
 
     public String getName() {
         return name;
@@ -117,6 +119,8 @@ public class MerchantDetails {
         merchant.setType(type);
         merchant.setWebsite(website);
         merchant.setPhoneNumber(phoneNumber);
+        merchant.setPaypalEnabled(paypalEnabled);
+        merchant.setCodEnabled(codEnabled);
     }
     
     public void getAttributes(Merchant merchant){
@@ -131,6 +135,8 @@ public class MerchantDetails {
         type = merchant.getType();
         website = merchant.getWebsite();
         phoneNumber = merchant.getPhoneNumber();
+        paypalEnabled = merchant.getPaypalEnabled();
+        codEnabled = merchant.getCodEnabled();
     }
     
     public boolean validate(Errors errors, MerchantDao dao){
@@ -147,5 +153,33 @@ public class MerchantDetails {
             errors.rejectValue("name", "invalid.name.taken");
         }
         return !errors.hasErrors();
+    }
+
+    /**
+     * @return the paypalEnabled
+     */
+    public Boolean getPaypalEnabled() {
+        return paypalEnabled;
+    }
+
+    /**
+     * @param paypalEnabled the paypalEnabled to set
+     */
+    public void setPaypalEnabled(Boolean paypalEnabled) {
+        this.paypalEnabled = paypalEnabled;
+    }
+
+    /**
+     * @return the codEnabled
+     */
+    public Boolean getCodEnabled() {
+        return codEnabled;
+    }
+
+    /**
+     * @param codEnabled the codEnabled to set
+     */
+    public void setCodEnabled(Boolean codEnabled) {
+        this.codEnabled = codEnabled;
     }
 }

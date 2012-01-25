@@ -15,6 +15,7 @@ import com.skiipr.server.model.DAO.MerchantDao;
 import com.skiipr.server.model.DAO.PlanDao;
 import com.skiipr.server.model.Merchant;
 import com.skiipr.server.model.form.MerchantDetails;
+import com.skiipr.server.model.form.PaymentOptions;
 import com.skiipr.server.model.validators.MerchantValidator;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -60,6 +61,7 @@ public class SettingsController {
             model.addAttribute("flash", FlashNotification.create(Status.SUCCESS, "Merchant details updated."));
             Merchant merchant = merchantDao.findCurrentMerchant();
             merchantModel.setAttributes(merchant);
+            
             merchantDao.update(merchant);
         }else{
             model.addAttribute("flash", FlashNotification.create(Status.FAILURE, "There was an error updating your details."));
@@ -204,4 +206,53 @@ public class SettingsController {
         }
         
     }
+    
+    @RequestMapping(value = "/dashboard/settings/paymentoptions", method = RequestMethod.POST)
+    public String updatePaymentOptions(@ModelAttribute("merchantModel") PaymentOptions merchantModel, BindingResult bindingResult, ModelMap model, HttpServletRequest httpServletRequest){
+        
+        if(merchantModel.validate(bindingResult, merchantDao)){
+            
+            model.addAttribute("flash", FlashNotification.create(Status.SUCCESS, "Merchant details updated."));
+            Merchant merchant = merchantDao.findCurrentMerchant();
+            
+            merchantModel.setAttributes(merchant, merchant.getPlan());
+             if(merchant.getPlan().getCanCOD()){
+                model.addAttribute("canCod", true);
+            
+        }
+            if(merchant.getPlan().getCanPaypal()){
+                model.addAttribute("canPaypal", true);
+            
+        }
+            merchantDao.update(merchant);
+        }else{
+            model.addAttribute("flash", FlashNotification.create(Status.FAILURE, "There was an error updating your details."));
+        }
+        model.addAttribute("merchantModel", merchantModel);
+        
+        return viewPaymentOptions(model);
+    }
+    
+    @RequestMapping(value = "/dashboard/settings/paymentoptions", method = RequestMethod.GET)
+    public String viewPaymentOptions(ModelMap model){
+        if(!model.containsKey("merchantModel")){
+            Merchant merchant = merchantDao.findCurrentMerchant();
+            
+            PaymentOptions merchantModel = new PaymentOptions();
+            merchantModel.getAttributes(merchant);
+            if(merchantModel.getPlan().getCanCOD()){
+                model.addAttribute("canCod", true);
+            
+        }
+            if(merchantModel.getPlan().getCanPaypal()){
+                model.addAttribute("canPaypal", true);
+            
+        }
+            
+            model.addAttribute("merchantModel", merchantModel);
+        }
+        return "/dashboard/settings/paymentoptions";
+    }
+    
+   
 }
