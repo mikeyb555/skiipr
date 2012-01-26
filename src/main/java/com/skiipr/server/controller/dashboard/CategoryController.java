@@ -30,12 +30,6 @@ public class CategoryController {
     
    @RequestMapping(value = "/dashboard/categories", method = RequestMethod.GET)
    public String list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, ModelMap modelMap) {
-        if(size == null){
-            size = 10;
-        }
-        if(page == null){
-            page = 1;
-        }
         Integer sizeNo = this.getPageSize(size);
         Integer startPage = this.getStartPage(page, sizeNo);
         modelMap.addAttribute("categories", categoryDao.findRange(startPage, sizeNo));
@@ -63,7 +57,7 @@ public class CategoryController {
     }
     
     @RequestMapping(value = "/dashboard/categories", method = RequestMethod.DELETE)
-    public String deleteCategory(@RequestParam("categoryID") Long id, ModelMap model, HttpServletRequest httpServletRequest){
+    public String delete(@RequestParam("categoryID") Long id, ModelMap model, HttpServletRequest httpServletRequest){
         Category category = categoryDao.findCategoryByMerchantId(id);
         if(category == null){
            model.addAttribute("flash", FlashNotification.create(Status.FAILURE, "This category does not belong to you or is invalid."));
@@ -87,8 +81,8 @@ public class CategoryController {
             formCategory.setAttributes(category);
             category.setMerchantID(sessionUser.getUser().getMerchantId());
             categoryDao.save(category);
-            modelMap.addAttribute("flash", FlashNotification.create(Status.SUCCESS, "Category Created"));
             modelMap.addAttribute("openCatID", category.getCategoryID());
+            modelMap.addAttribute("flash", FlashNotification.create(Status.SUCCESS, "Category Created"));
         }
         return list(null, null, modelMap);
     }

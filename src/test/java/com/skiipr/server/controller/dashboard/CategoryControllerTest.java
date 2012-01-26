@@ -4,7 +4,9 @@
  */
 package com.skiipr.server.controller.dashboard;
 
+import com.skiipr.server.components.FlashNotification;
 import com.skiipr.server.components.SessionUser;
+import com.skiipr.server.enums.Status;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.validation.BindingResult;
 import java.util.List;
@@ -16,16 +18,17 @@ import com.skiipr.server.model.DAO.CategoryDao;
 import com.skiipr.server.model.DAO.ProductDao;
 import com.skiipr.server.model.LoginUser;
 import com.skiipr.server.model.Product;
+import com.skiipr.server.model.form.CategoryForm;
 import java.util.Map;
-import org.springframework.ui.Model;
 import junit.framework.Assert;
 import org.springframework.test.context.ContextConfiguration;
 import org.junit.runner.RunWith;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.ui.ModelMap;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath*:testApplicationContext.xml"})
@@ -41,7 +44,7 @@ public class CategoryControllerTest {
     ProductDao productDao;
     
     @Mock
-    Model model;
+    ModelMap modelMap;
     
     @Mock
     List<Category> categoryList;
@@ -62,7 +65,12 @@ public class CategoryControllerTest {
     LoginUser loginUser;
     
     @Mock
-    private SessionUser sessionUser;
+    SessionUser sessionUser;
+    
+    @Mock
+    private CategoryForm formCategory;
+    
+    private ArgumentCaptor<FlashNotification> flashArgument;
     
     @InjectMocks
     private CategoryController controller;
@@ -71,85 +79,87 @@ public class CategoryControllerTest {
     public void setUpClass() throws Exception {
         controller = new CategoryController();
         MockitoAnnotations.initMocks(this);
-        Mockito.when(categoryDao.findByID(3l)).thenReturn(category);
-        Mockito.when(categoryDao.findAll()).thenReturn(categoryList);
-        Mockito.when(categoryDao.findByMerchantId(5l)).thenReturn(categoryList);
-        Mockito.when(categoryDao.findCategoryByMerchantId(3l)).thenReturn(category);
-        Mockito.when(categoryDao.findByMerchantId()).thenReturn(categoryList);
-        Mockito.when(productDao.findByCategoryID(3l)).thenReturn(productList);
-        Mockito.when(productList.isEmpty()).thenReturn(false);
-        Mockito.doNothing().when(categoryDao).update(category);
-        Mockito.doNothing().when(categoryDao).save(category);
-        Mockito.when(model.addAttribute("category", category)).thenReturn(model);
-        Mockito.doNothing().when(map).clear();
-        Mockito.when(model.asMap()).thenReturn(map);
-        Mockito.when(category.getCategoryID()).thenReturn(3l);
-        Mockito.doNothing().when(categoryDao).delete(category);
-        Mockito.when(sessionUser.getUser()).thenReturn(loginUser);
-        Mockito.when(loginUser.getMerchantId()).thenReturn(5l);
-        Mockito.doNothing().when(category).setMerchantID(5l);
-        Mockito.when(model.addAttribute(Mockito.contains("category"), Mockito.any(Category.class))).thenReturn(model);
-    }
-
-    @Test
-    public void testShow() {
-        //Assert.assertEquals("/dashboard/categories/view", controller.show(3l, model));
-        Mockito.verify(model).addAttribute("category", category);
-        Mockito.verify(categoryDao).findCategoryByMerchantId(3l);
-    }
-
-    @Test
-    @Ignore
-    public void testList() {
-        //Assert.assertEquals("/dashboard/categories/list", controller.list(5, 5, model));
-        Mockito.verify(categoryDao, Mockito.times(2)).findByMerchantId();
-    }
-
-    @Test
-    public void testUpdate() {
-        Mockito.when(bindingResult.hasErrors()).thenReturn(false);
-        //Assert.assertEquals("/dashboard/categories/update", controller.update(category, bindingResult, model, httpServletRequest));
-        Mockito.verify(map).clear();
-        Mockito.verify(categoryDao).update(category);
-        Mockito.when(bindingResult.hasErrors()).thenReturn(true);
-        //Assert.assertEquals("/dashboard/categories/edit", controller.update(category, bindingResult, model, httpServletRequest));
-        Mockito.verify(model, Mockito.times(2)).addAttribute("category", category);
-    }
-
-    @Test
-    public void testUpdateForm() {
-        //Assert.assertEquals("/dashboard/categories/update", controller.updateForm(3l, model));
         
-        Mockito.verify(categoryDao).findCategoryByMerchantId(3l);
-        Mockito.verify(model).addAttribute("category", category);
+        flashArgument = ArgumentCaptor.forClass(FlashNotification.class);
+
+        //modelMap
+        Mockito.when(modelMap.addAttribute(Mockito.eq("flash"),  flashArgument.capture())).thenReturn(modelMap);
+        
+        //categoryDao
+        Mockito.when(categoryDao.findRange(Mockito.anyInt(), Mockito.anyInt())).thenReturn(categoryList);
+        Mockito.when(categoryDao.countByMerchant()).thenReturn(20);
+        Mockito.when(categoryDao.findCategoryByMerchantId(5l)).thenReturn(category);
+        Mockito.doNothing().when(categoryDao).update(category);
+        Mockito.doNothing().when(categoryDao).save(Mockito.any(Category.class));
+        
+        //formCategory
+        Mockito.when(formCategory.getCategoryID()).thenReturn(5l);
+        Mockito.doNothing().when(formCategory).setAttributes(category);
+        
+        //productList
+        Mockito.when(productList.isEmpty()).thenReturn(false);
+        
+        //sessionUser
+        Mockito.when(sessionUser.getUser()).thenReturn(loginUser);
+        
+        //category
+        Mockito.when(category.getCategoryID()).thenReturn(10l);
     }
 
     @Test
-    public void testDelete() {
-       // Assert.assertEquals("/dashboard/categories/list", controller.delete(3l, 2, 2, model));
-        Mockito.verify(categoryDao).findCategoryByMerchantId(3l);
-        Mockito.verify(productDao).findByCategoryID(3l);
-        Mockito.verify(productList).isEmpty();
-        Mockito.verify(categoryDao).delete(category);
-        Mockito.verify(map).clear();
+    public void testList() {
+        Assert.assertEquals("/dashboard/categories/list", controller.list(1, 10, modelMap));
+        Mockito.verify(modelMap, Mockito.times(3)).addAttribute(Mockito.any(String.class), Mockito.anyObject());
+        Mockito.verify(categoryDao).findRange(0, 10);
     }
+    
+   @Test
+    public void testUpdate(){
+        Mockito.when(formCategory.validate(categoryDao, bindingResult)).thenReturn(true);
+        Assert.assertEquals("/dashboard/categories/list", controller.update(1, 10, formCategory, bindingResult, modelMap));
+        Mockito.verify(modelMap, Mockito.times(5)).addAttribute(Mockito.any(String.class), Mockito.anyObject());
+        Mockito.verify(modelMap).addAttribute("openCatID", 5l);
+        Mockito.verify(categoryDao).update(category);
+        Mockito.verify(formCategory).setAttributes(category);
+        Assert.assertEquals(Status.SUCCESS, flashArgument.getValue().getStatus());
+        
+        Mockito.when(categoryDao.findCategoryByMerchantId(5l)).thenReturn(null);
+        Assert.assertEquals("/dashboard/categories/list", controller.update(1, 10, formCategory, bindingResult, modelMap));
+        Assert.assertEquals(Status.FAILURE, flashArgument.getValue().getStatus());
 
-    @Test
-    public void testCreate() {
-        Mockito.when(bindingResult.hasErrors()).thenReturn(false);
-        //Assert.assertEquals("/dashboard/categories/view", controller.create(category, bindingResult, model, httpServletRequest));
-        Mockito.verify(map).clear();
-        Mockito.verify(categoryDao).save(category);
-        Mockito.when(bindingResult.hasErrors()).thenReturn(true);
-        //Assert.assertEquals("/dashboard/categories/create", controller.create(category, bindingResult, model, httpServletRequest));
-        Mockito.verify(model, Mockito.times(2)).addAttribute("category", category);
-        Mockito.verify(category).setMerchantID(5l);
-        Mockito.verify(loginUser).getMerchantId();
+        Mockito.when(categoryDao.findCategoryByMerchantId(5l)).thenReturn(category);
+        Mockito.when(formCategory.validate(categoryDao, bindingResult)).thenReturn(false);
+        Assert.assertEquals("/dashboard/categories/list", controller.update(1, 10, formCategory, bindingResult, modelMap));
+        Assert.assertEquals(Status.FAILURE, flashArgument.getValue().getStatus());
     }
-
-    @Test
-    public void testCreateForm() {
-        //Assert.assertEquals("/dashboard/categories/create", controller.createForm(model));
-        Mockito.verify(model).addAttribute(Mockito.contains("category"), Mockito.any());
-    }
+   
+   @Test
+   public void testDelete(){
+       Assert.assertEquals("/dashboard/categories/list", controller.delete(5l, modelMap, httpServletRequest));
+       Mockito.verify(modelMap, Mockito.times(4)).addAttribute(Mockito.any(String.class), Mockito.anyObject());
+       Assert.assertEquals(Status.SUCCESS, flashArgument.getValue().getStatus());
+       
+       Mockito.when(categoryDao.findCategoryByMerchantId(5l)).thenReturn(null);
+       Assert.assertEquals("/dashboard/categories/list", controller.delete(5l, modelMap, httpServletRequest));
+       Assert.assertEquals(Status.FAILURE, flashArgument.getValue().getStatus());
+       
+       Mockito.when(productDao.findByCategoryID(5l)).thenReturn(productList);
+       Mockito.when(categoryDao.findCategoryByMerchantId(5l)).thenReturn(category);
+       Assert.assertEquals("/dashboard/categories/list", controller.delete(5l, modelMap, httpServletRequest));
+       Assert.assertEquals(Status.FAILURE, flashArgument.getValue().getStatus());     
+   }
+   
+   @Test
+   public void testCreate(){
+       Assert.assertEquals("/dashboard/categories/list", controller.create(formCategory, bindingResult, modelMap));
+       Mockito.verify(modelMap, Mockito.times(5)).addAttribute(Mockito.any(String.class), Mockito.anyObject());
+       Assert.assertEquals(Status.FAILURE, flashArgument.getValue().getStatus());
+       Mockito.verify(modelMap).addAttribute("openCatID", 0);
+       
+       Mockito.when(formCategory.validate(categoryDao, bindingResult)).thenReturn(true);
+       Assert.assertEquals("/dashboard/categories/list", controller.create(formCategory, bindingResult, modelMap));
+       Mockito.verify(modelMap).addAttribute(Mockito.eq("openCatID"), Mockito.eq(null));
+       Assert.assertEquals(Status.SUCCESS, flashArgument.getValue().getStatus());
+       Mockito.verify(categoryDao).save(Mockito.any(Category.class));
+   }
 }

@@ -22,10 +22,7 @@ public enum CurrencyType {
     PHILIPPINE_PESO("PHP", "Phillipine Peso"),
     NEW_TAIWAN_DOLLAR("TWD", "New Taiwan Dollar"),
     THAI_BAHT("THB", "Thai Baht");
-    
-    
-    
-    
+
     private String currencyCode;
     private String currencyName;
     

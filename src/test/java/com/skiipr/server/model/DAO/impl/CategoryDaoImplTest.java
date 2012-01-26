@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.skiipr.server.model.DAO.impl;
 
 import com.skiipr.server.model.Category;
@@ -15,10 +11,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author Michael
- */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath*:testApplicationContext.xml"})
 public class CategoryDaoImplTest {
