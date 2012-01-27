@@ -61,7 +61,6 @@ public class SettingsController {
             model.addAttribute("flash", FlashNotification.create(Status.SUCCESS, "Merchant details updated."));
             Merchant merchant = merchantDao.findCurrentMerchant();
             merchantModel.setAttributes(merchant);
-            
             merchantDao.update(merchant);
         }else{
             model.addAttribute("flash", FlashNotification.create(Status.FAILURE, "There was an error updating your details."));
@@ -103,7 +102,6 @@ public class SettingsController {
     public String createDiscountCode(@Valid Coupon coupon, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             uiModel.addAttribute("coupon", coupon);
-            
             return "/dashboard/settings/discountcodes/create";
         }
         uiModel.asMap().clear();
@@ -111,8 +109,6 @@ public class SettingsController {
         couponDao.save(coupon);
         uiModel.addAttribute("flash", FlashNotification.create(Status.SUCCESS, "Product Added"));
         return show(coupon.getCouponID(), uiModel);
-        
-        
     }
     
      @RequestMapping(value = "/dashboard/settings/discountcodes/new", method = RequestMethod.GET)
@@ -204,7 +200,6 @@ public class SettingsController {
             uiModel.addAttribute("coupon", coupon);
             return "/dashboard/settings/discountcodes/update";  
         }
-        
     }
     
     @RequestMapping(value = "/dashboard/settings/paymentoptions", method = RequestMethod.POST)
