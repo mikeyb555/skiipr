@@ -28,4 +28,11 @@
                 <goal>tomcat:redeploy</goal>
             </goals>
         </action>
+        <action>
+            <actionName>CUSTOM-Sonar Analyze</actionName>
+            <displayName>Sonar Analyze</displayName>
+            <goals>
+                <goal>sonar:sonar</goal>
+            </goals>
+        </action>
     </actions>
