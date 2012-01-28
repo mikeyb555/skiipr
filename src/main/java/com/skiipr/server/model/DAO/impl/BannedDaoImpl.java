@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.skiipr.server.model.DAO.impl;
 
 import com.skiipr.server.components.SessionUser;
@@ -16,10 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 
-/**
- *
- * @author Michael
- */
 @Repository("BannedDao")
 public class BannedDaoImpl extends HibernateDaoSupport implements BannedDao {
     
@@ -84,7 +76,7 @@ public class BannedDaoImpl extends HibernateDaoSupport implements BannedDao {
         Long merchantID = sessionUser.getUser().getMerchantId();
         Criteria criteria = getSession().createCriteria(Banned.class)
                 .add(Restrictions.eq("identifier", identifier))
-                .add(Restrictions.eq("merchantID", merchantID));
+                .add(Restrictions.or(Restrictions.eq("merchantID", merchantID), Restrictions.eq("merchantID", 0l)));
         List<Banned> results = criteria.list();
         return !results.isEmpty();  
     }

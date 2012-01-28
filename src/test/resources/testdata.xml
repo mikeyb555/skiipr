@@ -24,4 +24,8 @@
         <tbl_product product_id="2" name="bar" description="product2" price="5" active="0" category_id="1"  />
         <tbl_order apid = "1" order_id="1" order_time="1" merchant_id = "1" paypal_address = "order1" paypal_ref= "3232" order_type = "NORMAL" status = "PENDING" last_updated = "1" total = "3" email = "testuser@test.com" device_id="789345" payment_type="PAYPAL" />
         <tbl_order apid = "1" order_id="2" order_time="1" merchant_id = "1" paypal_address = "order2" paypal_ref= "3232" order_type = "NORMAL" status = "NEW" last_updated = "1" total = "3.2" email = "testuser2@gmail.com" device_id="123456" payment_type="COD" />     
+        <tbl_banned banned_id="1" identifier="test@test.com" merchant_id="1" />
+        <tbl_banned banned_id="2" identifier="imei:000000000000000" merchant_id="1" />
+        <tbl_banned banned_id="3" identifier="test@foobar.com" merchant_id="2" />
+        <tbl_banned banned_id="4" identifier="global@ban.com" merchant_id="0" />
 </dataset>

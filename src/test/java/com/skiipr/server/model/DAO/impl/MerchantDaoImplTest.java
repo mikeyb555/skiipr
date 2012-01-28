@@ -2,7 +2,6 @@ package com.skiipr.server.model.DAO.impl;
 
 import com.skiipr.server.components.SessionUser;
 import com.skiipr.server.enums.CurrencyType;
-import com.skiipr.server.model.Category;
 import com.skiipr.server.model.DAO.MerchantDao;
 import com.skiipr.server.model.LoginUser;
 import com.skiipr.server.model.Merchant;
