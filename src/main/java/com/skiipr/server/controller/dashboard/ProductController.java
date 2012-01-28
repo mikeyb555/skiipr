@@ -49,8 +49,11 @@ public class ProductController {
             if(product == null){
                 modelMap.addAttribute("flash", FlashNotification.create(Status.FAILURE, "This product does not exist."));
             }else{
+                System.out.println(formProduct.getCategoryID());
                 formProduct.setAttributes(product);
+                product.setCategory(categoryDao.findCategoryByMerchantId(formProduct.getCategoryID()));
                 productDao.update(product);
+                
                 modelMap.addAttribute("flash", FlashNotification.create(Status.SUCCESS, "Product Updated"));
             }
         }

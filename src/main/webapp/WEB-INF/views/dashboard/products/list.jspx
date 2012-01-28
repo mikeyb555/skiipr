@@ -43,7 +43,6 @@
                             <hr />
                             <div class="grey_list_row">
                                     <b>Create new product</b>
-                                    <c:out value="${categories}" /> 
                                     <a href="#" class="edit_item row_control"><img src="${dot}" width="16" alt="edit" /></a>
                                     <div class="edit_panel row_notice notice_white" id="edit_panel_0">
                                         <form:form action="${this_url}" commandName="productForm" method="put" id="product_form_new">
@@ -79,14 +78,12 @@
                                            <label>Product Description</label><br />
                                            <input name="description" id="product_description_new" value="${descriptionValue}"/>
                                            <br />
-                                            <input name="categoryID" id="product_category_new" value="${categoryValue}"/>
-                                           
+                                           <label>Choose Category</label><br />
                                            <select id="product_category_new" name="categoryID" value="${categoryValue}">
-    <c:forEach var="category" items="${categories}">
-         <option value="${category.categoryID}"> <c:out value="${category.name}" /></option>
-    </c:forEach>
-        
-</select>
+                                               <c:forEach var="category" items="${categories}">
+                                                   <option value="${category.categoryID}"> <c:out value="${category.name}" /></option>
+                                               </c:forEach>
+                                           </select>
 
                                            
                                           
@@ -102,7 +99,11 @@
                                            <div class="clear"><!--- clear --></div>
                                         </form:form>
                                          <script type="text/javascript">
-                                            Spring.addDecoration(new Spring.ElementDecoration({elementId : 'product_name_new', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {required : true}})); 
+                                            Spring.addDecoration(new Spring.ElementDecoration({elementId : 'product_name_new', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {required : true}}));
+                                            Spring.addDecoration(new Spring.ElementDecoration({elementId : 'product_description_new', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {required : true}}));
+                                            Spring.addDecoration(new Spring.ElementDecoration({elementId : 'product_active_new', widgetType : 'dijit.form.CheckBox', widgetAttrs : {required : true}}));
+                                            Spring.addDecoration(new Spring.ElementDecoration({elementId : 'product_price_new', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {required : true, 
+                                                    invalidMessage : "Price so far is invalid", regExp :"\\d[\\d\\,\\.]+"}}));
                                           </script>  
                                     </div>
                                 </div>
@@ -115,6 +116,7 @@
                                 <c:out value="${product.name}" />
                                 
                                 
+                                
                                 <a href="#" class="confirm_delete row_control"><img src="${cross}" width="16" alt="delete" /></a>
                                 <a href="#" class="edit_item row_control"><img src="${dot}" width="16" alt="edit" /></a>
                                 <div class="edit_panel row_notice notice_white" id="edit_panel_${category.categoryID}">
@@ -122,17 +124,52 @@
                                           <c:choose>
                                                 <c:when test="${openProdID == product.productID}">
                                                     <c:set var="nameValue" value="${productForm.name}" />
+                                                    <c:set var="descriptionValue" value="${productForm.description}" />
                                                     <c:set var="categoryValue" value="${productForm.categoryID}" />
+                                                    <c:set var="priceValue" value="${productForm.price}" />
+                                                    <c:set var="activeValue" value="${productForm.active}" />
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <c:set var="categoryValue" value="${productForm.categoryID}" />
+                                                    <c:set var="categoryValue" value="${product.category.categoryID}" />
+                                                    <c:set var="descriptionValue" value="${product.description}" />
                                                     <c:set var="nameValue" value="${product.name}" />
+                                                    <c:set var="priceValue" value="${product.price}" />
+                                                    <c:set var="activeValue" value="${product.active}" />
                                                 </c:otherwise>
                                            </c:choose> 
                                         <label>Product Name</label><br />
                                        <input type="hidden" name="productID" value="${product.productID}" />
                                        <input name="name" id="product_name_${product.productID}" value="${nameValue}" />
                                        <br />
+                                        <label>Product Description</label><br />
+                                       <input name="description" id="product_description_${product.productID}" value="${descriptionValue}" />
+                                       <br />
+                                       <label>Product Price</label><br />
+                                       <input name="price" id="product_price_${product.productID}" value="${priceValue}" />
+                                       <br />
+                                       <label>Product Active</label><br />
+                                           <input name="active" type ="checkbox" checked="true" id="product_price_${product.productID}" value="${activeValue}"/>
+                                           <br />
+                                       <label>Choose Category</label><br />
+                                           <select id="product_category_${product.productID}" name="categoryID" value="${categoryValue}">
+                                             
+                                               <c:forEach var="category" items="${categories}">
+                                                    <c:choose>
+                                                       <c:when test="${product.categoryID == category.categoryID}">
+                                                           <option value="${category.categoryID}" selected = "selected">
+                                                                <c:out value="${category.name}" /></option>
+                                                       </c:when>
+                                                           <c:otherwise>
+                                                           <option value="${category.categoryID}">
+                                                               <c:out value="${category.name}" />
+                                                           </option>
+                                                           </c:otherwise>
+                                                    </c:choose>
+                                                       
+                                                      
+                                               </c:forEach>
+                                           </select>
+                                       
                                        <c:if test="${openProdID == product.productID}">
                                            <span class="errors">
                                                 <form:errors path="name" />
@@ -143,7 +180,9 @@
                                        <div class="clear"><!--- clear --></div>
                                     </form:form>
                                      <script type="text/javascript">
-                                        Spring.addDecoration(new Spring.ElementDecoration({elementId : 'product_name_${product.productID}', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {required : true}})); 
+                                        Spring.addDecoration(new Spring.ElementDecoration({elementId : 'product_name_${product.productID}', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {required : true}}));
+                                        Spring.addDecoration(new Spring.ElementDecoration({elementId : 'product_description_${product.productID}', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {required : true}}));
+                                        Spring.addDecoration(new Spring.ElementDecoration({elementId : 'product_price_${product.productID}', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {required : true}}));
                                       </script>  
                                 </div>
                                 <div class="delete_confirmation row_notice notice_yellow">
