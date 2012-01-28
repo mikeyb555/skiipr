@@ -102,8 +102,8 @@
                                             Spring.addDecoration(new Spring.ElementDecoration({elementId : 'product_name_new', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {required : true}}));
                                             Spring.addDecoration(new Spring.ElementDecoration({elementId : 'product_description_new', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {required : true}}));
                                             Spring.addDecoration(new Spring.ElementDecoration({elementId : 'product_active_new', widgetType : 'dijit.form.CheckBox', widgetAttrs : {required : true}}));
-                                            Spring.addDecoration(new Spring.ElementDecoration({elementId : 'product_price_new', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {required : true, 
-                                                    invalidMessage : "Price so far is invalid", regExp :"\\d[\\d\\,\\.]+"}}));
+                                            Spring.addDecoration(new Spring.ElementDecoration({elementId : 'product_price_new', widgetType : 'dijit.form.NumberTextBox', widgetAttrs : {required : true}}));
+                                            
                                           </script>  
                                     </div>
                                 </div>

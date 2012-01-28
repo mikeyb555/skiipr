@@ -44,6 +44,7 @@ public class ProductController {
     public String update(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, ProductForm formProduct, BindingResult bindingResult, ModelMap modelMap) {
        if (!formProduct.validate(productDao, bindingResult)) {
             modelMap.addAttribute("flash", FlashNotification.create(Status.FAILURE, "There was an error updating your product"));
+            return list(page, size, modelMap);
         }else{
             Product product = productDao.findByMerchant(formProduct.getProductID());
             if(product == null){

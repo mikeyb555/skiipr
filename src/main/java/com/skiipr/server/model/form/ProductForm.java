@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 
 /**
  *
@@ -111,7 +112,11 @@ public class ProductForm {
         
         product.setDescription(description);
         product.setName(name);
-        product.setPrice(price);
+        if(!product.toString().isEmpty()){
+            product.setPrice(price);
+            
+        }
+        
         
         
         
@@ -143,8 +148,21 @@ public class ProductForm {
         this.formattedPrice = formattedPrice;
     }
     
-    public boolean validate(ProductDao productDao, BindingResult bindingResult ){
+    public boolean validate(ProductDao productDao, Errors errors ){
+        try{
+            if (!price.toString().matches("\\d[\\d\\,\\.]+")){
+            errors.rejectValue("price", "invalid.product.price.incorrect");
+    }
+            
+        
         return true;
+            
+        }
+        catch(Exception e){
+            return false;
+        }
+        
+        
 }
 
     /**
