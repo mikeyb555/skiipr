@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.skiipr.server.model.DAO.impl;
 
 import com.skiipr.server.components.SessionUser;
@@ -20,10 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 
-/**
- *
- * @author Michael
- */
 @Repository("OrderDao")
 public class OrderDaoImpl extends HibernateDaoSupport implements OrderDao {
     
@@ -131,13 +123,27 @@ public class OrderDaoImpl extends HibernateDaoSupport implements OrderDao {
                 .add(Restrictions.eq("merchant.merchantID", merchantID))
                 .add(Restrictions.ne("status", OrderStatus.PENDING));
         return criteria.list().size();
-        
-            
-        
+
     }
-    
-    
-    
+
+    @Override
+    public List<Order> findConsoleOrders() {
+        Long merchantID = sessionUser.getUser().getMerchantId();
+        OrderStatus[] consolStatusList = {
+          OrderStatus.NEW,
+          OrderStatus.IN_PROGRESS,
+          OrderStatus.READY
+        };
+        Criteria criteria = getSession().createCriteria(Order.class)
+        .add(Restrictions.eq("merchant.merchantID", merchantID))
+        .add(Restrictions.in("status", consolStatusList))
+        .addOrder(org.hibernate.criterion.Order.asc("orderTime"));
+        List<Order> results = criteria.list();
+        if(results.isEmpty()){
+            return null;
+        }
+        return results;
+    }
 
 }
     

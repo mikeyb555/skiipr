@@ -83,9 +83,6 @@ public class OrdersController {
                 response.setError(OrderResponse.ResponseErrors.NONE);
                 response.setOrderID(order.getOrderID());
             }
-                
-                
-            
         }catch (Exception ex){
             System.out.println(ex.toString());
             response.setResponse(OrderResponse.ResponseStatus.ERROR);
@@ -209,14 +206,6 @@ public class OrdersController {
                 return false;
             }
             return true;
-            
-            
-            
-            
-            
-            
-        
-        
         
     }
     

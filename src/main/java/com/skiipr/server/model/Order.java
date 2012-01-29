@@ -15,6 +15,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 
 @Entity
@@ -38,15 +39,19 @@ public class Order implements Serializable {
     private PaymentType paymentType;
     private String apid;
     
-    
+    @JsonIgnore
     public Date getFormattedOrderTime() {
         Date formattedDate = new Date(orderTime * 1000);
         return formattedDate;
     }
+    
+    @JsonIgnore
     public Date getFormattedLastUpdated(){
         Date formattedDate = new Date(lastUpdated * 1000);
         return formattedDate;
     }
+    
+    @JsonIgnore
     public String getFormattedTotal(){
         NumberFormat nf = NumberFormat.getCurrencyInstance();
         return nf.format(total);
@@ -97,6 +102,7 @@ public class Order implements Serializable {
         return merchant.getMerchantID();
     }
     
+    @JsonIgnore
     public Merchant getMerchant(){
         return merchant;
     }
@@ -109,6 +115,7 @@ public class Order implements Serializable {
         return paypalAddress;
     }
     
+    @JsonIgnore
     public Long getPaypalRef(){
         return paypalRef;
     }
@@ -137,7 +144,8 @@ public class Order implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
-
+    
+    @JsonIgnore
     public String getDeviceID() {
         return deviceID;
     }
@@ -154,35 +162,22 @@ public class Order implements Serializable {
         this.paymentType = paymentType;
     }
 
-    /**
-     * @return the orderProducts
-     */
+
+    @JsonIgnore
     public Set<OrderProduct> getOrderProducts() {
         return orderProducts;
     }
 
-    /**
-     * @param orderProducts the orderProducts to set
-     */
     public void setOrderProducts(Set<OrderProduct> orderProducts) {
         this.orderProducts = orderProducts;
     }
 
-    /**
-     * @return the apid
-     */
+    @JsonIgnore
     public String getApid() {
         return apid;
     }
 
-    /**
-     * @param apid the apid to set
-     */
     public void setApid(String apid) {
         this.apid = apid;
     }
-
-    
-    
-
 }
