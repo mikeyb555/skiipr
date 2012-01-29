@@ -1,0 +1,20 @@
+<div xmlns:spring="http://www.springframework.org/tags" xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+       dojoType="dojox.mobile.FixedSplitter" orientation="H">
+  <jsp:directive.page contentType="text/html;charset=UTF-8" />
+      <div dojoType="dojox.mobile.FixedSplitterPane" style="width:300px;border-right:1px solid black;">
+          <div id="order_list_container" dojoType="dojox.mobile.ScrollableView" selected="true">
+              <h1 dojoType="dojox.mobile.Heading" fixed="top">Orders</h1>
+              <ul id="order_list" dojoType="dojox.mobile.EdgeToEdgeList" transition="none" stateful="true">
+                  <!-- required for FF3 and Opera -->
+              </ul>
+          </div>
+      </div>
+      <div dojoType="dojox.mobile.FixedSplitterPane">
+        <div id="order_content_panel" dojoType="dojox.mobile.ScrollableView" selected="true">
+          <h1 dojoType="dojox.mobile.Heading" fixed="top">Order details</h1>
+          <div id="order_panel" dojoType="dojox.mobile.RoundRect">
+            Hello world
+          </div>
+        </div>
+      </div>
+  </div>

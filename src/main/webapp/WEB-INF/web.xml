@@ -76,4 +76,8 @@
         <description/>
         <role-name>dashboard_user</role-name>
     </security-role>
+    <security-role>
+        <description/>
+        <role-name>console_user</role-name>
+    </security-role>
 </web-app>

@@ -24,5 +24,5 @@ public interface OrderDao {
     public Order findOrderByMerchant(Long orderID, Long merchantID);
     public List<Order> findRange(Integer first, Integer max);
     public Integer countByMerchant();
-     
+    public List<Order> findConsoleOrders(); 
 }

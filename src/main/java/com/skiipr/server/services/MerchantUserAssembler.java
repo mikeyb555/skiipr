@@ -31,6 +31,7 @@ public class MerchantUserAssembler {
 
     Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
     authorities.add(new GrantedAuthorityImpl("dashboard_user"));
+    authorities.add(new GrantedAuthorityImpl("console_user"));
 
     LoginUser user = new LoginUser(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
     user.setSalt(merchant.getSalt());

@@ -14,6 +14,7 @@
         <!-- Configure these elements to secure URIs in your application -->
         <intercept-url pattern="/dashboard/login" access="permitAll" />
         <intercept-url pattern="/dashboard/**" access="hasRole('dashboard_user')" />
+        <intercept-url pattern="/console/**" access="hasRole('console_user')" />
         <intercept-url pattern="/resources/**" access="permitAll" />
         <intercept-url pattern="/**" access="permitAll" />
     </http>
