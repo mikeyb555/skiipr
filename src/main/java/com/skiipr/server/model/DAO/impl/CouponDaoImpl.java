@@ -10,9 +10,12 @@ import com.skiipr.server.model.Coupon;
 import com.skiipr.server.model.DAO.CouponDao;
 
 import com.skiipr.server.model.LoginUser;
+import com.skiipr.server.model.Product;
 import java.util.Collections;
 import java.util.List;
+import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
@@ -95,6 +98,36 @@ public class CouponDaoImpl extends HibernateDaoSupport implements CouponDao {
             return (List<Coupon>) coupons;
         }
         
+    }
+    
+    @Override
+    public List<Coupon> findRange(Integer first, Integer max) {
+        try{
+            Criteria criteria = getSession().createCriteria(Coupon.class)
+                .setMaxResults(max)
+                .setFirstResult(first)
+                .add(Restrictions.eq("merchantID", sessionUser.getUser().getMerchantId()));
+            List<Coupon> coupons= criteria.list();
+            if(coupons.isEmpty()){
+            return null;
+        }
+	return coupons;
+            
+        }
+        catch(Exception e){
+            return Collections.EMPTY_LIST;
+            
+        }
+        
+        
+       
+        
+    }
+    
+    @Override
+    public Integer countByMerchant() {
+        
+        return findAllByMerchant().size();
     }
     
     

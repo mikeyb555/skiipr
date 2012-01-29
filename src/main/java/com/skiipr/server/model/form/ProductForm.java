@@ -125,6 +125,7 @@ public class ProductForm {
     }
     
     public void getAttributes(Product product){
+        productID = product.getProductID();
         active = product.getActive();
         categoryID = product.getCategory().getCategoryID();
         description = product.getDescription();

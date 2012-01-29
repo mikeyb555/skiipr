@@ -2,25 +2,19 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.skiipr.server.model;
+package com.skiipr.server.model.form;
 
 import com.skiipr.server.enums.CouponType;
+import com.skiipr.server.model.Coupon;
+import com.skiipr.server.model.DAO.CouponDao;
 import java.math.BigDecimal;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import org.hibernate.annotations.NaturalId;
+import org.springframework.validation.Errors;
 
 /**
  *
  * @author Michael
  */
-@Entity
-@Table(name = "tbl_coupon")
-public class Coupon {
-    
-    @Id
+public class CouponForm {
     private Long couponID;
     private Long merchantID;
     private boolean active;
@@ -59,7 +53,7 @@ public class Coupon {
     /**
      * @return the active
      */
-    public boolean getActive() {
+    public boolean isActive() {
         return active;
     }
 
@@ -68,20 +62,6 @@ public class Coupon {
      */
     public void setActive(boolean active) {
         this.active = active;
-    }
-
-    /**
-     * @return the couponCode
-     */
-    public int getCouponCode() {
-        return couponCode;
-    }
-
-    /**
-     * @param couponCode the couponCode to set
-     */
-    public void setCouponCode(int couponCode) {
-        this.couponCode = couponCode;
     }
 
     /**
@@ -111,5 +91,46 @@ public class Coupon {
     public void setPercentage(BigDecimal percentage) {
         this.percentage = percentage;
     }
+    
+    public boolean validate(CouponDao couponDao, Errors errors){
+        return true;
+    }
+    
+    public void getAttributes(Coupon coupon){
+        couponID = coupon.getCouponID();
+        merchantID= coupon.getMerchantID();
+        active = coupon.getActive();
+        couponCode = coupon.getCouponCode();
+        couponType = coupon.getCouponType();
+        percentage = coupon.getPercentage();
+        
+    }
+    
+    public void setAttributes(Coupon coupon){
+        coupon.setCouponCode(couponCode);
+        System.out.println("the coupon type is" + couponType);
+        coupon.setCouponType(couponType);
+        
+        
+        coupon.setPercentage(percentage);
+        coupon.setActive(active);
+    }
+
+    /**
+     * @return the couponCode
+     */
+    public int getCouponCode() {
+        return couponCode;
+    }
+
+    /**
+     * @param couponCode the couponCode to set
+     */
+    public void setCouponCode(int couponCode) {
+        this.couponCode = couponCode;
+    }
+            
+    
+    
     
 }
