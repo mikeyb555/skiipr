@@ -93,7 +93,12 @@ public class CouponForm {
     }
     
     public boolean validate(CouponDao couponDao, Errors errors){
-        return true;
+        if (couponCode > 9999){
+            errors.rejectValue("couponCode", "invalid.coupon.couponcode.incorrect");
+        }
+        
+        return !errors.hasErrors();
+            
     }
     
     public void getAttributes(Coupon coupon){
