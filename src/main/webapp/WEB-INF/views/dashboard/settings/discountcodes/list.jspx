@@ -71,8 +71,14 @@
                                            <label>Coupon Code</label><br />
                                            <input name="couponCode" id="coupon_couponcode_new" value="${couponCodeValue}"/>
                                            <br />
+                                           <c:if test="${openCoupID == 0}">
+                                           <span class="errors">
+                                                <form:errors path="couponCode" />
+                                           </span>
+                                       </c:if>
+                                           <br />
                                            <label>Active</label><br />
-                                           <input name="active" id="coupon_couponcode_new" type="checkbox" checked="true" value="${couponCodeValue}"/>
+                                           <input name="active" id="coupon_active_new" type="checkbox" value="${activeValue}"/>
                                            <br />
                                            <label>Coupon Type</label><br />
                                            <select id="coupon_coupontype_new" name="couponType" value="${couponTypeValue}">
@@ -81,8 +87,13 @@
                                                </c:forEach>
                                            </select>
                                            <br />
+                                            <label>Percentage</label><br />
                                            <input name="percentage" id="coupon_percentage_new"  value="${percentageValue}"/>
                                            <br />
+                                           <span class="errors">
+                                                <form:errors path="percentage" />
+                                           </span>
+                                           
                                                
                                            
                                            
@@ -91,17 +102,14 @@
                                           
 
                                            
-                                       <c:if test="${openCoupID == 0}">
-                                           <span class="errors">
-                                                <form:errors path="couponCode" />
-                                           </span>
-                                       </c:if>
+                                       
                                            <a class="btn grey right medium cancel_edit" href="#"><span>Cancel</span></a>
                                            <a class="btn grey right medium" href="#" onclick="parentNode.submit()"><span>Submit</span></a>
                                            <div class="clear"><!--- clear --></div>
                                         </form:form>
                                          <script type="text/javascript">
                                             Spring.addDecoration(new Spring.ElementDecoration({elementId : 'coupon_couponcode_new', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {required : true}}));
+                                            Spring.addDecoration(new Spring.ElementDecoration({elementId : 'coupon_percentage_new', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {required : true}}));
                                             
                                             
                                           </script>  
@@ -144,7 +152,7 @@
                                        <input name="couponCode" id="coupon_couponcode_${coupon.couponID}" value="${couponCodeValue}" />
                                        <br />
                                        <label>Active</label><br />
-                                           <input name="active" id="coupon_couponcode_${coupon.couponID}" type="checkbox" checked="true" value="${couponCodeValue}"/>
+                                           <input name="active" id="coupon_active_${coupon.couponID}" type="checkbox" value="${activeValue}"/>
                                            <br />
                                            <label>Choose Coupon Type</label><br />
                                            <select id="coupon_coupontype_${coupon.couponID}" name="couponType" value="${couponTypeValue}">
@@ -166,6 +174,7 @@
                                                </c:forEach>
                                            </select>
                                            <br />
+                                           <label>Percentage</label><br />
                                            <input name="percentage" id="coupon_percentage${coupon.couponID}"  value="${percentageValue}"/>
                                            <br />
                                         

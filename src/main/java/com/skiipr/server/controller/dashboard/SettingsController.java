@@ -104,7 +104,7 @@ public class SettingsController {
        if (!formCoupon.validate(couponDao, bindingResult)) {
             modelMap.addAttribute("flash", FlashNotification.create(Status.FAILURE, "There was an error creating your coupon"));
             
-            modelMap.addAttribute("openProdID", 0);
+            modelMap.addAttribute("openCoupID", 0);
        }else{
             Coupon coupon = new Coupon();
             formCoupon.setAttributes(coupon);

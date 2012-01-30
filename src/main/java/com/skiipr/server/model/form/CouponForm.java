@@ -93,11 +93,25 @@ public class CouponForm {
     }
     
     public boolean validate(CouponDao couponDao, Errors errors){
-        if (couponCode > 9999){
+        try{
+            if (couponCode > 9999){
             errors.rejectValue("couponCode", "invalid.coupon.couponcode.incorrect");
+            System.out.println("If statement is fired");
+        }
+        if(percentage.toString().matches("(\\d+(\\.\\d+)?%)")){
+            errors.rejectValue("percentage", "invalid.coupon.percentage.incorrect");
+        }
+        if(percentage.doubleValue() > 100){
+            errors.rejectValue("percentage", "invalid.coupon.percentage.toobig");
+        }
+        System.out.println("After dem code" + errors.hasErrors());
+        return !errors.hasErrors();
+        }catch(Exception e){
+            
+            return false;
         }
         
-        return !errors.hasErrors();
+        
             
     }
     
