@@ -111,6 +111,7 @@ public class Order implements Serializable {
         this.merchant = merchant;
     }
     
+    @JsonIgnore
     public String getPaypalAddress(){
         return paypalAddress;
     }
@@ -162,8 +163,7 @@ public class Order implements Serializable {
         this.paymentType = paymentType;
     }
 
-
-    @JsonIgnore
+    
     public Set<OrderProduct> getOrderProducts() {
         return orderProducts;
     }

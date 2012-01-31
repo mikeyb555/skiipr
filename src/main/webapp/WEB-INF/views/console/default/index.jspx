@@ -9,12 +9,44 @@
               </ul>
           </div>
       </div>
-      <div dojoType="dojox.mobile.FixedSplitterPane">
-        <div id="order_content_panel" dojoType="dojox.mobile.ScrollableView" selected="true">
-          <h1 dojoType="dojox.mobile.Heading" fixed="top">Order details</h1>
-          <div id="order_panel" dojoType="dojox.mobile.RoundRect">
-            Hello world
-          </div>
-        </div>
+      <div dojoType="dojox.mobile.FixedSplitterPane" style="margin-right: -15px;">
+          <h1 dojoType="dojox.mobile.Heading" fixed="top" label="Order details">
+              <spring:url value="/images/icons/19-gear.png" var="settings_icon" />
+              <div dojoType="dojox.mobile.ToolBarButton" icon="${settings_icon}" style="float:right; padding: 5px;"><!-- required for FF3 and Opera --></div>
+          </h1>
+          <div id="order_content_panel" dojoType="dojox.mobile.ScrollableView" selected="true">
+              
+              <h2 dojoType="dojox.mobile.RoundRectCategory" style="width: 32%; float: left;">Order Number</h2>
+              <h2 dojoType="dojox.mobile.RoundRectCategory" style="width: 32%; float: left; padding-left: 5px;">Email</h2>
+              <h2 dojoType="dojox.mobile.RoundRectCategory" style="width: 32%; float: left; padding-left: 5px;">Payment method</h2>
+              <div style="clear: both;"><!-- required for FF3 and Opera --></div>
+              <div dojoType="dojox.mobile.RoundRect">
+                   <div id="order_id_panel" style="width: 32%; float: left;"><!-- required for FF3 and Opera --></div>
+                   <div id="order_email_panel" style="width: 32%; float: left;"><!-- required for FF3 and Opera --></div>
+                   <div id="order_payment_panel" style="width: 32%; float: left;"><!-- required for FF3 and Opera --></div>
+                   <div style="clear: both;"><!-- required for FF3 and Opera --></div>
+              </div>
+              
+              <h2 dojoType="dojox.mobile.RoundRectCategory" style="width: 32%; float: left;">Status</h2>
+              <h2 dojoType="dojox.mobile.RoundRectCategory" style="width: 32%; float: left; padding-left: 5px;">Order Time</h2>
+              <h2 dojoType="dojox.mobile.RoundRectCategory" style="width: 32%; float: left; padding-left: 5px;">Time waiting</h2>
+              <div style="clear: both;"><!-- required for FF3 and Opera --></div>
+              <div dojoType="dojox.mobile.RoundRect">
+                   <div id="order_status_panel" style="width: 32%; float: left;"><!-- required for FF3 and Opera --></div>
+                   <div id="order_time_panel" style="width: 32%; float: left;"><!-- required for FF3 and Opera --></div>
+                   <div id="order_waiting_panel" style="width: 32%; float: left;"><!-- required for FF3 and Opera --></div>
+                   <div style="clear: both;"><!-- required for FF3 and Opera --></div>
+              </div>
+              <h2 dojoType="dojox.mobile.RoundRectCategory">Products</h2>
+             <ul id="product_list" dojoType="dojox.mobile.RoundRectList" transition="none" stateful="true" select="multiple">
+                  <!-- required for FF3 and Opera -->
+              </ul>
+          <h1 dojoType="dojox.mobile.Heading" fixed="bottom">
+              <div dojoType="dojox.mobile.ToolBarButton" label="Contact customer"><!-- required for FF3 and Opera --></div>
+              <div dojoType="dojox.mobile.ToolBarButton" label="Cancel order"><!-- required for FF3 and Opera --></div>
+              <div dojoType="dojox.mobile.ToolBarButton" label="Block customer"><!-- required for FF3 and Opera --></div>
+              <div dojoType="dojox.mobile.ToolBarButton" label="Order ready" class="mblColorBlue" style="float:right;"><!-- required for FF3 and Opera --></div>
+          </h1>
       </div>
   </div>
+</div>

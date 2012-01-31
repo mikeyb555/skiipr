@@ -18,7 +18,11 @@ public class ConsoleOrderController {
     
     @RequestMapping(value="/console/api/order/list", method = RequestMethod.GET)
     public @ResponseBody List<Order> getOrders(){
-        return orderDao.findConsoleOrders();
+        List<Order> orders = orderDao.findConsoleOrders();
+        for(Order order : orders){
+            order.setOrderProducts(null);
+        }
+        return orders;
     }
     
     @RequestMapping(value="/console/api/order/{id}", method = RequestMethod.GET)

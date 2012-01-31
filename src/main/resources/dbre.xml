@@ -233,7 +233,7 @@
         <property name="total">
             <column name="total"  sql-type="NUMERIC(12,2)" not-null="true" />
         </property>
-        <set name="orderProducts" inverse="true" lazy="false" fetch="join" cascade = "save-update">
+        <set name="orderProducts" inverse="true" lazy="false" fetch="select" cascade = "save-update">
              <key>
                 <column name="order_id" not-null="true" />
             </key>

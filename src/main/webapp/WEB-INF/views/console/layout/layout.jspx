@@ -16,7 +16,7 @@
                 
 	</head>
 	
-  	<body class="spring">
+  	<body>
             <tiles:insertAttribute name="body"/> 
 	</body>
 </html>

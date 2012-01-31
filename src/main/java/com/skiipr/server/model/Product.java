@@ -16,10 +16,6 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
-/**
- *
- * @author Michael
- */
 @Entity
 @Table(name = "tbl_product")
 public class Product implements Serializable {
@@ -70,7 +66,6 @@ public class Product implements Serializable {
         
     }
     
-    
     public String getDescription(){
         return description;
     }
@@ -86,6 +81,7 @@ public class Product implements Serializable {
     public void setCategory(Category category){
         this.category = category;
     }
+    
     @JsonIgnore
     public Category getCategory(){
         return category;
