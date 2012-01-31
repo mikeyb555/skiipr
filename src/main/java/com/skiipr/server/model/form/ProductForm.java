@@ -125,6 +125,7 @@ public class ProductForm {
     }
     
     public void getAttributes(Product product){
+        productID = product.getProductID();
         active = product.getActive();
         categoryID = product.getCategory().getCategoryID();
         description = product.getDescription();
@@ -151,11 +152,26 @@ public class ProductForm {
     public boolean validate(ProductDao productDao, Errors errors ){
         try{
             if (!price.toString().matches("\\d[\\d\\,\\.]+")){
-            errors.rejectValue("price", "invalid.product.price.incorrect");
+                errors.rejectValue("price", "invalid.product.price.incorrect");
     }
+            if((price.doubleValue() < 0)){
+                errors.rejectValue("price", "invalid.product.price.negative");
+                System.out.println("is being fired");
+            }
+            if(name.length() > 128){
+                errors.rejectValue("name", "invalid.product.name.toolong");
+            }
+            if(description.length() > 128){
+                errors.rejectValue("description", "invalid.product.description.toolong");
+            }
+            if(price == null) {
+                errors.rejectValue("price", "invalid.product.price.null");
+            }if(name.isEmpty()){
+                errors.rejectValue("name", "invalid.product.name.null");
+            }
             
         
-        return true;
+        return !errors.hasErrors();
             
         }
         catch(Exception e){

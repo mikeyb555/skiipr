@@ -69,8 +69,20 @@
                                            <label>Product Name</label><br />
                                            <input name="name" id="product_name_new" value="${nameValue}"/>
                                            <br />
+                                           <c:if test="${openProdID == 0}">
+                                           <span class="errors">
+                                                <form:errors path="name" />
+                                           </span>
+                                           </c:if>
+                                           <br />
                                            <label>Product Price</label><br />
                                            <input name="price" id="product_price_new" value="${priceValue}"/>
+                                           <br />
+                                           <c:if test="${openProdID == 0}">
+                                           <span class="errors">
+                                                <form:errors path="price" />
+                                           </span>
+                                       </c:if>
                                            <br />
                                            <label>Product Active</label><br />
                                            <input name="active" type ="checkbox" checked="true" id="product_active_new" value="${activeValue}"/>
@@ -89,11 +101,7 @@
                                           
 
                                            
-                                       <c:if test="${openProdID == 0}">
-                                           <span class="errors">
-                                                <form:errors path="name" />
-                                           </span>
-                                       </c:if>
+                                       
                                            <a class="btn grey right medium cancel_edit" href="#"><span>Cancel</span></a>
                                            <a class="btn grey right medium" href="#" onclick="parentNode.submit()"><span>Submit</span></a>
                                            <div class="clear"><!--- clear --></div>
@@ -172,7 +180,7 @@
                                        
                                        <c:if test="${openProdID == product.productID}">
                                            <span class="errors">
-                                                <form:errors path="name" />
+                                                <form:errors path="price" />
                                            </span>
                                        </c:if>
                                        <a class="btn grey right medium cancel_edit" href="#"><span>Cancel</span></a>

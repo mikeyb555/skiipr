@@ -59,7 +59,7 @@ public class Coupon {
     /**
      * @return the active
      */
-    public boolean isActive() {
+    public boolean getActive() {
         return active;
     }
 

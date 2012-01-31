@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<div xmlns:c="http://java.sun.com/jsp/jstl/core" 
-     xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" 
-     xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" 
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
      xmlns:page="urn:jsptagdir:/WEB-INF/tags/form"
-     xmlns:general="urn:jsptagdir:/WEB-INF/tags/general" 
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:general="urn:jsptagdir:/WEB-INF/tags/general"
      xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
-     xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields"
-     xmlns:jsp="http://java.sun.com/JSP/Page" 
-     xmlns:spring="http://www.springframework.org/tags" version="2.0">
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" 
+     xmlns:form="http://www.springframework.org/tags/form" 
+     xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+     xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
         <ul class="breadcrumbs first">
@@ -24,26 +25,190 @@
             </div>
             
             <util:settings-tabs current="settings_tab_3">
-                <h3 class="hr">Discount Codes</h3>
-                <c:if test="${not empty flash}">
-                    <general:notification message="${flash.message}" status = "${flash.status}"/>  
-                </c:if>
-                <hr />
-                <div id="foo_div" class="grey_list_row">
-                    <input />
-                </div>
-                <hr />
-                <spring:url value="/images/dashboard/fugue/cross-circle.png" var="cross" />
-                 <page:list id="pl_com_skiipr_server_model_Coupon" items="${coupons}">
-                        <table:table data="${coupons}" id="l_com_skiipr_server_model_Coupon" path="/dashboard/settings/discountcodes" typeIdFieldName="couponID">
-                            <table:column id="c_com_skiipr_server_model_Coupon_couponCode" property="couponCode" />
-                            <table:column id="c_com_skiipr_server_model_Coupon_active" property="active" />
-                            <table:column id="c_com_skiipr_server_model_Coupon_couponType" property="couponType"/>
-                            
-                            
-                        </table:table>
+                
+                
+            
+            
+                    <c:if test="${not empty flash}">
+                        <general:notification message="${flash.message}" status = "${flash.status}"/>  
+                    </c:if>
+                    <page:list id="pl_com_skiipr_server_model_Coupon" items="${coupons}">
+                        <c:if test="${not empty openCoupID}">
+                            <script type="text/javascript">
+                                dojo.ready(function(){
+                                    dojo.query("#edit_panel_${openCoupID}").style("display", "block");
+                                });
+                            </script>
+                        </c:if>
+                        <spring:url value="/images/icons/37-circle-x.png" var="cross" />
+                        <spring:url value="/images/icons/32-circle-south.png" var="dot" />
+                        <spring:url value="/dashboard/settings/discountcodes" var="this_url" />
+                        
+                        <!-- new category -->
+                        <c:if test="${(empty param.page) or (param.page == 1)}">
+                            <hr />
+                            <div class="grey_list_row">
+                                    <b>Create new Coupon</b>
+                                    <a href="#" class="edit_item row_control"><img src="${dot}" width="16" alt="edit" /></a>
+                                    <div class="edit_panel row_notice notice_white" id="edit_panel_0">
+                                        <form:form action="${this_url}" commandName="couponForm" method="put" id="product_form_new">
+                                            <c:choose>
+                                                <c:when test="${openCoupID == 0}">
+                                                    <c:set var="couponCodeValue" value="${couponForm.couponCode}" />
+                                                    <c:set var="activeValue" value="${couponForm.active}" />
+                                                    <c:set var="couponTypeValue" value="${couponForm.couponType}" />
+                                                     <c:set var="percentageValue" value="${couponForm.percentage}" />
+                                                    
+                                                    
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <c:set var="couponCodeValue" value="" />
+                                                    <c:set var="activeValue" value="" />
+                                                    <c:set var="couponTypeValue" value="" />
+                                                     <c:set var="percentageValue" value="" />
+                                                </c:otherwise>
+                                           </c:choose> 
+                                           <label>Coupon Code</label><br />
+                                           <input name="couponCode" id="coupon_couponcode_new" value="${couponCodeValue}"/>
+                                           <br />
+                                           <c:if test="${openCoupID == 0}">
+                                           <span class="errors">
+                                                <form:errors path="couponCode" />
+                                           </span>
+                                       </c:if>
+                                           <br />
+                                           <label>Active</label><br />
+                                           <input name="active" id="coupon_active_new" type="checkbox" value="${activeValue}"/>
+                                           <br />
+                                           <label>Coupon Type</label><br />
+                                           <select id="coupon_coupontype_new" name="couponType" value="${couponTypeValue}">
+                                               <c:forEach var="couponType" items="${couponTypes}">
+                                                   <option value="${couponType}"> <c:out value="${couponType}" /></option>
+                                               </c:forEach>
+                                           </select>
+                                           <br />
+                                            <label>Percentage</label><br />
+                                           <input name="percentage" id="coupon_percentage_new"  value="${percentageValue}"/>
+                                           <br />
+                                           <span class="errors">
+                                                <form:errors path="percentage" />
+                                           </span>
+                                           
+                                               
+                                           
+                                           
+
+                                           
+                                          
+
+                                           
+                                       
+                                           <a class="btn grey right medium cancel_edit" href="#"><span>Cancel</span></a>
+                                           <a class="btn grey right medium" href="#" onclick="parentNode.submit()"><span>Submit</span></a>
+                                           <div class="clear"><!--- clear --></div>
+                                        </form:form>
+                                         <script type="text/javascript">
+                                            Spring.addDecoration(new Spring.ElementDecoration({elementId : 'coupon_couponcode_new', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {required : true}}));
+                                            Spring.addDecoration(new Spring.ElementDecoration({elementId : 'coupon_percentage_new', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {required : true}}));
+                                            
+                                            
+                                          </script>  
+                                    </div>
+                                </div>
+                            <hr />
+                        </c:if>
+                        <!-- end new category -->
+                        
+                        
+                        
+                        <c:forEach var="coupon" items="${coupons}">
+                            <div class="grey_list_row">
+                                <c:out value="${coupon.couponCode}" />
+                                
+                                
+                                
+                                <a href="#" class="confirm_delete row_control"><img src="${cross}" width="16" alt="delete" /></a>
+                                <a href="#" class="edit_item row_control"><img src="${dot}" width="16" alt="edit" /></a>
+                                <div class="edit_panel row_notice notice_white" id="edit_panel_${coupon.couponID}">
+                                    <form:form action="${this_url}?page=${param.page}&amp;size=${param.size}" commandName="couponForm" id="coupon_form_${coupon.couponID}">
+                                          <c:choose>
+                                                <c:when test="${openCoupID == coupon.couponID}">
+                                                    <c:set var="couponCodeValue" value="${couponForm.couponCode}" />
+                                                    <c:set var="activeValue" value="${couponForm.active}" />
+                                                    
+                                                    <c:set var="couponTypeValue" value="${couponForm.couponType}" />
+                                                     <c:set var="percentageValue" value="${couponForm.percentage}" />
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <c:set var="couponCodeValue" value="${coupon.couponCode}" />
+                                                    <c:set var="activeValue" value="${coupon.active}" />
+                                                    <c:set var="couponTypeValue" value="${coupon.couponType}" />
+                                                    
+                                                     <c:set var="percentageValue" value="${coupon.percentage}" />
+                                                </c:otherwise>
+                                           </c:choose> 
+                                        <label>Coupon Code</label><br />
+                                       <input type="hidden" name="couponID" value="${coupon.couponID}" />
+                                       <input name="couponCode" id="coupon_couponcode_${coupon.couponID}" value="${couponCodeValue}" />
+                                       <br />
+                                       <label>Active</label><br />
+                                           <input name="active" id="coupon_active_${coupon.couponID}" type="checkbox" value="${activeValue}"/>
+                                           <br />
+                                           <label>Choose Coupon Type</label><br />
+                                           <select id="coupon_coupontype_${coupon.couponID}" name="couponType" value="${couponTypeValue}">
+                                             
+                                               <c:forEach var="couponType" items="${couponTypes}">
+                                                    <c:choose>
+                                                       <c:when test="${coupon.couponType == couponType}">
+                                                           <option value="${couponType}" selected = "selected">
+                                                                <c:out value="${couponType}" /></option>
+                                                       </c:when>
+                                                           <c:otherwise>
+                                                           <option value="${couponType}">
+                                                               <c:out value="${couponType}" />
+                                                           </option>
+                                                           </c:otherwise>
+                                                    </c:choose>
+                                                       
+                                                      
+                                               </c:forEach>
+                                           </select>
+                                           <br />
+                                           <label>Percentage</label><br />
+                                           <input name="percentage" id="coupon_percentage${coupon.couponID}"  value="${percentageValue}"/>
+                                           <br />
+                                        
+                                       
+                                       <c:if test="${openCoupID == coupon.couponID}">
+                                           <span class="errors">
+                                                <form:errors path="couponCode" />
+                                           </span>
+                                       </c:if>
+                                       <a class="btn grey right medium cancel_edit" href="#"><span>Cancel</span></a>
+                                       <a class="btn grey right medium" href="#" onclick="parentNode.submit()"><span>Submit</span></a>
+                                       <div class="clear"><!--- clear --></div>
+                                    </form:form>
+                                     <script type="text/javascript">
+                                        Spring.addDecoration(new Spring.ElementDecoration({elementId : 'coupon_couponcode_${coupon.couponID}', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {required : true}}));
+                                        
+                                      </script>  
+                                </div>
+                                <div class="delete_confirmation row_notice notice_yellow">
+                                    Are you sure you want to delete this category?
+                                    <general:formlink id="delete_product_${coupon.couponID}" url="${this_url}" htmlClass="btn grey right medium" method="DELETE" params="couponID" values="${coupon.couponID}" label="Yes" />
+                                    <a class="btn grey right medium cancel_delete"><span>Cancel</span></a>
+                                    <div class="clear"><!--- clear --></div>
+                                </div>
+                            </div>
+                        </c:forEach>
+                      <c:if test="${not empty maxPages}">
+                        <util:pagination maxPages="${maxPages}" page="${param.page}" size="${param.size}" />
+                      </c:if>
                     </page:list>
-                <hr />
+                
+            
+                
+            
             </util:settings-tabs>
         </div>
     </div>
