@@ -117,6 +117,14 @@ public class MerchantDaoImpl extends HibernateDaoSupport implements MerchantDao{
         LoginUser user = sessionUser.getUser();
         List<Merchant> results = getHibernateTemplate().find("FROM Merchant WHERE (name = ?) AND (merchantID != ?)", name, user.getMerchantId());
         return results.isEmpty();
-    } 
+    }
+
+    @Override
+    public int getChangeToken() {
+        Long merchantID = sessionUser.getUser().getMerchantId();
+        getHibernateTemplate().find("SELECT lastChange FROM Merchant WHERE merchantID = ?", merchantID);
+        List results = getHibernateTemplate().find("SELECT lastChange FROM Merchant WHERE merchantID = ?", merchantID);
+        return (Integer) results.get(0);
+    }
     
 }

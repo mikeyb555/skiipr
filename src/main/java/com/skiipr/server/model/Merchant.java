@@ -48,6 +48,7 @@ public class Merchant implements Serializable {
     private Boolean open;
     private Boolean paypalEnabled;
     private Boolean codEnabled;
+    private int lastChange;
     
     @JsonIgnore
     public String getUsername(){
@@ -261,32 +262,29 @@ public class Merchant implements Serializable {
         this.open = open;
     }
 
-    /**
-     * @return the paypalEnabled
-     */
     public Boolean getPaypalEnabled() {
         return paypalEnabled;
     }
 
-    /**
-     * @param paypalEnabled the paypalEnabled to set
-     */
     public void setPaypalEnabled(Boolean paypalEnabled) {
         this.paypalEnabled = paypalEnabled;
     }
 
-    /**
-     * @return the codEnabled
-     */
     public Boolean getCodEnabled() {
         return codEnabled;
     }
 
-    /**
-     * @param codEnabled the codEnabled to set
-     */
     public void setCodEnabled(Boolean codEnabled) {
         this.codEnabled = codEnabled;
+    }
+
+    @JsonIgnore
+    public int getLastChange() {
+        return lastChange;
+    }
+
+    public void setLastChange(int lastChange) {
+        this.lastChange = lastChange;
     }
     
 }

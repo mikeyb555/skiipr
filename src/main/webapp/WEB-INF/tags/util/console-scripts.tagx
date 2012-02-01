@@ -10,6 +10,7 @@
   <spring:url value="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/mobile/themes/iphone/iphone.css" var="dojo_mobile_css_url" />
   <spring:url value="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/mobile/themes/iphone/ipad.css" var="dojo_ipad_css_url" />
   <spring:url value="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/mobile/themes/FixedSplitter.css" var="dojo_split_css_url" />
+  <spring:url value="/resources/styles/console.css" var="console_css" />
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
   <meta name="apple-mobile-web-app-capable" content="yes" />
   
@@ -19,6 +20,7 @@
   <link rel="stylesheet" type="text/css" href="${dojo_ipad_css_url}"><!-- required for FF3 and Opera --></link>
   <link rel="stylesheet" type="text/css" href="${dojo_mobile_css_url}"><!-- required for FF3 and Opera --></link>
   <link rel="stylesheet" type="text/css" href="${dojo_split_css_url}"><!-- required for FF3 and Opera --></link>
+  <link rel="stylesheet" type="text/css" href="${console_css}"><!-- required for FF3 and Opera --></link>
   <link rel="SHORTCUT ICON" href="${favicon}" />
 
   

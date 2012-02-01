@@ -4,9 +4,14 @@
       <div dojoType="dojox.mobile.FixedSplitterPane" style="width:300px;border-right:1px solid black;">
           <div id="order_list_container" dojoType="dojox.mobile.ScrollableView" selected="true">
               <h1 dojoType="dojox.mobile.Heading" fixed="top">Orders</h1>
+              <div id="order_list_loading" dojoType="dojox.widget.Standby"><!-- required for FF3 and Opera --></div>
               <ul id="order_list" dojoType="dojox.mobile.EdgeToEdgeList" transition="none" stateful="true">
                   <!-- required for FF3 and Opera -->
               </ul>
+              <spring:url value="/images/dashboard/biglogo.png" var="skiipr_logo" />
+              <h1 dojoType="dojox.mobile.Heading" fixed="bottom">
+                  <img src="${skiipr_logo}" alt="skiipr" height="40" />
+              </h1>
           </div>
       </div>
       <div dojoType="dojox.mobile.FixedSplitterPane" style="margin-right: -15px;">
@@ -14,8 +19,8 @@
               <spring:url value="/images/icons/19-gear.png" var="settings_icon" />
               <div dojoType="dojox.mobile.ToolBarButton" icon="${settings_icon}" style="float:right; padding: 5px;"><!-- required for FF3 and Opera --></div>
           </h1>
+          <div id="order_loading" dojoType="dojox.widget.Standby"><!-- required for FF3 and Opera --></div>
           <div id="order_content_panel" dojoType="dojox.mobile.ScrollableView" selected="true">
-              
               <h2 dojoType="dojox.mobile.RoundRectCategory" style="width: 32%; float: left;">Order Number</h2>
               <h2 dojoType="dojox.mobile.RoundRectCategory" style="width: 32%; float: left; padding-left: 5px;">Email</h2>
               <h2 dojoType="dojox.mobile.RoundRectCategory" style="width: 32%; float: left; padding-left: 5px;">Payment method</h2>

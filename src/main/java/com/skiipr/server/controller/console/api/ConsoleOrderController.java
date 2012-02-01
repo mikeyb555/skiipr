@@ -1,5 +1,6 @@
 package com.skiipr.server.controller.console.api;
 
+import com.skiipr.server.model.DAO.MerchantDao;
 import com.skiipr.server.model.DAO.OrderDao;
 import com.skiipr.server.model.Order;
 import java.util.List;
@@ -16,6 +17,9 @@ public class ConsoleOrderController {
     @Autowired
     OrderDao orderDao;
     
+    @Autowired
+    MerchantDao merchantDao;
+    
     @RequestMapping(value="/console/api/order/list", method = RequestMethod.GET)
     public @ResponseBody List<Order> getOrders(){
         List<Order> orders = orderDao.findConsoleOrders();
@@ -28,5 +32,10 @@ public class ConsoleOrderController {
     @RequestMapping(value="/console/api/order/{id}", method = RequestMethod.GET)
     public @ResponseBody Order getSingleOrder(@PathVariable("id") Long orderID){
         return orderDao.findOrderByMerchant(orderID);
+    }
+    
+    @RequestMapping(value="/console/api/order/change", method = RequestMethod.GET)
+    public @ResponseBody int getLastChanged(){
+        return merchantDao.getChangeToken();
     }
 }

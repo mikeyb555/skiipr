@@ -13,14 +13,28 @@ dojo.require("dojox.timing");
 
 dojo.require( "dojo.date.locale" );
 
+dojo.require("dojox.widget.Standby");
+
+var contentLoadingPanel;
+var orderLoadingPanel;
+var lastChangeToken = 0;
+
 dojo.addOnLoad(function(){
-    reloadOrderList();
+    contentLoadingPanel = dijit.byId("order_loading");
+    var contentPanel = dojo.byId("order_content_panel");
+    contentLoadingPanel.target = contentPanel;
+    
+    orderLoadingPanel = dijit.byId("order_list_loading");
+    var orderListPanel = dojo.byId("order_list");
+    orderLoadingPanel.target = orderListPanel;
+    
     var orderCheckTimer = new dojox.timing.Timer(1000);
-    orderCheckTimer.onTick = function(){reloadOrderList()};
-    //orderCheckTimer.start();
+    orderCheckTimer.onTick = function(){checkForChange()};
+    orderCheckTimer.start();
 });
 
 function reloadOrderList(){
+    orderLoadingPanel.show();
     var orderList = dijit.byId("order_list");
     orderList.destroyDescendants();
     dojo.xhrGet({
@@ -38,9 +52,11 @@ function reloadOrderList(){
       }
     }
     });
+    orderLoadingPanel.hide();
 }
 
 function loadOrderPanel(orderID){
+    contentLoadingPanel.show();
     var productList  = dijit.byId("product_list");
     dojo.xhrGet({
     url:"console/api/order/" + orderID, handleAs:"json",
@@ -72,6 +88,7 @@ function loadOrderPanel(orderID){
         }
         
     });
+    contentLoadingPanel.hide();
 }
 
 function formatDate(orderDate){
@@ -100,4 +117,16 @@ function formatTimeDifference(sec_numb){
     if (minutes < 10) {minutes = "0"+minutes;}
     if (seconds < 10) {seconds = "0"+seconds;}
     return hours + " hours, " + minutes + " minutes, " + seconds + " seconds";
+}
+
+function checkForChange(){
+    dojo.xhrGet({
+    url:"console/api/order/change", handleAs:"text",
+    load: function(data){
+        if(data != lastChangeToken){
+            lastChangeToken = data;
+            reloadOrderList();
+        }
+    }
+    });
 }
