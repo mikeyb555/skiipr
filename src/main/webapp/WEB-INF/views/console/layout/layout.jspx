@@ -16,7 +16,7 @@
                 
 	</head>
 	
-  	<body>
+  	<body class="claro">
             <tiles:insertAttribute name="body"/> 
 	</body>
 </html>

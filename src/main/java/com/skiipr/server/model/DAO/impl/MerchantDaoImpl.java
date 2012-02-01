@@ -120,11 +120,11 @@ public class MerchantDaoImpl extends HibernateDaoSupport implements MerchantDao{
     }
 
     @Override
-    public int getChangeToken() {
+    public Long getChangeToken() {
         Long merchantID = sessionUser.getUser().getMerchantId();
         getHibernateTemplate().find("SELECT lastChange FROM Merchant WHERE merchantID = ?", merchantID);
         List results = getHibernateTemplate().find("SELECT lastChange FROM Merchant WHERE merchantID = ?", merchantID);
-        return (Integer) results.get(0);
+        return (Long) results.get(0);
     }
     
 }

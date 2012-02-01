@@ -79,8 +79,8 @@
         <property name="codEnabled" type="boolean">
             <column name="cod_enabled" length="1"/>
         </property>
-        <property name="lastChange" type="int">
-            <column name="last_change" length="20" not-null="true" />
+        <property name="lastChange" type="java.lang.Long">
+            <column name="last_change" not-null="true" />
         </property>
         <set name="categories" inverse="true" lazy="false" fetch="join">
              <key>

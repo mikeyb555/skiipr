@@ -35,7 +35,7 @@ public class ConsoleOrderController {
     }
     
     @RequestMapping(value="/console/api/order/change", method = RequestMethod.GET)
-    public @ResponseBody int getLastChanged(){
+    public @ResponseBody Long getLastChanged(){
         return merchantDao.getChangeToken();
     }
 }

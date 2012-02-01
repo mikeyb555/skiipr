@@ -11,13 +11,20 @@ dojo.require("dojox.mobile.ScrollableView");
 
 dojo.require("dojox.timing");
 
-dojo.require( "dojo.date.locale" );
+dojo.require("dojo.date.locale");
+
+dojo.require("dojo.currency");
 
 dojo.require("dojox.widget.Standby");
+
+dojo.require("dijit.Dialog");
+
+dojo.require("dijit.form.Button");
 
 var contentLoadingPanel;
 var orderLoadingPanel;
 var lastChangeToken = 0;
+var currentOrderID;
 
 dojo.addOnLoad(function(){
     contentLoadingPanel = dijit.byId("order_loading");
@@ -31,6 +38,23 @@ dojo.addOnLoad(function(){
     var orderCheckTimer = new dojox.timing.Timer(1000);
     orderCheckTimer.onTick = function(){checkForChange()};
     orderCheckTimer.start();
+    
+    var settingsButton = dijit.byId("console_settings_button");
+    dojo.connect(settingsButton, "onClick", function(e){
+       var settingsModal = dijit.byId("console_settings_panel");
+       settingsModal.show();
+    });
+    
+    var blockButton = dijit.byId("block_customer_button");
+    dojo.connect(blockButton, "onClick", function(e){
+       var blockModal = dijit.byId("console_block_panel");
+       blockModal.show();
+    });
+    
+    var orderReadyBytton = dijit.byId("order_ready_button");
+    dojo.connect(orderReadyBytton, "onClick", function(e){
+       alert("Clicked");
+    });
 });
 
 function reloadOrderList(){
@@ -68,6 +92,7 @@ function loadOrderPanel(orderID){
         var orderPaymentPanel = dojo.byId("order_payment_panel");
         var orderStatusPanel = dojo.byId("order_status_panel");
 
+        currentOrderID = data.orderID;
         orderIDPanel.innerHTML = data.orderID;
         orderEmailPanel.innerHTML = data.email;
         var orderDate = new Date(data.orderTime * 1000);
@@ -81,10 +106,13 @@ function loadOrderPanel(orderID){
         for(var key in products){
             var product = products[key].product;
             var productListItem = new dojox.mobile.ListItem({
-                label : product.name
+                label : products[key].quantity + ' x ' + product.name,
+                rightText : dojo.currency.format(product.price, {currency: "AUD"})
             });
             productList.addChild(productListItem);
         }
+        var orderTotal = dojo.byId("order_total");
+        orderTotal.innerHTML = dojo.currency.format(data.total, {currency: "AUD"});
         }
         
     });

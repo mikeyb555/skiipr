@@ -1,23 +1,21 @@
 package com.skiipr.server.controller.api;
 
 import com.skiipr.server.components.POJOBuilders;
-import com.skiipr.server.enums.CouponType;
 import com.skiipr.server.enums.OrderStatus;
 import com.skiipr.server.enums.PaymentType;
 import com.skiipr.server.model.Coupon;
 import com.skiipr.server.model.DAO.BannedDao;
 import com.skiipr.server.model.response.CouponResponse;
 import com.skiipr.server.model.DAO.CouponDao;
+import com.skiipr.server.model.DAO.MerchantDao;
 import com.skiipr.server.model.DAO.OrderDao;
 import com.skiipr.server.model.DAO.OrderProductDao;
+import com.skiipr.server.model.Merchant;
 import com.skiipr.server.model.Order;
 import com.skiipr.server.model.OrderProduct;
 import com.skiipr.server.model.response.OrderResponse;
 import com.skiipr.server.model.response.StatusResponse;
-import com.skiipr.server.model.validators.OrderValidator;
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +38,9 @@ public class OrdersController {
     
     @Autowired
     private OrderProductDao orderProductDao;
+    
+    @Autowired
+    private MerchantDao merchantDao;
     
 //    @Autowired
 //    private OrderValidator orderValidator;
@@ -79,6 +80,9 @@ public class OrdersController {
             BindException error = new BindException(order, "Order");
             if(orderValidator(order, response)){
                 orderDao.save(order);
+                Merchant merchant = merchantDao.findCurrentMerchant();
+                merchant.setLastChange(order.getLastUpdated());
+                merchantDao.save(merchant);
                 response.setResponse(OrderResponse.ResponseStatus.SUCCESS);
                 response.setError(OrderResponse.ResponseErrors.NONE);
                 response.setOrderID(order.getOrderID());

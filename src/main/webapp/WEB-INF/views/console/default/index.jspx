@@ -1,4 +1,7 @@
-<div xmlns:spring="http://www.springframework.org/tags" xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+<div xmlns:spring="http://www.springframework.org/tags" 
+     xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" 
+     xmlns:console="urn:jsptagdir:/WEB-INF/tags/console"
+     xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
        dojoType="dojox.mobile.FixedSplitter" orientation="H">
   <jsp:directive.page contentType="text/html;charset=UTF-8" />
       <div dojoType="dojox.mobile.FixedSplitterPane" style="width:300px;border-right:1px solid black;">
@@ -17,7 +20,7 @@
       <div dojoType="dojox.mobile.FixedSplitterPane" style="margin-right: -15px;">
           <h1 dojoType="dojox.mobile.Heading" fixed="top" label="Order details">
               <spring:url value="/images/icons/19-gear.png" var="settings_icon" />
-              <div dojoType="dojox.mobile.ToolBarButton" icon="${settings_icon}" style="float:right; padding: 5px;"><!-- required for FF3 and Opera --></div>
+              <div id="console_settings_button" dojoType="dojox.mobile.ToolBarButton" icon="${settings_icon}" style="float:right; padding: 5px;"><!-- required for FF3 and Opera --></div>
           </h1>
           <div id="order_loading" dojoType="dojox.widget.Standby"><!-- required for FF3 and Opera --></div>
           <div id="order_content_panel" dojoType="dojox.mobile.ScrollableView" selected="true">
@@ -46,11 +49,18 @@
              <ul id="product_list" dojoType="dojox.mobile.RoundRectList" transition="none" stateful="true" select="multiple">
                   <!-- required for FF3 and Opera -->
               </ul>
+              <div dojoType="dojox.mobile.RoundRect">
+                   <div style="width: 70%; float: left;"><b>Total</b></div>
+                   <div id="order_total" style="width: 20%; float: right; font-weight: bold; margin-right: 25px; text-align: right; color: #324F85"><!-- required for FF3 and Opera --></div>
+                   <div style="clear: both;"><!-- required for FF3 and Opera --></div>
+              </div>
+              <button dojoType="dojox.mobile.Button" class="red_button">Order Ready for pickup</button>
+             <console:settingsmodal />
+             <console:blockmodal />
           <h1 dojoType="dojox.mobile.Heading" fixed="bottom">
-              <div dojoType="dojox.mobile.ToolBarButton" label="Contact customer"><!-- required for FF3 and Opera --></div>
-              <div dojoType="dojox.mobile.ToolBarButton" label="Cancel order"><!-- required for FF3 and Opera --></div>
-              <div dojoType="dojox.mobile.ToolBarButton" label="Block customer"><!-- required for FF3 and Opera --></div>
-              <div dojoType="dojox.mobile.ToolBarButton" label="Order ready" class="mblColorBlue" style="float:right;"><!-- required for FF3 and Opera --></div>
+              <div dojoType="dojox.mobile.ToolBarButton" label="Contact customer" style="float:right;"><!-- required for FF3 and Opera --></div>
+              <div dojoType="dojox.mobile.ToolBarButton" label="Cancel order" style="float:right;"><!-- required for FF3 and Opera --></div>
+              <div id="block_customer_button" dojoType="dojox.mobile.ToolBarButton" label="Block customer" style="float:right;"><!-- required for FF3 and Opera --></div>
           </h1>
       </div>
   </div>

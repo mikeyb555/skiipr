@@ -12,7 +12,6 @@ import com.skiipr.server.model.Order;
 import com.skiipr.server.model.OrderProduct;
 import com.skiipr.server.model.Product;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -55,12 +54,13 @@ public class POJOBuilders {
         order.setDeviceID(jObject.getString("deviceID"));
         Long time = System.currentTimeMillis()/1000;
         order.setLastUpdated(time);
-        order.setStatus(OrderStatus.PENDING);
         if(jObject.getString("paymentType").equals("PAYPAL")){
             order.setPaymentType(PaymentType.PAYPAL);
+            order.setStatus(OrderStatus.PENDING);
         }
         if(jObject.getString("paymentType").equals("COD")){
             order.setPaymentType(PaymentType.COD);
+            order.setStatus(OrderStatus.NEW);
         }
         
         order.setOrderProducts(createOrderProductFromJson(json, order));

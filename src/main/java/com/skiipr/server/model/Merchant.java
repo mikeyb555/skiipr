@@ -48,7 +48,7 @@ public class Merchant implements Serializable {
     private Boolean open;
     private Boolean paypalEnabled;
     private Boolean codEnabled;
-    private int lastChange;
+    private Long lastChange;
     
     @JsonIgnore
     public String getUsername(){
@@ -279,11 +279,11 @@ public class Merchant implements Serializable {
     }
 
     @JsonIgnore
-    public int getLastChange() {
+    public Long getLastChange() {
         return lastChange;
     }
 
-    public void setLastChange(int lastChange) {
+    public void setLastChange(Long lastChange) {
         this.lastChange = lastChange;
     }
     
