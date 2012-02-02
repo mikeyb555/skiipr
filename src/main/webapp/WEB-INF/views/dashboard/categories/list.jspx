@@ -25,7 +25,18 @@
                     For more help check out the video tutorial below.
                     <util:panel id="video_panel" title="Video Tutorial (Click to view)" openPane="false">
                     
-                    <object width="420" height="315"><param name="movie" value="http://www.youtube.com/v/rlthFpFL1mo?version=3&amp;hl=en_US&amp;rel=0"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/rlthFpFL1mo?version=3&amp;hl=en_US&amp;rel=0" type="application/x-shockwave-flash" width="420" height="315" allowscriptaccess="always" allowfullscreen="true"></embed></object>
+                    <!-- copy and paste. Modify height and width if desired. -->
+ <object id="scPlayer"  width="960" height="540" type="application/x-shockwave-flash" data="http://content.screencast.com/users/mikeyb555/folders/Jing/media/04309a6e-aa76-4d91-8c44-2ded7d94e2a3/jingswfplayer.swf" >
+ <param name="movie" value="http://content.screencast.com/users/mikeyb555/folders/Jing/media/04309a6e-aa76-4d91-8c44-2ded7d94e2a3/jingswfplayer.swf" />
+ <param name="quality" value="high" />
+ <param name="bgcolor" value="#FFFFFF" />
+ <param name="flashVars" value="thumb=http://content.screencast.com/users/mikeyb555/folders/Jing/media/04309a6e-aa76-4d91-8c44-2ded7d94e2a3/FirstFrame.jpg&amp;containerwidth=480&amp;containerheight=270&amp;content=http://content.screencast.com/users/mikeyb555/folders/Jing/media/04309a6e-aa76-4d91-8c44-2ded7d94e2a3/2012-02-02_2055.swf&amp;blurover=false" />
+ <param name="allowFullScreen" value="true" />
+ <param name="scale" value="showall" />
+ <param name="allowScriptAccess" value="always" />
+ <param name="base" value="http://content.screencast.com/users/mikeyb555/folders/Jing/media/04309a6e-aa76-4d91-8c44-2ded7d94e2a3/" />
+ Unable to display content. Adobe Flash is required.
+</object>
                     </util:panel>
                 </div>
                 
