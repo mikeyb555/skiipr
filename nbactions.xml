@@ -67,4 +67,11 @@
                 <netbeans.deploy.profilemode>true</netbeans.deploy.profilemode>
             </properties>
         </action>
+        <action>
+            <actionName>CUSTOM-maven analyze</actionName>
+            <displayName>maven analyze</displayName>
+            <goals>
+                <goal>dependency:analyze</goal>
+            </goals>
+        </action>
     </actions>
