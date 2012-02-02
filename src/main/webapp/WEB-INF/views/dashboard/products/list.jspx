@@ -62,7 +62,7 @@
                                                     <c:set var="descriptionValue" value="" />
                                                     <c:set var="priceValue" value="" />
                                                     <c:set var="formattedPriceValue" value="" />
-                                                    <c:set var="activeValue" value="$" />
+                                                    <c:set var="activeValue" value="" />
                                                     <c:set var="categoryValue" value="" />
                                                 </c:otherwise>
                                            </c:choose> 
