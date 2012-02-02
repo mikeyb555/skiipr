@@ -37,6 +37,10 @@ public class CategoryForm {
         if(dao.nameInUse(name, categoryID)){
             errors.rejectValue("name", "invalid.category.name.inuse");
         }
+        
+        if(name.isEmpty()){
+            errors.rejectValue("name", "invalid.category.name.null");
+        }
         return !errors.hasErrors();
     }
 }

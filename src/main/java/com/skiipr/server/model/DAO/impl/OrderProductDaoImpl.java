@@ -41,7 +41,7 @@ public class OrderProductDaoImpl extends HibernateDaoSupport implements OrderPro
     }
 
     @Override
-    public List<Product> findByOrderID(Long id) {
+    public List<OrderProduct> findByOrderID(Long id) {
         System.out.println("hello world");
         List list = getHibernateTemplate().find("from OrderProduct where userOrder.orderID=?", id);
         
@@ -49,13 +49,9 @@ public class OrderProductDaoImpl extends HibernateDaoSupport implements OrderPro
         if(list.isEmpty()){
             return null;
         }
-        ArrayList<Product> products = new ArrayList();
-        for(OrderProduct o: (List<OrderProduct>) list){
-            products.add(o.getProduct());
-            System.out.println("the product is " + o.getProduct().getDescription());
-        }
+ 
         
-        return products;
+        return list;
 	
     }
     
