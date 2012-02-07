@@ -62,7 +62,7 @@
                                                     <c:set var="descriptionValue" value="" />
                                                     <c:set var="priceValue" value="" />
                                                     <c:set var="formattedPriceValue" value="" />
-                                                    <c:set var="activeValue" value="$" />
+                                                    <c:set var="activeValue" value="" />
                                                     <c:set var="categoryValue" value="" />
                                                 </c:otherwise>
                                            </c:choose> 
@@ -107,10 +107,23 @@
                                            <div class="clear"><!--- clear --></div>
                                         </form:form>
                                          <script type="text/javascript">
-                                            Spring.addDecoration(new Spring.ElementDecoration({elementId : 'product_name_new', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {required : true}}));
-                                            Spring.addDecoration(new Spring.ElementDecoration({elementId : 'product_description_new', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {required : true}}));
-                                            Spring.addDecoration(new Spring.ElementDecoration({elementId : 'product_active_new', widgetType : 'dijit.form.CheckBox', widgetAttrs : {required : true}}));
-                                            Spring.addDecoration(new Spring.ElementDecoration({elementId : 'product_price_new', widgetType : 'dijit.form.NumberTextBox', widgetAttrs : {required : true}}));
+                                            Spring.addDecoration(new Spring.ElementDecoration({elementId : 'product_name_new', widgetType : 'dijit.form.ValidationTextBox', 
+                                                widgetAttrs : {
+                                                    promptMessage : 'This is the name of the product that will appear to the customer, Should be concise and match the advertised name of the product <br /> <b>Eg:</b> "Rum and Coke"', 
+                                                    tooltipPosition:["below"], 
+                                                    required : true}}));
+                                            Spring.addDecoration(new Spring.ElementDecoration({elementId : 'product_description_new', widgetType : 'dijit.form.ValidationTextBox', 
+                                                widgetAttrs : {
+                                                    promptMessage : 'Should be a concise but thorough description of the product <br /> <b>Eg:</b> Rum and Coke- "Classic Bundaberg rum with ice cold Coke"', 
+                                                    tooltipPosition:["below"], 
+                                                    required : true}}));
+                                            Spring.addDecoration(new Spring.ElementDecoration({elementId : 'product_active_new', widgetType : 'dijit.form.CheckBox', 
+                                                widgetAttrs : {required : true}}));
+                                            Spring.addDecoration(new Spring.ElementDecoration({elementId : 'product_price_new', widgetType : 'dijit.form.NumberTextBox', 
+                                                widgetAttrs : 
+                                                    {promptMessage : 'The price of the product. Should be inline or below the advertised price of the product.<br /> Prices must be positive, and to a maximum of 2 decimal points <br /> <b> Eg: </b> 10.50 ', 
+                                                    tooltipPosition:["below"], 
+                                                    required : true}}));
                                             
                                           </script>  
                                     </div>

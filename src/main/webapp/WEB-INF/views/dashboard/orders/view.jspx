@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+     xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
         <ul class="breadcrumbs first">
         <li><a href="#">Dashboard</a></li>
     </ul>
@@ -12,19 +15,53 @@
             <div class="widget_content">
                 <jsp:directive.page contentType="text/html;charset=UTF-8"/>
                 <jsp:output omit-xml-declaration="yes"/>
-                <page:show id="ps_com_skiipr_server_model_Order" object="${order}" path="/dashboard/orders" update = "false" create = "false" delete = "false" cancel = "true" showProducts = "true" >
-                    <field:display field="orderID" id="s_com_skiipr_server_model_Order_orderID" object="${order}"/>
-                    <field:display field="formattedOrderTime" id="c_com_skiipr_server_model_Order_formattedDate" object="${order}" date="true" dateTimePattern="dd/MM/yyyy HH:mm:ss z" />
-                    <field:display field="paypalAddress" id="c_com_skiipr_server_model_Order_paypalAddress" object="${order}"/>
-                    <field:display field="paypalRef" id="c_com_skiipr_server_model_Order_paypalRef" object="${order}"/>
-                    <field:display field="orderType" id="c_com_skiipr_server_model_Order_orderType" object="${order}"/>
-                    <field:display field="status" id="c_com_skiipr_server_model_Order_status" object="${order}"/>
-                    <field:display field="formattedLastUpdated" id="c_com_skiipr_server_model_Order_lastUpdated" object="${order}" date="true" dateTimePattern="dd/MM/yyyy HH:mm:ss z" />
-                    <field:display field="formattedTotal" id="c_com_skiipr_server_model_Order_total" object="${order}"/>
-                   
-                    
-                   
-                </page:show>
+                <div class="grey_list_row">
+                    <b><c:out value="Order Number: " /></b>
+                            <c:out value = "${order.orderID}  " />
+                </div>
+                <div class="grey_list_row">
+                    <b><c:out value="Order Time: " /></b>
+                            <c:out value = "${order.formattedOrderTime}  " />
+                </div>
+                <div class="grey_list_row">
+                    <b><c:out value="Paypal Address: " /></b>
+                            <c:out value = "${order.paypalAddress}  " />
+                </div>
+                <div class="grey_list_row">
+                    <b><c:out value="Paypal Reference: " /></b>
+                            <c:out value = "${order.paypalRef}  " />
+                </div>
+                <div class="grey_list_row">
+                    <b><c:out value="Order Type: " /></b>
+                            <c:out value = "${order.orderType}  " />
+                </div>
+                <div class="grey_list_row">
+                    <b><c:out value="Status: " /></b>
+                            <c:out value = "${order.status}  " />
+                </div>
+                <div class="grey_list_row">
+                    <b><c:out value="Last Updated: " /></b>
+                            <c:out value = "${order.formattedLastUpdated}  " />
+                </div>
+                <div class="grey_list_row">
+                    <b><c:out value="Total: " /></b>
+                            <c:out value = "${order.formattedTotal}  " />
+                </div>
+                <b> <c:out value="Products"/></b>
+                    <c:forEach var="product" items="${products}">
+                        <div class ="grey_list_row">
+                               <b><c:out value="Product Name: " /></b>
+                               <c:out value = "${product.product.name}  " />
+                               <b><c:out value="Quantity: " /></b>
+                               <c:out value = "${product.quantity}" />
+                        </div>
+                        
+                               
+                        
+                               
+                            </c:forEach>
+                
+                
             </div>
         </div>
     </div>

@@ -16,6 +16,6 @@ public interface OrderProductDao {
     public void save(OrderProduct orderProduct);
     public void update(OrderProduct orderProduct);
     public void delete(OrderProduct orderProduct);
-    public List<Product> findByOrderID(Long id);
+    public List<OrderProduct> findByOrderID(Long id);
     
 }

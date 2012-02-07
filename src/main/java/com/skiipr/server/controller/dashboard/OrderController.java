@@ -34,6 +34,7 @@ public class OrderController {
      @RequestMapping(value = "/dashboard/orders/view/{id}", method = RequestMethod.GET)
     public String show(@PathVariable("id") Long id, Model uiModel) {
         uiModel.addAttribute("order", orderDao.findOrderByMerchant(id));
+        uiModel.addAttribute("products", orderProductDao.findByOrderID(id));
         uiModel.addAttribute("itemId", id);
         return "/dashboard/orders/view";
     }
