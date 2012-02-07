@@ -1,4 +1,9 @@
-<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags" version="2.0">
+<jsp:root 
+    xmlns:c="http://java.sun.com/jsp/jstl/core" 
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+    xmlns:jsp="http://java.sun.com/JSP/Page" 
+    xmlns:console="urn:jsptagdir:/WEB-INF/tags/console"
+    xmlns:spring="http://www.springframework.org/tags" version="2.0">
 
   <jsp:output omit-xml-declaration="yes" />
 
@@ -31,5 +36,5 @@
   <script src="${spring_dojo_url}" type="text/javascript"><!-- required for FF3 and Opera --></script>
   
   <script type="text/javascript" src="${console_scripts}"><!-- required for FF3 and Opera --></script>
-
+  <console:js-settings />
 </jsp:root>

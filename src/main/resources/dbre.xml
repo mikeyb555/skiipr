@@ -79,8 +79,11 @@
         <property name="codEnabled" type="boolean">
             <column name="cod_enabled" length="1"/>
         </property>
+        <property name="consoleSoundEnabled" type="boolean">
+            <column name="console_sound_enabled" length="1"/>
+        </property>
         <property name="lastChange" type="java.lang.Long">
-            <column name="last_change" not-null="true" />
+            <column name="last_change" not-null="true" length="16"/>
         </property>
         <set name="categories" inverse="true" lazy="false" fetch="join">
              <key>
@@ -242,8 +245,6 @@
             </key>
              <one-to-many class="com.skiipr.server.model.OrderProduct" />
         </set>
-        
-        
     </class>
     
     
