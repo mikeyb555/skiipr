@@ -1,20 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.skiipr.server.model;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Set;
-import java.util.regex.Pattern;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "tbl_merchant")
@@ -49,6 +42,7 @@ public class Merchant implements Serializable {
     private Boolean paypalEnabled;
     private Boolean codEnabled;
     private Long lastChange;
+    private boolean consoleSoundEnabled;
     
     @JsonIgnore
     public String getUsername(){
@@ -286,5 +280,20 @@ public class Merchant implements Serializable {
     public void setLastChange(Long lastChange) {
         this.lastChange = lastChange;
     }
+
+    @JsonIgnore
+    public boolean isConsoleSoundEnabled() {
+        return consoleSoundEnabled;
+    }
+
+    public void setConsoleSoundEnabled(boolean consoleSoundEnabled) {
+        this.consoleSoundEnabled = consoleSoundEnabled;
+    }
     
+    @JsonIgnore
+    public HashMap getConsoleOptions(){
+        HashMap map = new HashMap();
+        map.put("consoleSoundEnabled", consoleSoundEnabled);
+        return map;
+    }
 }
