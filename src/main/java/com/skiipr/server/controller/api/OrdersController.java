@@ -80,15 +80,20 @@ public class OrdersController {
             BindException error = new BindException(order, "Order");
             if(orderValidator(order, response)){
                 orderDao.save(order);
-                Merchant merchant = merchantDao.findCurrentMerchant();
+                Merchant merchant = merchantDao.findById(order.getMerchantID());
                 merchant.setLastChange(order.getLastUpdated());
-                merchantDao.save(merchant);
+                merchantDao.update(merchant);
                 response.setResponse(OrderResponse.ResponseStatus.SUCCESS);
                 response.setError(OrderResponse.ResponseErrors.NONE);
                 response.setOrderID(order.getOrderID());
+            }else{
+                response.setResponse(OrderResponse.ResponseStatus.ERROR);
             }
         }catch (Exception ex){
             System.out.println(ex.toString());
+            for(StackTraceElement el : ex.getStackTrace()){
+                System.out.println(el);
+            }
             response.setResponse(OrderResponse.ResponseStatus.ERROR);
             response.setError(OrderResponse.ResponseErrors.SERVER_ERROR);
             response.setOrderID(null);           
