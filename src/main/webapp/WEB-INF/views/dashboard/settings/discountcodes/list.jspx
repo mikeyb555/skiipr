@@ -110,7 +110,8 @@
                                          <script type="text/javascript">
                                             Spring.addDecoration(new Spring.ElementDecoration({elementId : 'coupon_couponcode_new', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {required : true}}));
                                             Spring.addDecoration(new Spring.ElementDecoration({elementId : 'coupon_percentage_new', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {required : true}}));
-                                            
+                                            Spring.addDecoration(new Spring.ElementDecoration({elementId : 'coupon_coupontype_new', widgetType : 'dijit.form.FilteringSelect', widgetAttrs : {required : true}}));
+
                                             
                                           </script>  
                                     </div>
@@ -190,7 +191,7 @@
                                     </form:form>
                                      <script type="text/javascript">
                                         Spring.addDecoration(new Spring.ElementDecoration({elementId : 'coupon_couponcode_${coupon.couponID}', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {required : true}}));
-                                        
+                                        Spring.addDecoration(new Spring.ElementDecoration({elementId : 'coupon_coupontype_${coupon.couponID}', widgetType : 'dijit.form.FilteringSelect', widgetAttrs : {required : true}}));
                                       </script>  
                                 </div>
                                 <div class="delete_confirmation row_notice notice_yellow">

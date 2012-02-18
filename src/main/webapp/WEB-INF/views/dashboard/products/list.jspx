@@ -124,6 +124,8 @@
                                                     {promptMessage : 'The price of the product. Should be inline or below the advertised price of the product.<br /> Prices must be positive, and to a maximum of 2 decimal points <br /> <b> Eg: </b> 10.50 ', 
                                                     tooltipPosition:["below"], 
                                                     required : true}}));
+                                             Spring.addDecoration(new Spring.ElementDecoration({elementId : 'product_category_new', widgetType : 'dijit.form.FilteringSelect', widgetAttrs : {required : true}}));
+                                            
                                             
                                           </script>  
                                     </div>
@@ -204,6 +206,8 @@
                                         Spring.addDecoration(new Spring.ElementDecoration({elementId : 'product_name_${product.productID}', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {required : true}}));
                                         Spring.addDecoration(new Spring.ElementDecoration({elementId : 'product_description_${product.productID}', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {required : true}}));
                                         Spring.addDecoration(new Spring.ElementDecoration({elementId : 'product_price_${product.productID}', widgetType : 'dijit.form.ValidationTextBox', widgetAttrs : {required : true}}));
+                                        Spring.addDecoration(new Spring.ElementDecoration({elementId : 'product_category_${product.productID}', widgetType : 'dijit.form.FilteringSelect', widgetAttrs : {required : true}}));
+                                        
                                       </script>  
                                 </div>
                                 <div class="delete_confirmation row_notice notice_yellow">
