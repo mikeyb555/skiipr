@@ -12,10 +12,10 @@
             <nav>
                 <div id="navcontainer" class="clearfix">
                 <div id="user" class="clearfix">
-                    <strong class="username">Welcome, username</strong>
+                    <strong class="username">Welcome <c:out value="${user.username}" /></strong>
                     <ul class="piped">
                         <li><general:link id="account_link" url="/dashboard/account" label="Manage account"/></li>
-                        <li><general:link id="logout_link" url="/dashboard/logout" label="Logout"/></li>
+                        <li><general:link id="logout_link" url="/logout" label="Logout"/></li>
                     </ul>
                 </div>
 
