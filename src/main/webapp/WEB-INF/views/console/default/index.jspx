@@ -20,7 +20,9 @@
       <div dojoType="dojox.mobile.FixedSplitterPane">
           <h1 dojoType="dojox.mobile.Heading" fixed="top" label="Order details" id="details_heading" style="z-index: 20;">
               <spring:url value="/images/icons/19-gear.png" var="settings_icon" />
+              <spring:url value="/images/dashboard/fugue/arrow-180.png" var="back_dashboard" />
               <div id="console_settings_button" dojoType="dojox.mobile.ToolBarButton" icon="${settings_icon}" style="float:right; padding: 5px;"><!-- required for FF3 and Opera --></div>
+              <div id="console_back_dashboard" dojoType="dojox.mobile.ToolBarButton" icon="${back_dashboard}" onclick="location.href='../server/dashboard'" style="float:right; padding: 5px;"><!-- required for FF3 and Opera --></div>
           </h1>
           <div id="no_order_title" style="text-align: center; margin-top: 100px;">
               <h1>No order selected, select one on the left.</h1>
