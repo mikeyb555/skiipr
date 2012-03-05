@@ -1,5 +1,6 @@
 package com.skiipr.server.controller.console;
 
+import com.skiipr.server.model.DAO.BannedDao;
 import com.skiipr.server.model.DAO.MerchantDao;
 import com.skiipr.server.model.Merchant;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,9 @@ public class DefaultConsoleController {
     @Autowired
     MerchantDao merchantDao;
     
+    @Autowired
+    BannedDao bannedDao;
+    
     @RequestMapping(value="/console", method = RequestMethod.GET)
     public String index(ModelMap modelMap){
         Merchant merchant = merchantDao.findCurrentMerchant();
@@ -27,4 +31,5 @@ public class DefaultConsoleController {
         modelMap.addAttribute("console_sound_value", sound);
         return "/dashboard/console/index";
     }
+    
 }

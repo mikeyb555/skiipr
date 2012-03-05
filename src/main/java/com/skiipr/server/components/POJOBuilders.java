@@ -3,6 +3,7 @@ package com.skiipr.server.components;
 import com.skiipr.server.enums.OrderStatus;
 import com.skiipr.server.enums.OrderType;
 import com.skiipr.server.enums.PaymentType;
+import com.skiipr.server.model.Banned;
 import com.skiipr.server.model.DAO.MerchantDao;
 import com.skiipr.server.model.DAO.OrderDao;
 import com.skiipr.server.model.DAO.OrderProductDao;
@@ -97,5 +98,16 @@ public class POJOBuilders {
         }
         Set returnSet = new HashSet(opList);
         return returnSet;
+    }
+    
+    public Banned createBannedFromJson(String json){
+        Banned banned = new Banned();
+        JSONObject jObject = JSONObject.fromObject(json);
+        Long merchantID = jObject.getLong("merchantID");
+        String identifier = jObject.getString("identifier");
+        banned.setIdentifier(identifier);
+        banned.setMerchantID(merchantID);
+        return banned;
+    
     }
 }

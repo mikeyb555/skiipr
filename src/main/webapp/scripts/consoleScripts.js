@@ -56,9 +56,18 @@ dojo.addOnLoad(function(){
     orderReadyButton = dijit.byId("order_ready_button");
     dojo.connect(orderReadyButton, "onClick", function(e){
        if(order != null){
-           updateStatus();
+           addBlocked();
        }
     });
+    
+    blockCustomerButton = dijit.byId("block_customer_button");
+    dojo.connect(blockCustomerButton, "onClick", function(e){
+       if(order != null){
+           addBlocked();
+       }
+    });
+    
+    
     
     var detailsHeading = dojo.byId("details_heading");
     detailsHeading.style.zIndex = "20";
@@ -202,6 +211,24 @@ function showOrderPlaceholder(){
     orderPlaceHolder.style.display = "block";
     contentPanel.style.display = "none";
 }
+
+function addBlocked(){
+    contentLoadingPanel.show();
+    var email;
+    email = order.email;
+    merchantID = order.merchantID;
+    
+    var params = "identifier=" + email + "merchantID=" + merchantID;
+    dojo.xhrPost({
+      url:"console/api/banned/submit",
+      handleAs: "text",
+      postData: params,
+      load: true,
+      error: false
+    }); 
+} 
+
+
 
 function updateStatus(){
     contentLoadingPanel.show();
