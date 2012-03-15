@@ -30,6 +30,7 @@ var orderListPanel;
 var contentPanel;
 var order;
 var orderReadyButton;
+var timer;
 
 dojo.addOnLoad(function(){
     contentLoadingPanel = dijit.byId("order_loading");
@@ -161,7 +162,11 @@ function startWaitingTimer(time){
         orderWaitingPanel.innerHTML = formatTimeDifference(diff);
     }
     updateTimeFunction();
-    var timer = new dojox.timing.Timer(1000);
+    if(timer != null){
+        timer.stop();
+        timer = null;
+    }
+    timer = new dojox.timing.Timer(1000);
     timer.onTick = updateTimeFunction;
     timer.start();
 }
