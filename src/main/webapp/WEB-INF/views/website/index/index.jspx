@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:general="urn:jsptagdir:/WEB-INF/tags/general" version="2.0">
             Hello World! <br />
-            <general:link id="dashboard_link" url="/dashboard" label="Go to dashboard"/>
+            <general:link id="dashboard_link" url="/login" label="Go to login"/>
 </div>

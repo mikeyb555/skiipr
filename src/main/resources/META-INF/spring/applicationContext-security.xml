@@ -8,12 +8,12 @@
 
 	<!-- HTTP security configurations -->
     <http auto-config="true" use-expressions="true">
-    	<form-login login-page="/dashboard/login" authentication-failure-url="/dashboard/login?login_error=t" default-target-url="/dashboard/" />
-        <logout logout-url="/dashboard/logout"/>
+    	<form-login login-page="/login" authentication-failure-url="/login?login_error=t" default-target-url="/dashboard/" />
+        <logout logout-url="/logout"/>
         
         <!-- Configure these elements to secure URIs in your application -->
-        <intercept-url pattern="/dashboard/login" access="permitAll" />
-        <intercept-url pattern="/dashboard/**" access="hasRole('dashboard_user')" />
+        <intercept-url pattern="/login" access="permitAll" />
+        <intercept-url pattern="/**" access="hasRole('dashboard_user')" />
         <intercept-url pattern="/console/**" access="hasRole('console_user')" />
         <intercept-url pattern="/resources/**" access="permitAll" />
         <intercept-url pattern="/**" access="permitAll" />

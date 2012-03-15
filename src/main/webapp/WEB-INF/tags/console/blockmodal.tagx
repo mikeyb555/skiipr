@@ -12,7 +12,10 @@
           <br /> This is useful to manage customers who are abusing the mobile ordering process.
           <br /> Blocking a user will not automatically cancel this order.
           <div class="dijitDialogPaneActionBar">
-                <button dojoType="dijit.form.Button" type="submit">Yes</button>
+              <button dojoType="dijit.form.Button" type ="submit" onClick="alert('Winning')" >Yes
+                
+                </button>
+                
                 <button dojoType="dijit.form.Button" type="button">Cancel</button>
           </div>
       </div>
