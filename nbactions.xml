@@ -13,6 +13,11 @@
             <goals>
                 <goal>tomcat:run</goal>
             </goals>
+            <properties>
+                <skiipr.database.url>jdbc:mysql://localhost:3306/skiipr_server</skiipr.database.url>
+                <skiipr.database.password>skiipr2011!!</skiipr.database.password>
+                <skiipr.database.username>skiipr</skiipr.database.username>
+            </properties>
         </action>
         <action>
             <actionName>CUSTOM-Deploy</actionName>
@@ -72,6 +77,80 @@
             <displayName>maven analyze</displayName>
             <goals>
                 <goal>dependency:analyze</goal>
+            </goals>
+        </action>
+        <action>
+            <actionName>CUSTOM-Beanstalk Upload</actionName>
+            <displayName>Beanstalk Upload</displayName>
+            <goals>
+                <goal>beanstalk:upload-source-bundle</goal>
+            </goals>
+        </action>
+        <action>
+            <actionName>build</actionName>
+            <goals>
+                <goal>install</goal>
+            </goals>
+            <properties>
+                <skiipr.database.password>skiipr2011!!</skiipr.database.password>
+                <skiipr.database.url>jdbc:mysql://localhost:3306/skiipr_server</skiipr.database.url>
+                <skiipr.database.username>skiipr</skiipr.database.username>
+            </properties>
+        </action>
+        <action>
+            <actionName>clean</actionName>
+            <goals>
+                <goal>clean</goal>
+            </goals>
+            <properties>
+                <skiipr.database.password>skiipr2011!!</skiipr.database.password>
+                <skiipr.database.url>jdbc:mysql://localhost:3306/skiipr_server</skiipr.database.url>
+                <skiipr.database.username>skiipr</skiipr.database.username>
+            </properties>
+        </action>
+        <action>
+            <actionName>rebuild</actionName>
+            <goals>
+                <goal>clean</goal>
+                <goal>install</goal>
+            </goals>
+            <properties>
+                <skiipr.database.password>skiipr2011!!</skiipr.database.password>
+                <skiipr.database.url>jdbc:mysql://localhost:3306/skiipr_server</skiipr.database.url>
+                <skiipr.database.username>skiipr</skiipr.database.username>
+            </properties>
+        </action>
+        <action>
+            <actionName>test</actionName>
+            <goals>
+                <goal>test</goal>
+            </goals>
+            <properties>
+                <skiipr.database.password>skiipr2011!!</skiipr.database.password>
+                <skiipr.database.url>jdbc:mysql://localhost:3306/skiipr_server</skiipr.database.url>
+                <skiipr.database.username>skiipr</skiipr.database.username>
+            </properties>
+        </action>
+        <action>
+            <actionName>test.single</actionName>
+            <goals>
+                <goal>test-compile</goal>
+                <goal>surefire:test</goal>
+            </goals>
+            <properties>
+                <skiipr.database.password>skiipr2011!!</skiipr.database.password>
+                <skiipr.database.url>jdbc:mysql://localhost:3306/skiipr_server</skiipr.database.url>
+                <skiipr.database.username>skiipr</skiipr.database.username>
+                <test>${packageClassName}</test>
+            </properties>
+        </action>
+        <action>
+            <actionName>CUSTOM-Beanstalk update</actionName>
+            <displayName>Beanstalk update</displayName>
+            <goals>
+                <goal>beanstalk:upload-source-bundle</goal>
+                <goal>beanstalk:create-application-version</goal>
+                <goal>beanstalk:update-environment</goal>
             </goals>
         </action>
     </actions>
