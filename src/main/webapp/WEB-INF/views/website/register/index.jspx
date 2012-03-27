@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:page="urn:jsptagdir:/WEB-INF/tags/form"
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:general="urn:jsptagdir:/WEB-INF/tags/general"
+     xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" 
+     xmlns:form="http://www.springframework.org/tags/form" 
+     xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+     xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <div class="container_16 clearfix" style="background-color: black">
+        <div class="push_5 grid_6" style ="margin-top: 25px">
+    <spring:url value="/images/dashboard/biglogo.png" var="big_logo" />
+                            <a href="#"><img src="${big_logo}" /></a>
+        </div></div>
+    <div class="container_16 clearfix" id="actualbody">  
+         <div class ="widget_content">
+             
+             <form:form action="${this_url}" commandName="formRegister" method="put" id="merchant_form_new">
+                <center> <label style =" font-size : 200%">Account Details</label><br /></center>
+                         <label style="float:left; font-size:200%;">Username</label>
+                         <label style="float:right; font-size:200%;" >Password</label><br /><br />
+                <input name="username" id="merchant_username_new" value="${userNameValue}"/>
+                <input name="password" id="merchant_password_new" value="${passwordValue}" type="password"/>
+                <br />
+                <br />
+                <label style="float:left; font-size:200%;">Name</label>
+                <label style="float:right; font-size:200%;">Re enter password</label><br /><br />
+                <input name="name" id="merchant_name_new" value="${nameValue}"/>
+                <input name="password2" id="merchant_password2_new" value="${password2Value}" type="password"/>
+                
+                <br />
+                <label style="float:left; font-size:200%;">Email Address</label><br /><br />
+                <input name="email" id="merchant_email_new" value="${emailValue}"/>
+                
+                <br />
+                   
+                
+                   
+                
+                <br />
+                
+                <br />
+                    
+                
+                     
+                
+                     
+                 
+                
+                <center> <label style =" font-size : 200%">Address Details</label><br /></center>
+                <label style="float:left; font-size:200%;">Street Address</label>
+                <label style="float:right; font-size:200%;">Postcode</label><br /><br />
+                <input name="addressNumberStreet" id="merchant_addressnumberstreet_new" value="${addressNumberStreetValue}"/>
+                <input name="addressPostcode" id="merchant_addresspostcode_new" value="${addressPostcodeValue}"/>
+                <br />
+                <br />
+                <br />
+                
+                <label style="float:left; font-size:200%;">Suburb</label>
+                <label style="float:right; font-size:200%;">State</label><br /><br />
+                <input name="suburb" id="merchant_suburb_new" value="${suburbValue}"/>
+                <input name="addressState" id="merchant_addressstate_new" value="${addressStateValue}"/>
+                <br />
+                        
+                    
+               
+                
+                   
+                <br />
+                <br />
+                <label style="float:left; font-size:200%;">Country</label><br /><br />
+                <input name="addressCountry" id="merchant_addresscountry_new" value="${addressCountryValue}"/>
+                
+                <br />
+                <br />    
+                <br />
+                
+                    
+                 
+                
+                <center><label style="font-size:200%;">Business Details</label><br /></center>
+                <label  style="float:left; font-size:200%;">Paypal email address</label>
+                <label  style="float:right; font-size:200%;">Website</label><br /><br />
+                <input name="paypal" id="merchant_paypal_new" value="${paypalValue}"/>
+                <input name="website" id="merchant_website_new" value="${websiteValue}"/>
+                <br />
+                <br /><br />
+                <label style="float:left; font-size:200%;">Phone Number</label><br /><br />
+                <input name="phoneNumber" id="merchant_phonenumber_new" value="${phoneNumberValue}"/>
+                <br />
+                
+                
+                <a class="btn grey right medium" href="#" onclick="parentNode.submit()"><span style="font-size:200%">Yes, I agree to the terms and Conditions</span></a>
+               
+                <div class="clear"><!--- clear --></div>
+             </form:form>
+                <script type="text/javascript">
+                    Spring.addDecoration(new Spring.ElementDecoration({elementId : 'merchant_username_new', 
+                        widgetType : 'dijit.form.ValidationTextBox', 
+                        widgetAttrs : {required: true,
+                            style: "font-size: 200%; background-color:white; ;"
+                        }})); 
+                    Spring.addDecoration(new Spring.ElementDecoration({elementId : 'merchant_name_new', 
+                        widgetType : 'dijit.form.ValidationTextBox', 
+                        widgetAttrs : {required: true,
+                            style: "font-size: 200%; background-color:white;"
+                        }})); 
+                    Spring.addDecoration(new Spring.ElementDecoration({elementId : 'merchant_email_new', 
+                        widgetType : 'dijit.form.ValidationTextBox', 
+                        widgetAttrs : {required: true,
+                            style: "font-size: 200%; background-color:white; float:left;"
+                        }})); 
+                    Spring.addDecoration(new Spring.ElementDecoration({elementId : 'merchant_password_new', 
+                        widgetType : 'dijit.form.ValidationTextBox', 
+                        widgetAttrs : {required: true,
+                             style: "font-size: 200%; background-color:white; float:right;"
+                        }})); 
+                    Spring.addDecoration(new Spring.ElementDecoration({elementId : 'merchant_password2_new', 
+                        widgetType : 'dijit.form.ValidationTextBox', 
+                        widgetAttrs : {required: true,
+                             style: "font-size: 200%; background-color:white; float:right;"
+                        }})); 
+                    Spring.addDecoration(new Spring.ElementDecoration({elementId : 'merchant_addressnumberstreet_new', 
+                        widgetType : 'dijit.form.ValidationTextBox', 
+                        widgetAttrs : {required: true,
+                             style: "font-size: 200%; background-color:white; float:left;"
+                        }})); 
+                    Spring.addDecoration(new Spring.ElementDecoration({elementId : 'merchant_addresspostcode_new', 
+                        widgetType : 'dijit.form.ValidationTextBox', 
+                        widgetAttrs : {required: true,
+                             style: "font-size: 200%; background-color:white; float:right;"
+                        }})); 
+                     Spring.addDecoration(new Spring.ElementDecoration({elementId : 'merchant_suburb_new', 
+                        widgetType : 'dijit.form.ValidationTextBox', 
+                        widgetAttrs : {required: true,
+                             style: "font-size: 200%; background-color:white; float:left;"
+                        }})); 
+                     Spring.addDecoration(new Spring.ElementDecoration({elementId : 'merchant_addressstate_new', 
+                        widgetType : 'dijit.form.ValidationTextBox', 
+                        widgetAttrs : {required: true,
+                             style: "font-size: 200%; background-color:white; float:right;"
+                        }})); 
+                    Spring.addDecoration(new Spring.ElementDecoration({elementId : 'merchant_addresscountry_new', 
+                        widgetType : 'dijit.form.ValidationTextBox', 
+                        widgetAttrs : {required: true,
+                             style: "font-size: 200%; background-color:white; float:left;"
+                        }})); 
+                    Spring.addDecoration(new Spring.ElementDecoration({elementId : 'merchant_paypal_new', 
+                        widgetType : 'dijit.form.ValidationTextBox', 
+                        widgetAttrs : {required: true,
+                             style: "font-size: 200%; background-color:white; float:left;"
+                        }})); 
+                    Spring.addDecoration(new Spring.ElementDecoration({elementId : 'merchant_website_new', 
+                        widgetType : 'dijit.form.ValidationTextBox', 
+                        widgetAttrs : {required: true,
+                             style: "font-size: 200%; background-color:white; float:right;"
+                        }})); 
+                    Spring.addDecoration(new Spring.ElementDecoration({elementId : 'merchant_phonenumber_new', 
+                        widgetType : 'dijit.form.ValidationTextBox', 
+                        widgetAttrs : {required: true,
+                             style: "font-size: 200%; background-color:white; float:left;"
+                        }})); 
+                    
+                    
+                </script>
+                
+         </div>
+    </div>
+            <general:link id="dashboard_link" url="/login" label="Go to login"/>
+</div>
+
