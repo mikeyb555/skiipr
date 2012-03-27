@@ -9,12 +9,16 @@ import com.skiipr.server.model.DAO.PlanDao;
 import com.skiipr.server.model.Merchant;
 import com.skiipr.server.model.form.RegisterForm;
 import java.util.Collections;
+import javax.servlet.http.HttpServletRequest;
+import net.tanesha.recaptcha.ReCaptchaImpl;
+import net.tanesha.recaptcha.ReCaptchaResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class IndexController {
@@ -34,7 +38,14 @@ public class IndexController {
         
     }
     @RequestMapping(value = "/register", method = RequestMethod.PUT)
-    public String createMerchant(RegisterForm formRegister, BindingResult bindingResult, ModelMap modelMap){
+    public String createMerchant(RegisterForm formRegister, BindingResult bindingResult, HttpServletRequest req, ModelMap modelMap,@RequestParam("recaptcha_challenge_field") String challenge, @RequestParam("recaptcha_response_field") String response){
+        String remoteAddr = req.getRemoteAddr();
+        ReCaptchaImpl reCaptcha = new ReCaptchaImpl();
+        reCaptcha.setPrivateKey("6Leic88SAAAAANP_e0IxARCNBj0my4NfR-oHApOD");
+        ReCaptchaResponse reCaptchaResponse =
+        reCaptcha.checkAnswer(remoteAddr, challenge, response);
+        System.out.println(reCaptchaResponse.isValid());
+        
         if(!formRegister.validate()){
             return "website/register/fail";
         } else{
