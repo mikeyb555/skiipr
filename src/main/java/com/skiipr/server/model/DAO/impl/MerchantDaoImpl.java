@@ -104,8 +104,16 @@ public class MerchantDaoImpl extends HibernateDaoSupport implements MerchantDao{
     public boolean usernameAvailable(String username){
         LoginUser user = sessionUser.getUser();
         List<Merchant> results = getHibernateTemplate().find("FROM Merchant WHERE (username = ?) AND (merchantID != ?)", username, user.getMerchantId());
+        
         return results.isEmpty();
-    }   
+    }
+    
+    @Override
+    public boolean userNameAvailableNoSession(String username){
+        List<Merchant> results = getHibernateTemplate().find("FROM Merchant WHERE (username = ?)", username);
+        
+        return results.isEmpty();
+    }
     
     @Override
     public Merchant findCurrentMerchant(){

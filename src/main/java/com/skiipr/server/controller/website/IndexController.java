@@ -4,11 +4,17 @@
  */
 package com.skiipr.server.controller.website;
 
+import com.skiipr.server.components.FlashNotification;
+import com.skiipr.server.enums.Country;
+import com.skiipr.server.enums.Status;
 import com.skiipr.server.model.DAO.MerchantDao;
 import com.skiipr.server.model.DAO.PlanDao;
 import com.skiipr.server.model.Merchant;
 import com.skiipr.server.model.form.RegisterForm;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import net.tanesha.recaptcha.ReCaptchaImpl;
 import net.tanesha.recaptcha.ReCaptchaResponse;
@@ -32,13 +38,15 @@ public class IndexController {
         return "/website/index/index";
     }
     @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String register(){
+    public String register(ModelMap modelMap){
         System.out.println("Register ran controller ran");
+        List<Country> countries = new ArrayList<Country>(Arrays.asList(Country.values()));
+        modelMap.addAttribute("countries", countries);
         return "/website/register/index";
         
     }
     @RequestMapping(value = "/register", method = RequestMethod.PUT)
-    public String createMerchant(RegisterForm formRegister, BindingResult bindingResult, HttpServletRequest req, ModelMap modelMap,@RequestParam("recaptcha_challenge_field") String challenge, @RequestParam("recaptcha_response_field") String response){
+    public String createMerchant(RegisterForm registerForm, BindingResult bindingResult, HttpServletRequest req, ModelMap modelMap,@RequestParam("recaptcha_challenge_field") String challenge, @RequestParam("recaptcha_response_field") String response){
         String remoteAddr = req.getRemoteAddr();
         ReCaptchaImpl reCaptcha = new ReCaptchaImpl();
         reCaptcha.setPrivateKey("6Leic88SAAAAANP_e0IxARCNBj0my4NfR-oHApOD");
@@ -46,12 +54,16 @@ public class IndexController {
         reCaptcha.checkAnswer(remoteAddr, challenge, response);
         System.out.println(reCaptchaResponse.isValid());
         
-        if(!formRegister.validate()){
-            return "website/register/fail";
+        if(!registerForm.validate(merchantDao, bindingResult)){
+           modelMap.addAttribute("flash", 
+                   FlashNotification.create(Status.FAILURE, 
+                   "There was an error with your registration"));
+           registerForm.setModel(modelMap);
+           return register(modelMap);
         } else{
             Merchant merchant = new Merchant();
-            formRegister.setAttributes(merchant);
-            System.out.println("the username is: " + formRegister.getUsername());
+            registerForm.setAttributes(merchant);
+            System.out.println("the username is: " + registerForm.getUsername());
             merchant.setCodEnabled(Boolean.TRUE);
             merchant.setConsoleSoundEnabled(true);
             merchant.setCurrencyType("USD");

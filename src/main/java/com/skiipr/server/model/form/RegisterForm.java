@@ -4,9 +4,12 @@
  */
 package com.skiipr.server.model.form;
 
+import com.skiipr.server.model.DAO.MerchantDao;
 import com.skiipr.server.model.Merchant;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.Errors;
 
 /**
  *
@@ -163,9 +166,50 @@ public class RegisterForm {
         merchant.setEmail(email);
         merchant.setName(name);
     }
+    public void setModel (ModelMap modelMap){
+         modelMap.addAttribute("nameValue",name);
+         modelMap.addAttribute("userNameValue",username);
+         modelMap.addAttribute("passwordValue",password);
+         modelMap.addAttribute("emailValue",email);
+         modelMap.addAttribute("addressNumberStreetValue",addressNumberStreet);
+         modelMap.addAttribute("addressPostcodeValue",addressPostcode);
+         modelMap.addAttribute("suburbValue",suburb);
+         modelMap.addAttribute("addressStateValue",addressState);
+         modelMap.addAttribute("addressCountryValue",addressCountry);
+         modelMap.addAttribute("paypalValue",paypal);
+         modelMap.addAttribute("websiteValue",website);
+         modelMap.addAttribute("phoneNumberValue",phoneNumber);
+
+        
+    }
     
-    public boolean validate(){
-        return true;
+    public boolean validate(MerchantDao merchantDao, Errors errors){
+        try{
+            if(username.isEmpty()){
+                errors.rejectValue("username", "invalid.registration.username.null");
+            }
+            if(!username.isEmpty() && !merchantDao.userNameAvailableNoSession(username)){
+                errors.rejectValue("username", "invalid.registration.username.alreadyexists");
+            }
+            if(!password.isEmpty() && !(password.equals(password2))){
+                errors.rejectValue("password", "invalid.password.match");
+            }
+            if(password.isEmpty()){
+                 errors.rejectValue("password", "invalid.password.null");
+            }
+            if(!email.matches("^[\\w\\-]+(\\.[\\w\\-]+)*@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}$")){
+                errors.rejectValue("email","invalid.register.email");
+            }
+            if(!addressPostcode.matches("^[1-9]{1}[0-9]{3}$")){
+                errors.rejectValue("addressPostcode", "invalid.postcode.size");
+            }
+            
+            return !errors.hasErrors();
+        } catch(Exception e){
+            System.out.println("Ohhh nooo");
+            return false;
+        }
+       
     }
 
     /**

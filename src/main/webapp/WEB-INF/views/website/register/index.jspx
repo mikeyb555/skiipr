@@ -18,24 +18,45 @@
         </div></div>
     <div class="container_16 clearfix" id="actualbody">  
          <div class ="widget_content">
+             <c:if test="${not empty flash}">
+                        <general:notification message="${flash.message}" status = "${flash.status}"/>  
+                    </c:if>
              
-             <form:form action="${this_url}" commandName="formRegister" method="put" id="merchant_form_new">
+             <form:form action="${this_url}" commandName="registerForm" method="put" id="merchant_form_new">
+                 <span class="errors">
+                    <form:errors path="username" />
+                    <br />
+                    <form:errors path="password" /><br />
+                    <form:errors path="email" /><br />
+                    <form:errors path="addressPostcode" />
+                    <form:errors path="addressCountry" />
+                </span>
+                
+                 
                  
                 <center> <label style =" font-size : 200%">Account Details</label><br /></center>
                          <label style="float:left; font-size:200%;">Username</label>
-                         <label style="float:right; font-size:200%;" >Password</label><br /><br />
+                         <label style="float:right; font-size:200%;" >Password</label><br /><br /><br />
                 <input name="username" id="merchant_username_new" value="${userNameValue}"/>
+                
+                 
+                 
                 <input name="password" id="merchant_password_new" value="${passwordValue}" type="password"/>
+                
                 <br />
                 <br />
                 <label style="float:left; font-size:200%;">Name</label>
-                <label style="float:right; font-size:200%;">Re enter password</label><br /><br />
+                <label style="float:right; font-size:200%;">Re enter password</label><br /><br /><br />
                 <input name="name" id="merchant_name_new" value="${nameValue}"/>
+                <span class="errors">
+                    <form:errors path="name" />
+                </span>
                 <input name="password2" id="merchant_password2_new" value="${password2Value}" type="password"/>
                 
                 <br />
-                <label style="float:left; font-size:200%;">Email Address</label><br /><br />
+                <label style="float:left; font-size:200%;">Email Address</label><br /><br /><br />
                 <input name="email" id="merchant_email_new" value="${emailValue}"/>
+                
                 
                 <br />
                    
@@ -54,17 +75,27 @@
                 
                 <center> <label style =" font-size : 200%">Address Details</label><br /></center>
                 <label style="float:left; font-size:200%;">Street Address</label>
-                <label style="float:right; font-size:200%;">Postcode</label><br /><br />
+                <label style="float:right; font-size:200%;">Postcode</label><br /><br /><br />
                 <input name="addressNumberStreet" id="merchant_addressnumberstreet_new" value="${addressNumberStreetValue}"/>
+                <span class="errors">
+                    <form:errors path="addressNumberStreet" />
+                </span>
                 <input name="addressPostcode" id="merchant_addresspostcode_new" value="${addressPostcodeValue}"/>
+                
                 <br />
                 <br />
                 <br />
                 
                 <label style="float:left; font-size:200%;">Suburb</label>
-                <label style="float:right; font-size:200%;">State</label><br /><br />
+                <label style="float:right; font-size:200%;">State</label><br /><br /><br />
                 <input name="suburb" id="merchant_suburb_new" value="${suburbValue}"/>
+                <span class="errors">
+                    <form:errors path="suburb" />
+                </span>
                 <input name="addressState" id="merchant_addressstate_new" value="${addressStateValue}"/>
+                <span class="errors">
+                    <form:errors path="addressState" />
+                </span>
                 <br />
                         
                     
@@ -73,8 +104,14 @@
                    
                 <br />
                 <br />
-                <label style="float:left; font-size:200%;">Country</label><br /><br />
-                <input name="addressCountry" id="merchant_addresscountry_new" value="${addressCountryValue}"/>
+                <label style="float:left; font-size:200%;">Country</label><br /><br /><br />
+                
+                
+                <select id="merchant_addresscountry_new" name="addressCountry" value="${addressCountryValue}">
+                                               <c:forEach var="country" items="${countries}">
+                                                   <option value="${country.countryCode}"> <c:out value="${country.countryName}" /></option>
+                                               </c:forEach>
+                                           </select>
                 
                 <br />
                 <br />    
@@ -85,12 +122,12 @@
                 
                 <center><label style="font-size:200%;">Business Details</label><br /></center>
                 <label  style="float:left; font-size:200%;">Paypal email address</label>
-                <label  style="float:right; font-size:200%;">Website</label><br /><br />
+                <label  style="float:right; font-size:200%;">Website</label><br /><br /><br />
                 <input name="paypal" id="merchant_paypal_new" value="${paypalValue}"/>
                 <input name="website" id="merchant_website_new" value="${websiteValue}"/>
                 <br />
                 <br /><br />
-                <label style="float:left; font-size:200%;">Phone Number</label><br /><br />
+                <label style="float:left; font-size:200%;">Phone Number</label><br /><br /><br />
                 <input name="phoneNumber" id="merchant_phonenumber_new" value="${phoneNumberValue}"/>
                 <br />
                
@@ -155,7 +192,7 @@
                              style: "font-size: 200%; background-color:white; float:right;"
                         }})); 
                     Spring.addDecoration(new Spring.ElementDecoration({elementId : 'merchant_addresscountry_new', 
-                        widgetType : 'dijit.form.ValidationTextBox', 
+                        widgetType : 'dijit.form.FilteringSelect', 
                         widgetAttrs : {required: true,
                              style: "font-size: 200%; background-color:white; float:left;"
                         }})); 
@@ -170,10 +207,9 @@
                              style: "font-size: 200%; background-color:white; float:right;"
                         }})); 
                     Spring.addDecoration(new Spring.ElementDecoration({elementId : 'merchant_phonenumber_new', 
-                        widgetType : 'dijit.form.ValidationTextBox', 
-                        widgetAttrs : {required: true,
-                             style: "font-size: 200%; background-color:white; float:left;"
-                        }})); 
+                        widgetType : 'dijit.form.ValidationTextBox'
+                        
+                        })); 
              
 
                     

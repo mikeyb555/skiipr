@@ -18,4 +18,5 @@ public interface MerchantDao {
     public boolean tradingNameAvailable(String name);
     public Merchant findCurrentMerchant();
     public Long getChangeToken();
+    public boolean userNameAvailableNoSession(String username);
 }
