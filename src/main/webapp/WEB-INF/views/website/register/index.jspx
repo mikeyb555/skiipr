@@ -30,6 +30,10 @@
                     <form:errors path="email" /><br />
                     <form:errors path="addressPostcode" />
                     <form:errors path="addressCountry" />
+                    <form:errors path="name" />
+                    <form:errors path="paypal" />
+                    <form:errors path="captcha" />
+                    
                 </span>
                 
                  
@@ -48,9 +52,7 @@
                 <label style="float:left; font-size:200%;">Name</label>
                 <label style="float:right; font-size:200%;">Re enter password</label><br /><br /><br />
                 <input name="name" id="merchant_name_new" value="${nameValue}"/>
-                <span class="errors">
-                    <form:errors path="name" />
-                </span>
+                
                 <input name="password2" id="merchant_password2_new" value="${password2Value}" type="password"/>
                 
                 <br />
@@ -130,6 +132,7 @@
                 <label style="float:left; font-size:200%;">Phone Number</label><br /><br /><br />
                 <input name="phoneNumber" id="merchant_phonenumber_new" value="${phoneNumberValue}"/>
                 <br />
+                <br />
                
 <noscript>
     <iframe src="http://api.recaptcha.net/noscript?k=6Leic88SAAAAAMOU5HHiFfWsR-LYrq6sB3_b64j_"
@@ -207,9 +210,11 @@
                              style: "font-size: 200%; background-color:white; float:right;"
                         }})); 
                     Spring.addDecoration(new Spring.ElementDecoration({elementId : 'merchant_phonenumber_new', 
-                        widgetType : 'dijit.form.ValidationTextBox'
+                        widgetType : 'dijit.form.ValidationTextBox',
+                         widgetAttrs : {required: true,
+                             style: "font-size: 200%; background-color:white; float:left;"
                         
-                        })); 
+                         }})); 
              
 
                     

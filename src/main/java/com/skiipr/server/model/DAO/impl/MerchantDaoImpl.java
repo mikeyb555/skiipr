@@ -126,6 +126,12 @@ public class MerchantDaoImpl extends HibernateDaoSupport implements MerchantDao{
         List<Merchant> results = getHibernateTemplate().find("FROM Merchant WHERE (name = ?) AND (merchantID != ?)", name, user.getMerchantId());
         return results.isEmpty();
     }
+     @Override
+    public boolean tradingNameAvailableNoSession(String name){
+        
+        List<Merchant> results = getHibernateTemplate().find("FROM Merchant WHERE (name = ?)", name);
+        return results.isEmpty();
+    }
 
     @Override
     public Long getChangeToken() {

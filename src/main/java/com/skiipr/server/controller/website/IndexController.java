@@ -53,6 +53,7 @@ public class IndexController {
         ReCaptchaResponse reCaptchaResponse =
         reCaptcha.checkAnswer(remoteAddr, challenge, response);
         System.out.println(reCaptchaResponse.isValid());
+        registerForm.setCaptcha(reCaptchaResponse.isValid());
         
         if(!registerForm.validate(merchantDao, bindingResult)){
            modelMap.addAttribute("flash", 

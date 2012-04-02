@@ -29,6 +29,7 @@ public class RegisterForm {
      private String paypal;
      private String website;
      private String phoneNumber;
+     private Boolean captcha;
 
     
     public String getUsername() {
@@ -191,6 +192,12 @@ public class RegisterForm {
             if(!username.isEmpty() && !merchantDao.userNameAvailableNoSession(username)){
                 errors.rejectValue("username", "invalid.registration.username.alreadyexists");
             }
+            if(name.isEmpty()){
+                errors.rejectValue("name", "invalid.registration.username.null");
+            }
+            if(!name.isEmpty() && !merchantDao.tradingNameAvailableNoSession(name)){
+                errors.rejectValue("name", "invalid.registration.name.alreadyexists");
+            }
             if(!password.isEmpty() && !(password.equals(password2))){
                 errors.rejectValue("password", "invalid.password.match");
             }
@@ -203,6 +210,16 @@ public class RegisterForm {
             if(!addressPostcode.matches("^[1-9]{1}[0-9]{3}$")){
                 errors.rejectValue("addressPostcode", "invalid.postcode.size");
             }
+            if(!paypal.matches("^[\\w\\-]+(\\.[\\w\\-]+)*@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}$")){
+                errors.rejectValue("paypal", "invalid.register.paypal");
+            }
+            if(website.contains("http")){
+                errors.rejectValue("website", "invalid.website.address");
+            }
+            if(!captcha){
+                errors.rejectValue("captcha", "incorrect.captcha");
+            }
+            
             
             return !errors.hasErrors();
         } catch(Exception e){
@@ -224,6 +241,20 @@ public class RegisterForm {
      */
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    /**
+     * @return the captcha
+     */
+    public Boolean getCaptcha() {
+        return captcha;
+    }
+
+    /**
+     * @param captcha the captcha to set
+     */
+    public void setCaptcha(Boolean captcha) {
+        this.captcha = captcha;
     }
      
     
