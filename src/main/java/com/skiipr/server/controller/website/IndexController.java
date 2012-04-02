@@ -11,9 +11,11 @@ import com.skiipr.server.model.DAO.MerchantDao;
 import com.skiipr.server.model.DAO.PlanDao;
 import com.skiipr.server.model.Merchant;
 import com.skiipr.server.model.form.RegisterForm;
+import com.skiipr.server.services.EmailService;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import net.tanesha.recaptcha.ReCaptchaImpl;
@@ -82,6 +84,10 @@ public class IndexController {
             merchantDao.save(merchant);
             
         }
+        LinkedList<String> recipients = new LinkedList<String>();
+        recipients.add(registerForm.getEmail());
+        EmailService emailService = new EmailService();
+        emailService.SendMail("noreply@skiipr.com", recipients, "Skiipr Activation Email ACTION REQUIRED", "Yeah Sup welcome to skiipr, check it out");
         return "/website/register/success";
     }
       
