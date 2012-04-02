@@ -44,6 +44,9 @@
         <property name="addressState" type="string">
             <column name="address_state" length="20" not-null="true" />
         </property>
+        <property name="verCode" type="string">
+            <column name="ver_code" length="128" not-null="true" />
+        </property>
         <property name="paypal" type="string">
             <column name="paypal" length="20" not-null="true" />
         </property>
@@ -78,6 +81,9 @@
         </property>
         <property name="codEnabled" type="boolean">
             <column name="cod_enabled" length="1"/>
+        </property>
+        <property name="locked" type="boolean">
+            <column name="locked" length="1"/>
         </property>
         <property name="consoleSoundEnabled" type="boolean">
             <column name="console_sound_enabled" length="1"/>

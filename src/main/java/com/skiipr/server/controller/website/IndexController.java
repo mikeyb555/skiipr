@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import net.tanesha.recaptcha.ReCaptchaImpl;
 import net.tanesha.recaptcha.ReCaptchaResponse;
@@ -81,13 +82,21 @@ public class IndexController {
             merchant.setType(1);
             merchant.setPlan(planDao.findByID(3l));
             merchant.setPaypalEnabled(Boolean.TRUE);
+            String verCode = UUID.randomUUID().toString();
+            merchant.setVerCode(verCode);
             merchantDao.save(merchant);
             
+            StringBuilder body = new StringBuilder();
+            body.append("Welcome to skiipr, click the following link to verify your account ");
+            body.append("http://localhost:8080/server/api/merchant/verify/");
+            body.append(verCode);
+            LinkedList<String> recipients = new LinkedList<String>();
+            recipients.add(registerForm.getEmail());
+            
+            EmailService.SendMail("noreply@skiipr.com", recipients, "Skiipr Activation Email ACTION REQUIRED", body.toString());
+            
         }
-        LinkedList<String> recipients = new LinkedList<String>();
-        recipients.add(registerForm.getEmail());
-        EmailService emailService = new EmailService();
-        emailService.SendMail("noreply@skiipr.com", recipients, "Skiipr Activation Email ACTION REQUIRED", "Yeah Sup welcome to skiipr, check it out");
+        
         return "/website/register/success";
     }
       

@@ -43,6 +43,8 @@ public class Merchant implements Serializable {
     private Boolean codEnabled;
     private Long lastChange;
     private boolean consoleSoundEnabled;
+    private boolean locked;
+    private String verCode;
     
     @JsonIgnore
     public String getUsername(){
@@ -295,5 +297,33 @@ public class Merchant implements Serializable {
         HashMap map = new HashMap();
         map.put("consoleSoundEnabled", consoleSoundEnabled);
         return map;
+    }
+
+    /**
+     * @return the locked
+     */
+    public boolean isLocked() {
+        return locked;
+    }
+
+    /**
+     * @param locked the locked to set
+     */
+    public void setLocked(boolean locked) {
+        this.locked = locked;
+    }
+
+    /**
+     * @return the verCode
+     */
+    public String getVerCode() {
+        return verCode;
+    }
+
+    /**
+     * @param verCode the verCode to set
+     */
+    public void setVerCode(String verCode) {
+        this.verCode = verCode;
     }
 }

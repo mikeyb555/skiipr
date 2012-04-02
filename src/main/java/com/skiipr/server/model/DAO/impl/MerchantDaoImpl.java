@@ -5,6 +5,7 @@ import com.skiipr.server.model.DAO.MerchantDao;
 import com.skiipr.server.model.LoginUser;
 import com.skiipr.server.model.Merchant;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -139,6 +140,19 @@ public class MerchantDaoImpl extends HibernateDaoSupport implements MerchantDao{
         getHibernateTemplate().find("SELECT lastChange FROM Merchant WHERE merchantID = ?", merchantID);
         List results = getHibernateTemplate().find("SELECT lastChange FROM Merchant WHERE merchantID = ?", merchantID);
         return (Long) results.get(0);
+    }
+    
+    @Override
+    public boolean unlockByVerification(String code){
+        List<Merchant> results = getHibernateTemplate().find("FROM Merchant WHERE verCode = ?", code);
+        if (results.isEmpty()){
+            return false;
+        }
+        Merchant merchant = results.get(0);
+        merchant.setLocked(false);
+        update(merchant);
+        return true;
+        
     }
     
 }
