@@ -76,10 +76,9 @@ public class POJOBuilders {
         ArrayList<Long> productIDs = new ArrayList();
         ArrayList<Integer> productQuantity = new ArrayList();
         
-        for(int i=0;i < productList.size();i++){
+        for(int i=0; i < productList.size(); i++){
             JSONObject jProduct = productList.getJSONObject(i);
             productIDs.add(jProduct.getLong("productID"));
-            
         }
         for(int i=0;i < productList.size();i++){
             JSONObject jQuantity = productList.getJSONObject(i);

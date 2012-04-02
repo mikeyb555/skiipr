@@ -9,11 +9,10 @@
 	<!-- HTTP security configurations -->
     <http auto-config="true" use-expressions="true">
     	<form-login login-page="/login" authentication-failure-url="/login?login_error=t" default-target-url="/dashboard/" />
-        <logout logout-url="/logout"/>
-        
+        <logout logout-url="/logout" logout-success-url="/"/>
         <!-- Configure these elements to secure URIs in your application -->
-        <intercept-url pattern="/login" access="permitAll" />
-        <intercept-url pattern="/**" access="hasRole('dashboard_user')" />
+        <intercept-url pattern="/login" access="permitAll"/>
+        <intercept-url pattern="/dashboard/**" access="hasRole('dashboard_user')" />
         <intercept-url pattern="/console/**" access="hasRole('console_user')" />
         <intercept-url pattern="/resources/**" access="permitAll" />
         <intercept-url pattern="/**" access="permitAll" />

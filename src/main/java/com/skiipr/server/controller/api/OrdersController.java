@@ -42,9 +42,6 @@ public class OrdersController {
     @Autowired
     private MerchantDao merchantDao;
     
-//    @Autowired
-//    private OrderValidator orderValidator;
-    
     @Autowired
     private CouponDao couponDao;
     

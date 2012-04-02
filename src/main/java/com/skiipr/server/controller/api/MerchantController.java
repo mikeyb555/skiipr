@@ -32,9 +32,12 @@ public class MerchantController {
         return merchants;
     }
     
-    @RequestMapping(value="/api/merchant/withintenkm/{lat}/{lon}", method = RequestMethod.GET)
-    public @ResponseBody List<Merchant> withinTenKm(@PathVariable double lat, @PathVariable double lon){
-        List<Merchant> merchants = merchantDao.findWithinRadius(lat, lon, 10);
+    @RequestMapping(value="/api/merchant/withinradius/{km}/{lat}/{lon}/", method = RequestMethod.GET)
+    public @ResponseBody List<Merchant> withinRadius(@PathVariable int km, @PathVariable double lat, @PathVariable double lon){
+        if(km > 50){
+            km = 50;
+        }
+        List<Merchant> merchants = merchantDao.findWithinRadius(lat, lon, km);
         return merchants;
     } 
     

@@ -1,9 +1,11 @@
 package com.skiipr.server.model;
 
+import java.math.BigDecimal;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.DecimalMin;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 @Entity
@@ -15,6 +17,9 @@ public class OrderProduct {
     @ManyToOne
     private Order userOrder;
     private int quantity;
+    private String productName;
+    @DecimalMin("0")
+    private BigDecimal productPrice;
 
     public Long getOrderProductID() {
         return orderProductID;
@@ -30,6 +35,8 @@ public class OrderProduct {
 
     public void setProduct(Product product) {
         this.product = product;
+        this.productName = product.getName();
+        this.productPrice = product.getPrice();
     }
 
     @JsonIgnore
@@ -48,8 +55,21 @@ public class OrderProduct {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-    
-    
-    
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public BigDecimal getProductPrice() {
+        return productPrice;
+    }
+
+    public void setProductPrice(BigDecimal productPrice) {
+        this.productPrice = productPrice;
+    }
     
 }

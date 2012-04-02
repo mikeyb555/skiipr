@@ -7,10 +7,6 @@ package com.skiipr.server.model.response;
 import com.skiipr.server.enums.CouponType;
 import java.math.BigDecimal;
 
-/**
- *
- * @author Michael
- */
 public class CouponResponse {
     
      public enum ResponseStatus{
