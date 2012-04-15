@@ -1,13 +1,19 @@
 package com.skiipr.server.model;
 
+import com.skiipr.server.services.EmailService;
 import java.io.Serializable;
+import java.lang.String;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Set;
+import java.util.UUID;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.springframework.security.authentication.encoding.PasswordEncoder;
+import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 
 @Entity
 @Table(name = "tbl_merchant")
@@ -299,31 +305,65 @@ public class Merchant implements Serializable {
         return map;
     }
 
-    /**
-     * @return the locked
-     */
     public boolean isLocked() {
         return locked;
     }
 
-    /**
-     * @param locked the locked to set
-     */
     public void setLocked(boolean locked) {
         this.locked = locked;
     }
 
-    /**
-     * @return the verCode
-     */
     public String getVerCode() {
         return verCode;
     }
 
-    /**
-     * @param verCode the verCode to set
-     */
     public void setVerCode(String verCode) {
         this.verCode = verCode;
+    }
+    
+    public void setNewPassword(String raw){
+        PasswordEncoder passwordEncoder = new ShaPasswordEncoder();
+        String saltSeed = UUID.randomUUID().toString();
+        String genSalt = passwordEncoder.encodePassword(saltSeed, saltSeed);
+        genSalt = genSalt.substring(10, 15);
+        salt = genSalt;
+        password = passwordEncoder.encodePassword(raw, salt);
+    }
+    
+    public boolean activateEmail(String code){
+        if(verCode.equals(code)){
+            locked = false;
+            return true;
+        }
+        return false;
+    }
+    
+    public void prepareActivationEmail(){
+        locked = true;
+        PasswordEncoder passwordEncoder = new ShaPasswordEncoder();
+        String saltSeed = UUID.randomUUID().toString();
+        String genSalt = passwordEncoder.encodePassword(saltSeed, saltSeed);
+        genSalt = genSalt.substring(20, 30);
+        verCode = genSalt;
+    }
+    
+    public void sendActivationEmail(){
+        StringBuilder body = new StringBuilder();
+        body.append("Welcome to skiipr, click the following link to verify your account ");
+        body.append("http://skiipr.com/activate/");
+        body.append(merchantID);
+        body.append("/");
+        body.append(verCode);
+        LinkedList<String> recipients = new LinkedList<String>();
+        recipients.add(email);
+        EmailService.SendMail("noreply@skiipr.com", recipients, "Skiipr Activation Email ACTION REQUIRED", body.toString());
+    }
+
+    public int getPlanId() {
+        return planId;
+    }
+
+    public void setPlanId(int planId) {
+        this.planId = planId;
     }
 }

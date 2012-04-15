@@ -336,3 +336,51 @@ hr{
     border-top-style: solid;
     background-color: #F7F7F7;
 }
+
+.register_margin{
+    margin-top: 10px;
+    width: 920px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+}
+
+.register_tip{
+    float: right;
+    width: 500px;
+    margin: 20px;
+    background-color: #F7F7F7;
+    padding: 10px;
+}
+
+.register_left{
+    float: left;
+    width: 320px;
+}
+
+.terms_conditions{
+    height: 300px;
+    overflow: scroll;
+    overflow-x: hidden;
+    border-top-color: #EEEEEE;
+    border-top-style: dashed;
+    border-top-width: 1px;
+    border-bottom-color: #EEEEEE;
+    border-bottom-style: dashed;
+    border-bottom-width: 1px;
+}
+
+.register_buttom_wrap{
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.register_body{
+    width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+}

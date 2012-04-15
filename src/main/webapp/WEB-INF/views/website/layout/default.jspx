@@ -19,7 +19,7 @@
 		<title><spring:message code="welcome_h3" arguments="${app_name}" /></title>
 	</head>
 	
-        <body>
+        <body class="claro spring">
             <tiles:insertAttribute name="body"/> 
 	</body>
 </html>

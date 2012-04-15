@@ -1,12 +1,11 @@
-dojo.addOnLoad(function(){
-    dojo.require("dijit.layout.TabContainer");
-    dojo.require("dijit.layout.ContentPane");
-    dojo.require("dojo.fx");
-    dojo.require("dojo.NodeList-fx");
-    dojo.require("dojo.NodeList-traverse");
-    dojo.require("dojox.validate.regexp");
-    dojo.require("dijit.form.ValidationTextBox");
-});
+dojo.require("dijit.layout.TabContainer");
+dojo.require("dijit.layout.ContentPane");
+dojo.require("dojo.fx");
+dojo.require("dojo.NodeList-fx");
+dojo.require("dojo.NodeList-traverse");
+dojo.require("dojox.validate.regexp");
+dojo.require("dijit.form.ValidationTextBox");
+dojo.require("dijit.form.Button");
 
 dojo.ready(function(){
    var deleteButton = dojo.query(".confirm_delete");
@@ -35,5 +34,9 @@ dojo.ready(function(){
 
    cancelEditButton.connect("onclick", cancelEditAction);
    editButton.connect("onclick", editItemAction);
-   
 });
+
+function termsAccept(event){
+       var registerSubmitButton = dijit.byId("register_form_submit");
+       registerSubmitButton.setAttribute("disabled", !this.checked);
+}

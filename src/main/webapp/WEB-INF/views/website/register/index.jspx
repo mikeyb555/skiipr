@@ -6,231 +6,91 @@
      xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
      xmlns:spring="http://www.springframework.org/tags"
      xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" 
-     xmlns:form="http://www.springframework.org/tags/form" 
+     xmlns:springform="http://www.springframework.org/tags/form" 
+     xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" 
      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
      xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
-    <div class="container_16 clearfix" style="background-color: black">
-        <div class="push_5 grid_6" style ="margin-top: 25px">
-    <spring:url value="/images/dashboard/biglogo.png" var="big_logo" />
-                            <a href="#"><img src="${big_logo}" /></a>
-        </div></div>
-    <div class="container_16 clearfix" id="actualbody">  
-         <div class ="widget_content">
-             <c:if test="${not empty flash}">
-                        <general:notification message="${flash.message}" status = "${flash.status}"/>  
-                    </c:if>
-             
-             <form:form action="${this_url}" commandName="registerForm" method="put" id="merchant_form_new">
-                 <span class="errors">
-                    <form:errors path="username" />
-                    <br />
-                    <form:errors path="password" /><br />
-                    <form:errors path="email" /><br />
-                    <form:errors path="addressPostcode" />
-                    <form:errors path="addressCountry" />
-                    <form:errors path="name" />
-                    <form:errors path="paypal" />
-                    <form:errors path="captcha" />
-                    
-                </span>
-                
-                 
-                 
-                <center> <label style =" font-size : 200%">Account Details</label><br /></center>
-                         <label style="float:left; font-size:200%;">Username</label>
-                         <label style="float:right; font-size:200%;" >Password</label><br /><br /><br />
-                <input name="username" id="merchant_username_new" value="${userNameValue}"/>
-                
-                 
-                 
-                <input name="password" id="merchant_password_new" value="${passwordValue}" type="password"/>
-                
-                <br />
-                <br />
-                <label style="float:left; font-size:200%;">Name</label>
-                <label style="float:right; font-size:200%;">Re enter password</label><br /><br /><br />
-                <input name="name" id="merchant_name_new" value="${nameValue}"/>
-                
-                <input name="password2" id="merchant_password2_new" value="${password2Value}" type="password"/>
-                
-                <br />
-                <label style="float:left; font-size:200%;">Email Address</label><br /><br /><br />
-                <input name="email" id="merchant_email_new" value="${emailValue}"/>
-                
-                
-                <br />
-                   
-                
-                   
-                
-                <br />
-                
-                <br />
-                    
-                
-                     
-                
-                     
-                 
-                
-                <center> <label style =" font-size : 200%">Address Details</label><br /></center>
-                <label style="float:left; font-size:200%;">Street Address</label>
-                <label style="float:right; font-size:200%;">Postcode</label><br /><br /><br />
-                <input name="addressNumberStreet" id="merchant_addressnumberstreet_new" value="${addressNumberStreetValue}"/>
-                <span class="errors">
-                    <form:errors path="addressNumberStreet" />
-                </span>
-                <input name="addressPostcode" id="merchant_addresspostcode_new" value="${addressPostcodeValue}"/>
-                
-                <br />
-                <br />
-                <br />
-                
-                <label style="float:left; font-size:200%;">Suburb</label>
-                <label style="float:right; font-size:200%;">State</label><br /><br /><br />
-                <input name="suburb" id="merchant_suburb_new" value="${suburbValue}"/>
-                <span class="errors">
-                    <form:errors path="suburb" />
-                </span>
-                <input name="addressState" id="merchant_addressstate_new" value="${addressStateValue}"/>
-                <span class="errors">
-                    <form:errors path="addressState" />
-                </span>
-                <br />
-                        
-                    
-               
-                
-                   
-                <br />
-                <br />
-                <label style="float:left; font-size:200%;">Country</label><br /><br /><br />
-                
-                
-                <select id="merchant_addresscountry_new" name="addressCountry" value="${addressCountryValue}">
-                                               <c:forEach var="country" items="${countries}">
-                                                   <option value="${country.countryCode}"> <c:out value="${country.countryName}" /></option>
-                                               </c:forEach>
-                                           </select>
-                
-                <br />
-                <br />    
-                <br />
-                
-                    
-                 
-                
-                <center><label style="font-size:200%;">Business Details</label><br /></center>
-                <label  style="float:left; font-size:200%;">Paypal email address</label>
-                <label  style="float:right; font-size:200%;">Website</label><br /><br /><br />
-                <input name="paypal" id="merchant_paypal_new" value="${paypalValue}"/>
-                <input name="website" id="merchant_website_new" value="${websiteValue}"/>
-                <br />
-                <br /><br />
-                <label style="float:left; font-size:200%;">Phone Number</label><br /><br /><br />
-                <input name="phoneNumber" id="merchant_phonenumber_new" value="${phoneNumberValue}"/>
-                <br />
-                <br />
-               
-<noscript>
-    <iframe src="http://api.recaptcha.net/noscript?k=6Leic88SAAAAAMOU5HHiFfWsR-LYrq6sB3_b64j_"
-        height="300" width="500" frameborder="0"></iframe><br />
-    <textarea name="recaptcha_challenge_field" rows="3" cols="40">
-    </textarea>
-    <input type="hidden" name="recaptcha_response_field" 
-        value="manual_challenge"/>
-</noscript>
-                
-                
-                <a class="btn grey right medium" href="#" onclick="parentNode.submit()"><span style="font-size:200%">Yes, I agree to the terms and Conditions</span></a>
-               
-                <div class="clear"><!--- clear --></div>
-                
-                <script type="text/javascript">
-                    Spring.addDecoration(new Spring.ElementDecoration({elementId : 'merchant_username_new', 
-                        widgetType : 'dijit.form.ValidationTextBox', 
-                        widgetAttrs : {required: true,
-                            style: "font-size: 200%; background-color:white; ;"
-                        }})); 
-                    Spring.addDecoration(new Spring.ElementDecoration({elementId : 'merchant_name_new', 
-                        widgetType : 'dijit.form.ValidationTextBox', 
-                        widgetAttrs : {required: true,
-                            style: "font-size: 200%; background-color:white;"
-                        }})); 
-                    Spring.addDecoration(new Spring.ElementDecoration({elementId : 'merchant_email_new', 
-                        widgetType : 'dijit.form.ValidationTextBox', 
-                        widgetAttrs : {required: true,
-                            style: "font-size: 200%; background-color:white; float:left;"
-                        }})); 
-                    Spring.addDecoration(new Spring.ElementDecoration({elementId : 'merchant_password_new', 
-                        widgetType : 'dijit.form.ValidationTextBox', 
-                        widgetAttrs : {required: true,
-                             style: "font-size: 200%; background-color:white; float:right;"
-                        }})); 
-                    Spring.addDecoration(new Spring.ElementDecoration({elementId : 'merchant_password2_new', 
-                        widgetType : 'dijit.form.ValidationTextBox', 
-                        widgetAttrs : {required: true,
-                             style: "font-size: 200%; background-color:white; float:right;"
-                        }})); 
-                    Spring.addDecoration(new Spring.ElementDecoration({elementId : 'merchant_addressnumberstreet_new', 
-                        widgetType : 'dijit.form.ValidationTextBox', 
-                        widgetAttrs : {required: true,
-                             style: "font-size: 200%; background-color:white; float:left;"
-                        }})); 
-                    Spring.addDecoration(new Spring.ElementDecoration({elementId : 'merchant_addresspostcode_new', 
-                        widgetType : 'dijit.form.ValidationTextBox', 
-                        widgetAttrs : {required: true,
-                             style: "font-size: 200%; background-color:white; float:right;"
-                        }})); 
-                     Spring.addDecoration(new Spring.ElementDecoration({elementId : 'merchant_suburb_new', 
-                        widgetType : 'dijit.form.ValidationTextBox', 
-                        widgetAttrs : {required: true,
-                             style: "font-size: 200%; background-color:white; float:left;"
-                        }})); 
-                     Spring.addDecoration(new Spring.ElementDecoration({elementId : 'merchant_addressstate_new', 
-                        widgetType : 'dijit.form.ValidationTextBox', 
-                        widgetAttrs : {required: true,
-                             style: "font-size: 200%; background-color:white; float:right;"
-                        }})); 
-                    Spring.addDecoration(new Spring.ElementDecoration({elementId : 'merchant_addresscountry_new', 
-                        widgetType : 'dijit.form.FilteringSelect', 
-                        widgetAttrs : {required: true,
-                             style: "font-size: 200%; background-color:white; float:left;"
-                        }})); 
-                    Spring.addDecoration(new Spring.ElementDecoration({elementId : 'merchant_paypal_new', 
-                        widgetType : 'dijit.form.ValidationTextBox', 
-                        widgetAttrs : {required: true,
-                             style: "font-size: 200%; background-color:white; float:left;"
-                        }})); 
-                    Spring.addDecoration(new Spring.ElementDecoration({elementId : 'merchant_website_new', 
-                        widgetType : 'dijit.form.ValidationTextBox', 
-                        widgetAttrs : {required: true,
-                             style: "font-size: 200%; background-color:white; float:right;"
-                        }})); 
-                    Spring.addDecoration(new Spring.ElementDecoration({elementId : 'merchant_phonenumber_new', 
-                        widgetType : 'dijit.form.ValidationTextBox',
-                         widgetAttrs : {required: true,
-                             style: "font-size: 200%; background-color:white; float:left;"
-                        
-                         }})); 
-             
+    <div class="register_body">
+            <spring:url value="/images/dark_logo.png" var="big_logo" />
+           <img src="${big_logo}" alt="skiipr"/>
+           <div class="grid_16 widget first">
+            <div class="widget_title clearfix">
+                <h2>Register</h2>
+            </div>
+            <div class="widget_body">
+                <div class="widget_content">
+                     <div class="register_margin">
+                         <c:if test="${not empty flash}">
+                                    <general:notification message="${flash.message}" status = "${flash.status}"/>  
+                                </c:if>
 
-                    
-                </script>
-                <script type="text/javascript" src="http://api.recaptcha.net/challenge?k=6Leic88SAAAAAMOU5HHiFfWsR-LYrq6sB3_b64j_">/*
-The code below will write
-one heading and two paragraphs
-*/</script>
-                
-             </form:form>
-                
-                
-                
-         </div>
-        
+                         <form:create id="Merchant" modelAttribute="registerForm" path="/register" showpanel="false" render="${empty dependencies}" enablesubmit="false" label="Please fill out your merchant account details">
+                             <h3 class="hr">Account details</h3>
+                             <hr />
+                             <div class="register_left">
+                                <field:input field="username" id="Register_username" label="Username" />
+                                <field:input field="email" id="Register_username" label="Email" />
+                                <field:input field="password" id="Register_username" label="Password" type="password" />
+                                <field:input field="password2" id="Register_username" label="Password (repeat)" type="password" />
+                             </div>
+                            <div class="register_tip">
+                                <h3>Registration tips</h3>
+                                To get started with Skiipr all you need to enter is your username, email and password. You will have a chance to enter the rest of your details such as your business address and PayPal details once your account has been activated.
+                                <h4>Double check your email address</h4>
+                                You will be sent an activation email once you submit your registration so please double check to make sure your address is correct.
+                                <h4>Already registered?</h4>
+                                Click here to login: <general:link id="dashboard_link" url="/login" label="login to dashboard"/>.
+                            </div>
+                            <div class="clear"><!--- clear --></div>
+                         <h3 class="hr">Terms and Conditions of service</h3>
+                             <hr />
+                             <div class="terms_conditions">
+                                 <util:terms-conditions />
+                             </div>
+                             <div class="register_buttom_wrap">
+                                 <button id="register_terms_agree" onClick="termsAccept" dojoType="dijit.form.ToggleButton" iconClass="dijitCheckBoxIcon">I agree to these terms and conditions</button>
+                             </div>
+
+                                            <h3 class="hr">Captcha</h3>
+                             <hr />
+                             <div class="register_left">
+                        <noscript>
+                            <iframe src="http://api.recaptcha.net/noscript?k=6Leic88SAAAAAMOU5HHiFfWsR-LYrq6sB3_b64j_"
+                                height="300" width="500" frameborder="0"></iframe><br />
+                            <textarea name="captchaChallenge" rows="3" cols="40">
+                            </textarea>
+                            <input type="hidden" name="captchaResponse" 
+                                value="manual_challenge"/>
+                        </noscript>
+
+
+
+                            <script type="text/javascript" src="http://api.recaptcha.net/challenge?k=6Leic88SAAAAAMOU5HHiFfWsR-LYrq6sB3_b64j_">/*
+                            The code below will write
+                            one heading and two paragraphs
+                            */</script>
+                             <springform:errors cssClass="errors" id="_captcha_error_id" path="captchaResponse" />
+                         </div>
+                             <div class="register_tip">
+                                <h3>What's this?</h3>
+                                This is required to prevent spam bots from registering. If you can't determine the words then please click the button to get new words.
+                                <p />
+                                For more information <a href="http://www.google.com/recaptcha/learnmore" target="_blank">Click here</a>.
+                            </div>
+                         <div class="clear"><!--- clear --></div>
+                             <hr />
+                             <div class="register_buttom_wrap" style="margin-top: 20px;">
+                                <button id="register_form_submit" type="submit" dojoType="dijit.form.Button" disabled="disabled">Submit registration</button>
+                             </div>
+                         </form:create>
+                             
+                     </div>
+                </div>
+            </div>
+        </div>
+           <div class="clear"><!--- clear --></div>
     </div>
-            <general:link id="dashboard_link" url="/login" label="Go to login"/>
 </div>
 

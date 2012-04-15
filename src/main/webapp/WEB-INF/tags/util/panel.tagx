@@ -30,4 +30,7 @@
       <jsp:doBody />
     </div>
   </c:if>
+  <c:if test="${not render}">
+      <jsp:doBody />
+  </c:if>
 </jsp:root>

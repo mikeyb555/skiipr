@@ -42,9 +42,7 @@ public class AccountController {
             Merchant merchant = merchantDao.findCurrentMerchant();
             accountFields.setAttributes(merchant);
             if(!accountFields.getPassword().isEmpty()){
-                PasswordEncoder passwordEncoder = new ShaPasswordEncoder();
-                String password = passwordEncoder.encodePassword(accountFields.getPassword(), merchant.getSalt());
-                merchant.setPassword(password);
+                merchant.setNewPassword(accountFields.getPassword());
             }
             merchantDao.update(merchant);
             model.addAttribute("flash", FlashNotification.create(Status.SUCCESS, "Details updated"));

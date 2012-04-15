@@ -4,7 +4,10 @@
     <definition extends="website" name="/website/register/index">
         <put-attribute name="body" value="/WEB-INF/views/website/register/index.jspx"/>
     </definition>
-    <definition extends="login" name="/website/register/success">
-        <put-attribute name="body" value="/WEB-INF/views/dashboard/default/login.jspx"/>
+    <definition extends="website" name="/website/register/success">
+        <put-attribute name="body" value="/WEB-INF/views/website/register/success.jspx"/>
+    </definition>
+    <definition extends="website" name="/website/register/activate">
+        <put-attribute name="body" value="/WEB-INF/views/website/register/activation.jspx"/>
     </definition>
 </tiles-definitions>

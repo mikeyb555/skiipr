@@ -10,21 +10,18 @@ import com.skiipr.server.enums.Status;
 import com.skiipr.server.model.DAO.MerchantDao;
 import com.skiipr.server.model.DAO.PlanDao;
 import com.skiipr.server.model.Merchant;
+import com.skiipr.server.model.Plan;
 import com.skiipr.server.model.form.RegisterForm;
-import com.skiipr.server.services.EmailService;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
-import net.tanesha.recaptcha.ReCaptchaImpl;
-import net.tanesha.recaptcha.ReCaptchaResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,71 +32,64 @@ public class IndexController {
     private MerchantDao merchantDao;
     @Autowired
     private PlanDao planDao;
+    
+    private final Long defaultPlan = 2l;
+    
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(){
         System.out.println("Index controller ran");
         return "/website/index/index";
     }
+    
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register(ModelMap modelMap){
-        System.out.println("Register ran controller ran");
+        
+        if(!modelMap.containsKey("registerForm")){
+            RegisterForm fieldModel = new RegisterForm();
+            modelMap.addAttribute("registerForm", fieldModel);
+        }
+        
         List<Country> countries = new ArrayList<Country>(Arrays.asList(Country.values()));
         modelMap.addAttribute("countries", countries);
         return "/website/register/index";
         
     }
-    @RequestMapping(value = "/register", method = RequestMethod.PUT)
-    public String createMerchant(RegisterForm registerForm, BindingResult bindingResult, HttpServletRequest req, ModelMap modelMap,@RequestParam("recaptcha_challenge_field") String challenge, @RequestParam("recaptcha_response_field") String response){
-        String remoteAddr = req.getRemoteAddr();
-        ReCaptchaImpl reCaptcha = new ReCaptchaImpl();
-        reCaptcha.setPrivateKey("6Leic88SAAAAANP_e0IxARCNBj0my4NfR-oHApOD");
-        ReCaptchaResponse reCaptchaResponse =
-        reCaptcha.checkAnswer(remoteAddr, challenge, response);
-        System.out.println(reCaptchaResponse.isValid());
-        registerForm.setCaptcha(reCaptchaResponse.isValid());
-        
-        if(!registerForm.validate(merchantDao, bindingResult)){
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String createMerchant(RegisterForm registerForm, BindingResult bindingResult, 
+        HttpServletRequest req, ModelMap modelMap,
+        @RequestParam("recaptcha_challenge_field") String challenge, 
+        @RequestParam("recaptcha_response_field") String response){
+        registerForm.setCaptchaChallenge(challenge);
+        registerForm.setCaptchaResponse(response);
+        if(!registerForm.validate(merchantDao, bindingResult, req)){
            modelMap.addAttribute("flash", 
                    FlashNotification.create(Status.FAILURE, 
                    "There was an error with your registration"));
-           registerForm.setModel(modelMap);
            return register(modelMap);
         } else{
-            Merchant merchant = new Merchant();
-            registerForm.setAttributes(merchant);
-            System.out.println("the username is: " + registerForm.getUsername());
-            merchant.setCodEnabled(Boolean.TRUE);
-            merchant.setConsoleSoundEnabled(true);
-            merchant.setCurrencyType("USD");
-            merchant.setFailedLoginTime(0);
-            merchant.setLoginCount(0);
-            merchant.setLastChange(0l);
-            merchant.setLastLoginTime(0);
-            merchant.setLatitude("0");
-            merchant.setLongitude("0");
-            merchant.setOpen(Boolean.TRUE);
-            merchant.setSalt("1234");
-            merchant.setType(1);
-            merchant.setPlan(planDao.findByID(3l));
-            merchant.setPaypalEnabled(Boolean.TRUE);
-            String verCode = UUID.randomUUID().toString();
-            merchant.setVerCode(verCode);
+            Plan plan = planDao.findByID(defaultPlan);
+            Merchant merchant = registerForm.generateMerchant(plan);
             merchantDao.save(merchant);
-            
-            StringBuilder body = new StringBuilder();
-            body.append("Welcome to skiipr, click the following link to verify your account ");
-            body.append("http://localhost:8080/server/api/merchant/verify/");
-            body.append(verCode);
-            LinkedList<String> recipients = new LinkedList<String>();
-            recipients.add(registerForm.getEmail());
-            
-            EmailService.SendMail("noreply@skiipr.com", recipients, "Skiipr Activation Email ACTION REQUIRED", body.toString());
-            
+            merchant.sendActivationEmail();
         }
-        
         return "/website/register/success";
     }
-      
     
-    
+    @RequestMapping(value = "/activate/{id}/{code}", method = RequestMethod.GET)
+    public String activate(@PathVariable("id") Long id, 
+        @PathVariable("code") String code, Model model){
+        Merchant merchant = merchantDao.findById(id);
+        if(merchant == null){
+            model.addAttribute("message", "merchant.code.activation.failed");
+        }else if(!merchant.isLocked()){
+            model.addAttribute("message", "merchant.code.activation.already");
+        }else if(merchant.activateEmail(code)){
+            model.addAttribute("message", "merchant.code.activation.succeed");
+            merchantDao.update(merchant);
+        }else{
+            model.addAttribute("message", "merchant.code.activation.failed");
+        }
+        return "/website/register/activate";
+    }
+
 }

@@ -48,15 +48,5 @@ public class MerchantController {
         
         return merchants;
     } 
-    @RequestMapping(value="/api/merchant/verify/{code}", method = RequestMethod.GET)
-    public String unlock(@PathVariable String code){
-        if(merchantDao.unlockByVerification(code)){
-            return "redirect:/dashboard";
-        }
-        else{
-            return "redirect:/register";
-        }
-    
-    } 
     
 }
