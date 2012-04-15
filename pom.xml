@@ -579,10 +579,15 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>tomcat-maven-plugin</artifactId>
-                <version>1.1</version>
-            </plugin>
+		<groupId>org.codehaus.mojo</groupId>
+		<artifactId>tomcat-maven-plugin</artifactId>
+		<configuration>
+			<url>http://23.23.192.187:8080/manager</url>
+			<username>skiipr</username>
+			<password>Puja6TUw</password>
+			<path>/</path>
+		</configuration>
+               </plugin>
              <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>dbunit-maven-plugin</artifactId>
@@ -615,22 +620,6 @@
                   </execution>
                 </executions>
             </plugin>
-            
-            <!-- Maven to AWS plugin -->
-            
-            <plugin>
-                <groupId>br.com.ingenieux</groupId>
-                <artifactId>beanstalk-maven-plugin</artifactId>
-                <version>0.2.6</version>
-                <configuration>
-                    <applicationName>skiipr-server-deploy</applicationName>
-                    <s3Bucket>elasticbeanstalk-us-east-1-284243076752</s3Bucket>
-                    <s3Key>${project.artifactId}/${project.build.finalName}-${maven.build.timestamp}.war</s3Key>
-                <!-- will save as s3://[bucket name]/[artifactId]/artifactId-version-TIMESTAMP.war -->
-                </configuration>
-            </plugin>
-            
-            <!-- End Maven to AWS plugin -->
             
         </plugins>
     </build>
