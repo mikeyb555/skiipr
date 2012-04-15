@@ -94,7 +94,7 @@ public class AccountControllerTest {
         Mockito.when(accountForm.getPassword()).thenReturn("username");
         Mockito.when(merchant.getSalt()).thenReturn("1234");
         Assert.assertEquals("/dashboard/default/account", controller.updateAccount(accountForm, bindingResult, modelMap, httpServletRequest));
-        Mockito.verify(merchant).setPassword("fc74acb4ad8fb836068a543aafa45d5275e934af");
+        Mockito.verify(merchant).setNewPassword("username");
         
         Mockito.when(accountForm.validate(merchantDao, bindingResult)).thenReturn(false);
         Assert.assertEquals("/dashboard/default/account", controller.updateAccount(accountForm, bindingResult, modelMap, httpServletRequest));
