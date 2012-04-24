@@ -66,6 +66,7 @@ dojo.addOnLoad(function(){
        if(order != null){
            addBlocked();
        }
+       
     });
     
     
@@ -74,6 +75,7 @@ dojo.addOnLoad(function(){
     detailsHeading.style.zIndex = "20";
 
     setupSettingsPanel();
+    setupClosedPanel();
 });
 
 function reloadOrderList(){
@@ -187,12 +189,50 @@ function checkForChange(){
     url:"console/api/order/change", handleAs:"text",
     load: function(data){
         if(data != lastChangeToken){
+            
             lastChangeToken = data;
             reloadOrderList();
         }
     }
     });
 }
+
+function setupClosedPanel(){
+    var closedModal = dijit.byId("console_closed_panel");
+    var yesButton = dijit.byId("open_yes_button");
+    var noButton = dijit.byId("open_no_button");
+    dojo.xhrGet({
+    url:"console/api/merchant/open", handleAs:"text",
+    load: function(data){
+        if(data != "true"){
+            closedModal.closeButtonNode.style.display='none';
+            closedModal.show();
+        }
+        dojo.connect(yesButton, "onClick", function(e){
+            var params = "open=true";
+            dojo.xhrPost({
+            
+      url:"console/api/merchant/open",
+      handleAs: "text",
+      postData: params,
+      load: true,
+      error: false
+    }); 
+            closedModal.hide();
+    });
+    dojo.connect(noButton, "onClick", function(e){
+            window.location.href='../dashboard'
+    });
+        
+    }
+    });
+    
+    
+}
+    
+    
+    
+     
 
 function setupSettingsPanel(){
     var settingsButton = dijit.byId("console_settings_button");

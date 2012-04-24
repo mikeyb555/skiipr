@@ -38,9 +38,23 @@ public class ConsoleOrderController {
         return orderDao.findOrderByMerchant(orderID);
     }
     
+    @RequestMapping(value="/console/api/merchant/open", method = RequestMethod.GET)
+    public @ResponseBody String getMerchantOpen(){
+        Merchant merchant = merchantDao.findCurrentMerchant();
+        return merchant.getOpen().toString();
+    }
+    
     @RequestMapping(value="/console/api/order/change", method = RequestMethod.GET)
     public @ResponseBody Long getLastChanged(){
         return merchantDao.getChangeToken();
+    }
+    
+     @RequestMapping(value="/console/api/merchant/open", method = RequestMethod.POST)
+    public @ResponseBody String updateStatus(@RequestParam("open") String open){
+         Merchant merchant = merchantDao.findCurrentMerchant();
+         merchant.setOpen(open.equals("true"));
+         merchantDao.update(merchant);
+         return "complete";
     }
     
     @RequestMapping(value="/console/api/order/{id}/update", method = RequestMethod.POST)

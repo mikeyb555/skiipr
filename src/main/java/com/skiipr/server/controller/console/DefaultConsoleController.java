@@ -28,7 +28,14 @@ public class DefaultConsoleController {
         }else{
             sound= "off";
         }
+        String open;
+        if(merchant.getOpen()){
+            open = "true";
+        }else{
+            open= "false";
+        }
         modelMap.addAttribute("console_sound_value", sound);
+        modelMap.addAttribute("console_open_value", open);
         return "/dashboard/console/index";
     }
     

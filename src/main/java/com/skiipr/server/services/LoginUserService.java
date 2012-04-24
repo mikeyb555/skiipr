@@ -25,7 +25,7 @@ public class LoginUserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {
         Merchant merchant = merchantDao.findByUsername(username);
-        if(merchant == null){
+        if(merchant == null || merchant.isLocked()){
             throw new UsernameNotFoundException("user not found");
         }
         return assembler.buildUserFromUserEntity(merchant);

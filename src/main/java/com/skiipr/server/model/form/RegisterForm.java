@@ -106,6 +106,9 @@ public class RegisterForm {
             if(password.isEmpty() || !password.equals(password2)){
                 errors.rejectValue("password", "invalid.password.match");
             }
+            if(password.length() < 6){
+                errors.rejectValue("password", "invalid.password.tooshort");
+            }
 
             if(!email.matches("^[\\w\\-]+(\\.[\\w\\-]+)*@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}$")){
                 errors.rejectValue("email","invalid.register.email");

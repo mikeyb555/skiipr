@@ -3,7 +3,7 @@
      xmlns:console="urn:jsptagdir:/WEB-INF/tags/console"
      xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
        dojoType="dojox.mobile.FixedSplitter" orientation="H">
-  <jsp:directive.page contentType="text/html;charset=UTF-8" />
+  <jsp:directive.page contentType="text/html;charset=UTF-8" /> 
       <div dojoType="dojox.mobile.FixedSplitterPane" style="width:300px;border-right:1px solid black;">
           <div id="order_list_container" dojoType="dojox.mobile.ScrollableView" selected="true">
               <h1 dojoType="dojox.mobile.Heading" fixed="top">Orders</h1>
@@ -22,7 +22,7 @@
               <spring:url value="/images/icons/19-gear.png" var="settings_icon" />
               <spring:url value="/images/dashboard/fugue/arrow-180.png" var="back_dashboard" />
               <div id="console_settings_button" dojoType="dojox.mobile.ToolBarButton" icon="${settings_icon}" style="float:right; padding: 5px;"><!-- required for FF3 and Opera --></div>
-              <div id="console_back_dashboard" dojoType="dojox.mobile.ToolBarButton" icon="${back_dashboard}" onclick="location.href='../server/dashboard'" style="float:right; padding: 5px;"><!-- required for FF3 and Opera --></div>
+              <div id="console_back_dashboard" dojoType="dojox.mobile.ToolBarButton" icon="${back_dashboard}" onclick="location.href='../dashboard'" style="float:right; padding: 5px;"><!-- required for FF3 and Opera --></div>
           </h1>
           <div id="no_order_title" style="text-align: center; margin-top: 100px;">
               <h1>No order selected, select one on the left.</h1>
@@ -60,8 +60,11 @@
                    <div style="clear: both;"><!-- required for FF3 and Opera --></div>
               </div>
               <button dojoType="dojox.mobile.Button" class="red_button" id="order_ready_button"><!-- required for FF3 and Opera --></button>
+             
              <console:settingsmodal />
              <console:blockmodal />
+             <console:closedmodal />
+             
           <h1 dojoType="dojox.mobile.Heading" fixed="bottom">
               <div dojoType="dojox.mobile.ToolBarButton" label="Contact customer" style="float:right;"><!-- required for FF3 and Opera --></div>
               <div dojoType="dojox.mobile.ToolBarButton" label="Cancel order" style="float:right;"><!-- required for FF3 and Opera --></div>
