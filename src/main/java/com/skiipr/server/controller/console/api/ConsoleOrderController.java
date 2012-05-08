@@ -2,6 +2,8 @@ package com.skiipr.server.controller.console.api;
 
 import com.skiipr.server.components.PushNotify;
 import com.skiipr.server.enums.OrderStatus;
+import com.skiipr.server.model.Banned;
+import com.skiipr.server.model.DAO.BannedDao;
 import com.skiipr.server.model.DAO.MerchantDao;
 import com.skiipr.server.model.DAO.OrderDao;
 import com.skiipr.server.model.Merchant;
@@ -23,6 +25,9 @@ public class ConsoleOrderController {
     
     @Autowired
     MerchantDao merchantDao;
+    
+     @Autowired
+    BannedDao bannedDao;
     
     @RequestMapping(value="/console/api/order/list", method = RequestMethod.GET)
     public @ResponseBody List<Order> getOrders(){
@@ -50,11 +55,32 @@ public class ConsoleOrderController {
     }
     
      @RequestMapping(value="/console/api/merchant/open", method = RequestMethod.POST)
-    public @ResponseBody String updateStatus(@RequestParam("open") String open){
+    public @ResponseBody String updateOpen(@RequestParam("open") String open){
          Merchant merchant = merchantDao.findCurrentMerchant();
          merchant.setOpen(open.equals("true"));
          merchantDao.update(merchant);
          return "complete";
+    }
+     
+     
+    @RequestMapping(value="/console/api/banned/submit", method = RequestMethod.POST)
+    public @ResponseBody String addBlocked(@RequestParam("identifier") String identifier){
+        System.out.println("Worky");
+        Banned banned = new Banned();
+        banned.setIdentifier(identifier);
+        banned.setMerchantID(merchantDao.findCurrentMerchant().getMerchantID());
+        bannedDao.save(banned);
+        return "complete";
+        
+    }
+    
+    @RequestMapping(value="/console/api/order/cancel/{id}", method = RequestMethod.POST)
+    public @ResponseBody String cancelOrder(@PathVariable("id") Long orderID){
+        Order order = orderDao.findByID(orderID);
+        order.setStatus(OrderStatus.CANCELLED);
+        orderDao.update(order);
+        return "complete";
+        
     }
     
     @RequestMapping(value="/console/api/order/{id}/update", method = RequestMethod.POST)

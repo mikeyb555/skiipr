@@ -53,6 +53,11 @@ dojo.addOnLoad(function(){
        var blockModal = dijit.byId("console_block_panel");
        blockModal.show();
     });
+    var cancelButton = dijit.byId("cancel_order_button");
+    dojo.connect(cancelButton, "onClick", function(e){
+       var cancelModal = dijit.byId("console_cancel_panel");
+       cancelModal.show();
+    });
     
     orderReadyButton = dijit.byId("order_ready_button");
     dojo.connect(orderReadyButton, "onClick", function(e){
@@ -60,14 +65,7 @@ dojo.addOnLoad(function(){
            addBlocked();
        }
     });
-    
-    blockCustomerButton = dijit.byId("block_customer_button");
-    dojo.connect(blockCustomerButton, "onClick", function(e){
-       if(order != null){
-           addBlocked();
-       }
-       
-    });
+
     
     
     
@@ -76,6 +74,9 @@ dojo.addOnLoad(function(){
 
     setupSettingsPanel();
     setupClosedPanel();
+    
+    
+    
 });
 
 function reloadOrderList(){
@@ -98,7 +99,7 @@ function reloadOrderList(){
     }
     });
     if(order != null){
-        loadOrderPanel(order.orderID);
+      loadOrderPanel(order.orderID);
     }
     orderLoadingPanel.hide();
 }
@@ -111,6 +112,8 @@ function loadOrderPanel(orderID){
     url:"console/api/order/" + orderID, handleAs:"json",
     load: function(data){
         order = data;
+        addBlocked();
+        cancelOrder();
         var orderIDPanel = dojo.byId("order_id_panel");
         var orderEmailPanel = dojo.byId("order_email_panel");
         var orderTimePanel = dojo.byId("order_time_panel");
@@ -258,20 +261,47 @@ function showOrderPlaceholder(){
 }
 
 function addBlocked(){
-    contentLoadingPanel.show();
-    var email;
-    email = order.email;
-    merchantID = order.merchantID;
-    
-    var params = "identifier=" + email + "merchantID=" + merchantID;
-    dojo.xhrPost({
-      url:"console/api/banned/submit",
-      handleAs: "text",
-      postData: params,
-      load: true,
-      error: false
-    }); 
+    var blockModal = dijit.byId("console_block_panel");
+    var yesButton = dijit.byId("block_yes_button");
+    var noButton = dijit.byId("block_no_button");
+    dojo.connect(yesButton, "onClick", function(e){
+        var email;
+        email = order.email;
+        var params = "identifier=" + email;
+        dojo.xhrPost({
+            url:"console/api/banned/submit",
+            handleAs: "text",
+            postData: params,
+            load: true,
+            error: false
+        }); 
+        blockModal.hide();
+    });
+    dojo.connect(noButton, "onClick", function(e){
+        blockModal.hide();
+    });
 } 
+
+function cancelOrder(){
+    var cancelModal = dijit.byId("console_cancel_panel");
+    var yesButton = dijit.byId("cancel_yes_button");
+    var noButton = dijit.byId("cancel_no_button");
+    dojo.connect(yesButton, "onClick", function(e){
+        var orderID = order.orderID;
+        var params = "foobah";
+        dojo.xhrPost({
+            url:"console/api/order/cancel/" + orderID,
+            handleAs: "text",
+            postData: params,
+            load: true,
+            error: false
+        });
+        cancelModal.hide();
+    });
+    dojo.connect(noButton, "onClick", function(e){
+        cancelModal.hide();
+    });
+}
 
 
 

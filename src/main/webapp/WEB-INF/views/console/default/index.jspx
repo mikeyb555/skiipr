@@ -60,16 +60,17 @@
                    <div style="clear: both;"><!-- required for FF3 and Opera --></div>
               </div>
               <button dojoType="dojox.mobile.Button" class="red_button" id="order_ready_button"><!-- required for FF3 and Opera --></button>
-             
+             <h1 dojoType="dojox.mobile.Heading" fixed="bottom">
+              <div dojoType="dojox.mobile.ToolBarButton" label="Contact customer" style="float:right;"><!-- required for FF3 and Opera --></div>
+              <div id ="cancel_order_button" dojoType="dojox.mobile.ToolBarButton" label="Cancel order" style="float:right;"><!-- required for FF3 and Opera --></div>
+              <div id="block_customer_button" dojoType="dojox.mobile.ToolBarButton" label="Block customer" style="float:right;"><!-- required for FF3 and Opera --></div>
+          </h1>
              <console:settingsmodal />
              <console:blockmodal />
              <console:closedmodal />
+             <console:cancelmodal />
              
-          <h1 dojoType="dojox.mobile.Heading" fixed="bottom">
-              <div dojoType="dojox.mobile.ToolBarButton" label="Contact customer" style="float:right;"><!-- required for FF3 and Opera --></div>
-              <div dojoType="dojox.mobile.ToolBarButton" label="Cancel order" style="float:right;"><!-- required for FF3 and Opera --></div>
-              <div id="block_customer_button" dojoType="dojox.mobile.ToolBarButton" label="Block customer" style="float:right;"><!-- required for FF3 and Opera --></div>
-          </h1>
+          
       </div>
   </div>
 </div>
