@@ -319,7 +319,7 @@ function updateStatus(){
     }
     var params = "status=" + newStatus;
     dojo.xhrPost({
-      url:"console/api/order/" + order.orderID + "/update", handleAs:"text",
+      url:"console/api/order/" + order.orderID + "/update",
       handleAs: "text",
       postData: params,
       load: function(data){
