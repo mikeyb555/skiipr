@@ -53,7 +53,7 @@
 	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver" p:defaultErrorView="uncaughtException">
 		<property name="exceptionMappings">
 			<props>
-				<prop key=".DataAccessException">dataAccessFailure</prop>
+				<prop key=".DataAccessException">resourceNotFound</prop>
 				<prop key=".NoSuchRequestHandlingMethodException">resourceNotFound</prop>
 				<prop key=".TypeMismatchException">resourceNotFound</prop>
 				<prop key=".MissingServletRequestParameterException">resourceNotFound</prop>

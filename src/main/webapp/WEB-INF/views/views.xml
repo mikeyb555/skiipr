@@ -6,9 +6,11 @@
     <put-attribute name="body" value="/WEB-INF/views/system/exceptions/dataAccessFailure.jspx"/>
   </definition>
 
-  <definition extends="system" name="resourceNotFound">
-    <put-attribute name="body" value="/WEB-INF/views/system/exceptions/resourceNotFound.jspx"/>
+  <definition extends="website" name="resourceNotFound">
+    <put-attribute name="body" value="/WEB-INF/views/system/exceptions/testFourPage.jspx"/>
   </definition>
+  
+  
 
   <definition extends="system" name="uncaughtException">
     <put-attribute name="body" value="/WEB-INF/views/system/exceptions/uncaughtException.jspx"/>
